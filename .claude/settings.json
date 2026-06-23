@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/root/.claude/cost-guardrails/check-budget.sh",
+            "timeout": 10,
+            "statusMessage": "Checking cost budget..."
+          }
+        ]
+      }
+    ]
+  }
+}

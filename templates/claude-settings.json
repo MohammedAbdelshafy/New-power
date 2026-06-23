@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "BUDGET_SCRIPT",
+            "timeout": 10,
+            "statusMessage": "Checking cost budget..."
+          }
+        ]
+      }
+    ]
+  }
+}
