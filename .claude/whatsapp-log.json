@@ -21,6 +21,13 @@
       "message": "[New-Power] Initial setup \u2014 coordinator agent created. | Tasks: 0/0 done",
       "success": false,
       "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "timestamp": "2026-06-23T20:23:10.563668Z",
+      "event": "session_start",
+      "message": "[New-Power] Session started (session-20260623-202310-1425). Coordinator ready.",
+      "success": false,
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
     }
   ]
 }
