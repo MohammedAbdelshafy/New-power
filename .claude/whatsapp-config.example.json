@@ -1,0 +1,16 @@
+{
+  "provider": "greenapi",
+  "phone": "+201040404118",
+  "instance_id": "7107661969",
+  "api_token": "YOUR_GREENAPI_TOKEN_HERE",
+  "enabled": true,
+  "notify_on": {
+    "session_start": true,
+    "session_stop": true,
+    "kickback_failure": true,
+    "kickback_recovered": true,
+    "task_complete": true,
+    "task_blocked": true,
+    "project_complete": true
+  }
+}
