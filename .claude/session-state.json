@@ -8,9 +8,10 @@
     "Add kickback endpoints to .claude/kickback-registry.json"
   ],
   "linked_sessions": [
-    "session-20260623-160649-583"
+    "session-20260623-160649-583",
+    "session-20260623-162118-579"
   ],
   "related_chats": [],
-  "current_session_id": null,
-  "current_session_start": null
+  "current_session_id": "session-20260623-171554-1752",
+  "current_session_start": "2026-06-23T17:15:54Z"
 }
