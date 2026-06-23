@@ -1,0 +1,23 @@
+{
+  "provider": "callmebot",
+  "phone": "",
+  "apikey": "",
+  "enabled": false,
+  "setup_instructions": [
+    "1. Save +34 644 59 66 20 as a contact in WhatsApp",
+    "2. Send the message:  I allow callmebot to send me messages",
+    "3. You will receive your API key back in a reply",
+    "4. Fill in your phone (international format, e.g. +201001234567) and apikey below",
+    "5. Set enabled to true",
+    "6. Run: bash agent/notify-whatsapp.sh 'Test message from New-Power agent'"
+  ],
+  "notify_on": {
+    "session_start": true,
+    "session_stop": true,
+    "kickback_failure": true,
+    "kickback_recovered": true,
+    "task_complete": true,
+    "task_blocked": true,
+    "project_complete": true
+  }
+}
