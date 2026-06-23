@@ -1,14 +1,16 @@
 {
   "last_session_id": "session-20260623-160649-583",
-  "last_session_timestamp": "2026-06-23T16:07:31Z",
+  "last_session_timestamp": "2026-06-23T16:08:59Z",
   "last_session_summary": "Initial setup \u2014 coordinator agent created.",
   "in_progress": [],
   "next_steps": [
     "Add your first project to .claude/project-registry.json",
     "Add kickback endpoints to .claude/kickback-registry.json"
   ],
-  "linked_sessions": [],
+  "linked_sessions": [
+    "session-20260623-160649-583"
+  ],
   "related_chats": [],
-  "current_session_id": null,
-  "current_session_start": null
+  "current_session_id": "session-20260623-162118-579",
+  "current_session_start": "2026-06-23T16:21:18Z"
 }
