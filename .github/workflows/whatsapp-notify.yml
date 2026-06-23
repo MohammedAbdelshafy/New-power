@@ -1,0 +1,73 @@
+name: WhatsApp Notifications
+
+on:
+  push:
+    branches: [claude/chat-session-agent-cfzivv]
+    paths:
+      - '.claude/notification-queue.json'
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Process notification queue
+        env:
+          PHONE:      ${{ secrets.GREENAPI_PHONE }}
+          INSTANCE:   ${{ secrets.GREENAPI_INSTANCE }}
+          API_TOKEN:  ${{ secrets.GREENAPI_TOKEN }}
+        run: |
+          python3 - <<'PYEOF'
+          import json, urllib.request, urllib.error, os, datetime
+
+          QUEUE_FILE = ".claude/notification-queue.json"
+          PHONE      = os.environ["PHONE"].lstrip("+")
+          INSTANCE   = os.environ["INSTANCE"]
+          API_TOKEN  = os.environ["API_TOKEN"]
+          CHAT_ID    = f"{PHONE}@c.us"
+
+          try:
+              data = json.load(open(QUEUE_FILE))
+          except Exception:
+              print("Queue empty or unreadable — nothing to send.")
+              exit(0)
+
+          messages = data.get("messages", [])
+          if not messages:
+              print("No messages in queue.")
+              exit(0)
+
+          sent = []
+          failed = []
+          for msg in messages:
+              text = msg.get("text", "")
+              if not text:
+                  continue
+              url     = f"https://api.green-api.com/waInstance{INSTANCE}/sendMessage/{API_TOKEN}"
+              payload = json.dumps({"chatId": CHAT_ID, "message": text}).encode()
+              req     = urllib.request.Request(url, data=payload,
+                          headers={"Content-Type": "application/json"}, method="POST")
+              try:
+                  resp = urllib.request.urlopen(req, timeout=15)
+                  print(f"[OK {resp.status}] {text[:80]}")
+                  sent.append(msg)
+              except Exception as e:
+                  print(f"[FAIL] {text[:80]} — {e}")
+                  failed.append(msg)
+
+          # Keep only failed messages; clear sent ones
+          data["messages"]      = failed
+          data["last_processed"] = datetime.datetime.utcnow().isoformat() + "Z"
+          data["last_sent_count"] = len(sent)
+          json.dump(data, open(QUEUE_FILE, "w"), indent=2)
+          print(f"Done: {len(sent)} sent, {len(failed)} failed.")
+          PYEOF
+
+      - name: Commit cleared queue
+        run: |
+          git config user.name  "New-Power Agent"
+          git config user.email "noreply@anthropic.com"
+          git add .claude/notification-queue.json
+          git diff --cached --quiet || git commit -m "Clear WhatsApp notification queue [auto]"
+          git push
