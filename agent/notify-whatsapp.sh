@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-# Usage: bash agent/notify-whatsapp.sh "Your message here" [event_type]
-# event_type: session_start | session_stop | kickback_failure | kickback_recovered
-#             task_complete | task_blocked | project_complete | (omit for always-send)
+# Usage: bash agent/notify-whatsapp.sh "Your message" [event_type]
+# Sends via Green API (https://green-api.com)
 
 set -euo pipefail
 
@@ -17,13 +16,8 @@ if [ -z "$MESSAGE" ]; then
   exit 1
 fi
 
-if [ ! -f "$CONFIG" ]; then
-  echo "[WhatsApp] Config not found at $CONFIG" >&2
-  exit 1
-fi
-
 python3 - <<PYEOF
-import json, urllib.request, urllib.parse, urllib.error, datetime, sys, os
+import json, urllib.request, urllib.error, urllib.parse, datetime, sys
 
 CONFIG = "$CONFIG"
 LOG_FILE = "$LOG"
@@ -36,56 +30,55 @@ except Exception as e:
     print(f"[WhatsApp] Cannot read config: {e}", file=sys.stderr)
     sys.exit(1)
 
-enabled = cfg.get("enabled", False)
-if not enabled:
-    print("[WhatsApp] Notifications disabled. Set 'enabled': true in .claude/whatsapp-config.json")
+if not cfg.get("enabled", False):
+    print("[WhatsApp] Notifications disabled. Set up credentials and set 'enabled': true in .claude/whatsapp-config.json")
     sys.exit(0)
 
-# Check if this event type is enabled
 notify_on = cfg.get("notify_on", {})
 if EVENT_TYPE and not notify_on.get(EVENT_TYPE, True):
-    print(f"[WhatsApp] Event '{EVENT_TYPE}' notifications are off in config.")
     sys.exit(0)
 
-phone = cfg.get("phone", "").strip()
-apikey = cfg.get("apikey", "").strip()
+phone      = cfg.get("phone", "").strip().lstrip("+")
+instance   = cfg.get("instance_id", "").strip()
+api_token  = cfg.get("api_token", "").strip()
 
-if not phone or not apikey:
-    print("[WhatsApp] ERROR: phone and apikey must be set in .claude/whatsapp-config.json", file=sys.stderr)
+if not phone or not instance or not api_token:
+    print("[WhatsApp] ERROR: phone, instance_id, and api_token must be set in .claude/whatsapp-config.json", file=sys.stderr)
     sys.exit(1)
 
-# Prefix every message with the project name
+# Green API chatId format: {phone}@c.us  (no + prefix)
+chat_id = f"{phone}@c.us"
 full_message = f"[New-Power] {MESSAGE}"
 timestamp = datetime.datetime.utcnow().isoformat() + "Z"
 
-url = (
-    "https://api.callmebot.com/whatsapp.php?"
-    + urllib.parse.urlencode({
-        "phone": phone,
-        "text": full_message,
-        "apikey": apikey
-    })
+url = f"https://api.green-api.com/waInstance{instance}/sendMessage/{api_token}"
+payload = json.dumps({"chatId": chat_id, "message": full_message}).encode("utf-8")
+
+req = urllib.request.Request(
+    url,
+    data=payload,
+    headers={"Content-Type": "application/json"},
+    method="POST"
 )
 
+success = False
+status = None
+error_msg = None
+
 try:
-    req = urllib.request.urlopen(url, timeout=15)
-    body = req.read().decode("utf-8", errors="replace")
-    status = req.status
+    resp = urllib.request.urlopen(req, timeout=15)
+    body = resp.read().decode("utf-8", errors="replace")
+    status = resp.status
     print(f"[WhatsApp] Sent (HTTP {status}): {full_message[:80]}")
     success = True
-    error_msg = None
 except urllib.error.HTTPError as e:
     body = e.read().decode("utf-8", errors="replace")
     status = e.code
-    print(f"[WhatsApp] HTTP {status} error: {body[:200]}", file=sys.stderr)
-    success = False
     error_msg = f"HTTP {status}: {body[:200]}"
+    print(f"[WhatsApp] Error {status}: {body[:200]}", file=sys.stderr)
 except Exception as e:
-    status = None
-    body = str(e)
-    print(f"[WhatsApp] Failed to send: {e}", file=sys.stderr)
-    success = False
     error_msg = str(e)
+    print(f"[WhatsApp] Failed: {e}", file=sys.stderr)
 
 # Append to log
 try:
@@ -101,7 +94,6 @@ try:
         "status_code": status,
         "error": error_msg
     })
-    # Keep last 200 entries
     log["messages"] = log["messages"][-200:]
     json.dump(log, open(LOG_FILE, "w"), indent=2)
 except Exception:

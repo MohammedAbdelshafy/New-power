@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Interactive setup for CallMeBot WhatsApp notifications.
+# Interactive setup for Green API WhatsApp notifications.
 
 set -euo pipefail
 
@@ -8,27 +8,30 @@ CONFIG="$REPO/.claude/whatsapp-config.json"
 
 echo ""
 echo "╔══════════════════════════════════════════════════╗"
-echo "║   WhatsApp Notification Setup (CallMeBot)        ║"
+echo "║   WhatsApp Notification Setup (Green API)        ║"
 echo "╚══════════════════════════════════════════════════╝"
 echo ""
-echo "STEP 1 — Activate CallMeBot:"
-echo "  • Open WhatsApp on your phone"
-echo "  • Save this number as a contact: +34 644 59 66 20"
-echo "  • Send it this exact message:"
+echo "STEP 1 — Create a free Green API account:"
+echo "  https://console.green-api.com"
 echo ""
-echo "      I allow callmebot to send me messages"
+echo "STEP 2 — Create a new instance (choose Developer / free plan)"
 echo ""
-echo "  • You will receive your API key back via WhatsApp (may take ~1 min)"
+echo "STEP 3 — From the instance dashboard, copy:"
+echo "  • Instance ID  (a number like 1101234567)"
+echo "  • API Token    (a long string)"
+echo ""
+echo "STEP 4 — Click 'Scan QR code' and scan with WhatsApp on your phone"
 echo ""
 
-read -rp "Press ENTER when you have received your API key... "
+read -rp "Press ENTER once your instance is active and QR is scanned... "
 echo ""
 
 read -rp "Enter your WhatsApp phone number (e.g. +201001234567): " PHONE
-read -rp "Enter your CallMeBot API key: " APIKEY
+read -rp "Enter your Green API Instance ID: " INSTANCE_ID
+read -rp "Enter your Green API API Token: " API_TOKEN
 
-if [ -z "$PHONE" ] || [ -z "$APIKEY" ]; then
-  echo "Phone and API key are required. Aborting."
+if [ -z "$PHONE" ] || [ -z "$INSTANCE_ID" ] || [ -z "$API_TOKEN" ]; then
+  echo "All fields are required. Aborting."
   exit 1
 fi
 
@@ -36,17 +39,16 @@ python3 - <<PYEOF
 import json
 
 CONFIG = "$CONFIG"
-PHONE = "$PHONE"
-APIKEY = "$APIKEY"
-
 try:
     d = json.load(open(CONFIG))
 except Exception:
     d = {}
 
-d["phone"] = PHONE
-d["apikey"] = APIKEY
-d["enabled"] = True
+d["provider"]     = "greenapi"
+d["phone"]        = "$PHONE"
+d["instance_id"]  = "$INSTANCE_ID"
+d["api_token"]    = "$API_TOKEN"
+d["enabled"]      = True
 
 json.dump(d, open(CONFIG, "w"), indent=2)
 print("Config saved.")
@@ -54,8 +56,7 @@ PYEOF
 
 echo ""
 echo "Sending test message..."
-bash "$REPO/agent/notify-whatsapp.sh" "Setup complete! New-Power agent will now send you WhatsApp updates." "manual"
+bash "$REPO/agent/notify-whatsapp.sh" "Setup complete! New-Power agent will now send you WhatsApp updates via Green API." "manual"
 
 echo ""
 echo "Done! WhatsApp notifications are now active."
-echo "You can disable them anytime by setting 'enabled': false in .claude/whatsapp-config.json"
