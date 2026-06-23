@@ -1,5 +1,11 @@
 {
-  "messages": [],
+  "messages": [
+    {
+      "timestamp": "2026-06-23T20:01:01.441651Z",
+      "event": "manual",
+      "text": "[New-Power] New-Power agent is LIVE. Session tracking, project monitoring, and kickback health checks all running."
+    }
+  ],
   "last_processed": null,
   "last_sent_count": 0
 }

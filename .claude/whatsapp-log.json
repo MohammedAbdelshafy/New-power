@@ -7,6 +7,13 @@
       "success": false,
       "status_code": null,
       "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "timestamp": "2026-06-23T20:01:01.441651Z",
+      "event": "manual",
+      "message": "[New-Power] New-Power agent is LIVE. Session tracking, project monitoring, and kickback health checks all running.",
+      "success": false,
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
     }
   ]
 }
