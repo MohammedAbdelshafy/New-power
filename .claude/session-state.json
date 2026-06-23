@@ -1,6 +1,6 @@
 {
-  "last_session_id": null,
-  "last_session_timestamp": "2026-06-23T15:57:58Z",
+  "last_session_id": "session-20260623-160649-583",
+  "last_session_timestamp": "2026-06-23T16:07:31Z",
   "last_session_summary": "Initial setup \u2014 coordinator agent created.",
   "in_progress": [],
   "next_steps": [
@@ -9,6 +9,6 @@
   ],
   "linked_sessions": [],
   "related_chats": [],
-  "current_session_id": "session-20260623-160649-583",
-  "current_session_start": "2026-06-23T16:06:49Z"
+  "current_session_id": null,
+  "current_session_start": null
 }
