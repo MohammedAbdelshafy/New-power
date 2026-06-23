@@ -1,0 +1,12 @@
+{
+  "last_session_id": null,
+  "last_session_timestamp": null,
+  "last_session_summary": "Initial setup — coordinator agent created.",
+  "in_progress": [],
+  "next_steps": [
+    "Add your first project to .claude/project-registry.json",
+    "Add kickback endpoints to .claude/kickback-registry.json"
+  ],
+  "linked_sessions": [],
+  "related_chats": []
+}

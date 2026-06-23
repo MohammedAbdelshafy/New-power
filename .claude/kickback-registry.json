@@ -1,0 +1,5 @@
+{
+  "kickbacks": [],
+  "last_health_check": null,
+  "instructions": "Add kickback/webhook/callback/commission endpoints here. The agent checks these at session start and after every deployment."
+}
