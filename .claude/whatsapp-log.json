@@ -1,0 +1,12 @@
+{
+  "messages": [
+    {
+      "timestamp": "2026-06-23T19:57:56.390623Z",
+      "event": "manual",
+      "message": "[New-Power] New-Power agent is LIVE. Session continuity, project tracking, and kickback monitoring all active. You will receive WhatsApp updates from now on.",
+      "success": false,
+      "status_code": null,
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    }
+  ]
+}
