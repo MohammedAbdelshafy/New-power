@@ -1,16 +1,38 @@
 #!/usr/bin/env bash
-# Called by PostToolUse hook after any Write/Edit to .claude/ files.
-# Keeps state files committed so the global git check never sees dirty state.
+# Called by PostToolUse (Write|Edit) and as second Stop hook.
+# Commits any dirty .claude/ state files so the global git check passes.
 
 REPO="/home/user/New-power"
-cd "$REPO" || exit 0
+LOG="$REPO/.claude/hook-debug.log"
+TIMESTAMP=$(date -u '+%Y-%m-%dT%H:%M:%SZ')
 
-CHANGED=$(git status --porcelain .claude/ 2>/dev/null || true)
-[ -z "$CHANGED" ] && exit 0
+log() { echo "[$TIMESTAMP] $*" >> "$LOG" 2>/dev/null || true; }
 
-git add .claude/ 2>/dev/null || exit 0
+log "auto-commit-state.sh called (PWD=$PWD)"
+
+cd "$REPO" || { log "FAIL: cd $REPO"; exit 0; }
+
+# Remove any stale git lock that would block commit
+if [ -f ".git/index.lock" ]; then
+  log "Removing stale .git/index.lock"
+  rm -f ".git/index.lock"
+fi
+
+CHANGED=$(git status --porcelain .claude/ 2>&1)
+log "git status: $CHANGED"
+[ -z "$CHANGED" ] && { log "Nothing to commit."; exit 0; }
+
+git add .claude/ 2>&1 | while read -r line; do log "git add: $line"; done || true
+
 STAGED=$(git diff --cached --name-only 2>/dev/null || true)
-[ -z "$STAGED" ] && exit 0
+log "staged files: $STAGED"
+[ -z "$STAGED" ] && { log "Nothing staged after add."; exit 0; }
 
-git commit -m "Auto-save agent state [$(date -u '+%Y-%m-%dT%H:%M:%SZ')]" --quiet 2>/dev/null || exit 0
-git push -u origin claude/chat-session-agent-cfzivv --quiet 2>/dev/null || true
+COMMIT_OUT=$(git commit -m "Auto-save agent state [$TIMESTAMP]" 2>&1)
+COMMIT_EXIT=$?
+log "git commit exit=$COMMIT_EXIT output: $COMMIT_OUT"
+[ $COMMIT_EXIT -ne 0 ] && exit 0
+
+PUSH_OUT=$(git push -u origin claude/chat-session-agent-cfzivv 2>&1)
+PUSH_EXIT=$?
+log "git push exit=$PUSH_EXIT output: $PUSH_OUT"
