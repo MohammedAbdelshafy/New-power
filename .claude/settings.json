@@ -38,10 +38,6 @@
           {
             "type": "command",
             "command": "bash /home/user/New-power/agent/on-session-stop.sh"
-          },
-          {
-            "type": "command",
-            "command": "bash /home/user/New-power/agent/auto-commit-state.sh"
           }
         ]
       }
