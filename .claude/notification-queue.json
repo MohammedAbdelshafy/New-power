@@ -4,6 +4,11 @@
       "timestamp": "2026-06-23T20:01:01.441651Z",
       "event": "manual",
       "text": "[New-Power] New-Power agent is LIVE. Session tracking, project monitoring, and kickback health checks all running."
+    },
+    {
+      "timestamp": "2026-06-23T20:12:13.595550Z",
+      "event": "session_stop",
+      "text": "[New-Power] Initial setup \u2014 coordinator agent created. | Tasks: 0/0 done"
     }
   ],
   "last_processed": null,

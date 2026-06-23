@@ -14,6 +14,13 @@
       "message": "[New-Power] New-Power agent is LIVE. Session tracking, project monitoring, and kickback health checks all running.",
       "success": false,
       "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "timestamp": "2026-06-23T20:12:13.595550Z",
+      "event": "session_stop",
+      "message": "[New-Power] Initial setup \u2014 coordinator agent created. | Tasks: 0/0 done",
+      "success": false,
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
     }
   ]
 }
