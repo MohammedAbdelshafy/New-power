@@ -1,18 +1,9 @@
 {
   "provider": "greenapi",
-  "phone": "",
-  "instance_id": "",
-  "api_token": "",
-  "enabled": false,
-  "setup_instructions": [
-    "1. Go to https://console.green-api.com and create a free account",
-    "2. Click 'Create instance' — choose the Developer (free) plan",
-    "3. Copy your Instance ID and API Token from the instance dashboard",
-    "4. Click 'Scan QR code' and scan it with WhatsApp on your phone",
-    "5. Fill in phone (international format e.g. +201001234567), instance_id, and api_token below",
-    "6. Set enabled to true",
-    "7. Run: bash agent/setup-whatsapp.sh to test"
-  ],
+  "phone": "+201040404118",
+  "instance_id": "7107661969",
+  "api_token": "d2e83496738d45d989aa891374530ad3b37446f5d8db429cae",
+  "enabled": true,
   "notify_on": {
     "session_start": true,
     "session_stop": true,
