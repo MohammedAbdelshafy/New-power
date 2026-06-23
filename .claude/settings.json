@@ -37,6 +37,17 @@
           }
         ]
       }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /home/user/New-power/agent/auto-commit-state.sh"
+          }
+        ]
+      }
     ]
   }
 }
