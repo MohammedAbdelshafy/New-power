@@ -11,6 +11,17 @@
           }
         ]
       }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/root/.claude/cost-guardrails/session-end.sh",
+            "timeout": 10
+          }
+        ]
+      }
     ]
   }
 }

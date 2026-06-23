@@ -23,7 +23,8 @@ echo ""
 mkdir -p "$GUARDRAILS_DIR"
 cp "$SCRIPT_DIR/scripts/check-budget.sh"  "$GUARDRAILS_DIR/check-budget.sh"
 cp "$SCRIPT_DIR/scripts/update-budget.sh" "$GUARDRAILS_DIR/update-budget.sh"
-chmod +x "$GUARDRAILS_DIR/check-budget.sh" "$GUARDRAILS_DIR/update-budget.sh"
+cp "$SCRIPT_DIR/scripts/session-end.sh"   "$GUARDRAILS_DIR/session-end.sh"
+chmod +x "$GUARDRAILS_DIR/check-budget.sh" "$GUARDRAILS_DIR/update-budget.sh" "$GUARDRAILS_DIR/session-end.sh"
 echo "[1/3] Scripts installed to $GUARDRAILS_DIR"
 
 # ── 2. Initialise budget file ────────────────────────────────────────────────
@@ -39,79 +40,53 @@ fi
 # ── 3. Merge hook into target repo's .claude/settings.json ──────────────────
 mkdir -p "$TARGET_CLAUDE_DIR"
 
-HOOK_COMMAND="$GUARDRAILS_DIR/check-budget.sh"
+CHECK_CMD="$GUARDRAILS_DIR/check-budget.sh"
+STOP_CMD="$GUARDRAILS_DIR/session-end.sh"
 
-if [ -f "$TARGET_SETTINGS" ]; then
-  # Merge: append the hook to any existing UserPromptSubmit array
-  python3 - <<PYEOF
-import json, sys
+python3 - <<PYEOF
+import json, sys, os
 
 settings_path = "$TARGET_SETTINGS"
-hook_cmd = "$HOOK_COMMAND"
+check_cmd = "$CHECK_CMD"
+stop_cmd  = "$STOP_CMD"
 
-with open(settings_path) as f:
-    settings = json.load(f)
-
-new_hook_entry = {
-    "hooks": [
-        {
-            "type": "command",
-            "command": hook_cmd,
-            "timeout": 10,
-            "statusMessage": "Checking cost budget..."
-        }
-    ]
-}
+# Load or create settings
+if os.path.exists(settings_path):
+    with open(settings_path) as f:
+        settings = json.load(f)
+else:
+    settings = {}
 
 hooks = settings.setdefault("hooks", {})
-existing = hooks.get("UserPromptSubmit", [])
+added = []
 
-# Avoid duplicate installation
-for entry in existing:
-    for h in entry.get("hooks", []):
-        if h.get("command") == hook_cmd:
-            print("[3/3] Hook already present in $TARGET_SETTINGS (skipped)")
-            sys.exit(0)
+# ── UserPromptSubmit (pre-prompt budget check) ───────────────────────────────
+ups = hooks.get("UserPromptSubmit", [])
+already = any(h.get("command") == check_cmd
+              for e in ups for h in e.get("hooks", []))
+if not already:
+    ups.append({"hooks": [{"type": "command", "command": check_cmd,
+                            "timeout": 10, "statusMessage": "Checking cost budget..."}]})
+    hooks["UserPromptSubmit"] = ups
+    added.append("UserPromptSubmit")
 
-existing.append(new_hook_entry)
-hooks["UserPromptSubmit"] = existing
-
-with open(settings_path, "w") as f:
-    json.dump(settings, f, indent=2)
-
-print("[3/3] Hook merged into existing $TARGET_SETTINGS")
-PYEOF
-else
-  # Write fresh settings file
-  python3 - <<PYEOF
-import json
-
-settings_path = "$TARGET_SETTINGS"
-hook_cmd = "$HOOK_COMMAND"
-
-settings = {
-    "hooks": {
-        "UserPromptSubmit": [
-            {
-                "hooks": [
-                    {
-                        "type": "command",
-                        "command": hook_cmd,
-                        "timeout": 10,
-                        "statusMessage": "Checking cost budget..."
-                    }
-                ]
-            }
-        ]
-    }
-}
+# ── Stop (post-session reminder) ─────────────────────────────────────────────
+stop = hooks.get("Stop", [])
+already = any(h.get("command") == stop_cmd
+              for e in stop for h in e.get("hooks", []))
+if not already:
+    stop.append({"hooks": [{"type": "command", "command": stop_cmd, "timeout": 10}]})
+    hooks["Stop"] = stop
+    added.append("Stop")
 
 with open(settings_path, "w") as f:
     json.dump(settings, f, indent=2)
 
-print("[3/3] Created $TARGET_SETTINGS")
+if added:
+    print(f"[3/3] Hooks added ({', '.join(added)}): $TARGET_SETTINGS")
+else:
+    print("[3/3] Hooks already present (skipped)")
 PYEOF
-fi
 
 echo ""
 echo "Done!  Cost guardrails are active for: $TARGET_REPO"
