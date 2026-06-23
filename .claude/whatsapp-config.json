@@ -1,15 +1,17 @@
 {
-  "provider": "callmebot",
+  "provider": "greenapi",
   "phone": "",
-  "apikey": "",
+  "instance_id": "",
+  "api_token": "",
   "enabled": false,
   "setup_instructions": [
-    "1. Save +34 644 59 66 20 as a contact in WhatsApp",
-    "2. Send the message:  I allow callmebot to send me messages",
-    "3. You will receive your API key back in a reply",
-    "4. Fill in your phone (international format, e.g. +201001234567) and apikey below",
-    "5. Set enabled to true",
-    "6. Run: bash agent/notify-whatsapp.sh 'Test message from New-Power agent'"
+    "1. Go to https://console.green-api.com and create a free account",
+    "2. Click 'Create instance' — choose the Developer (free) plan",
+    "3. Copy your Instance ID and API Token from the instance dashboard",
+    "4. Click 'Scan QR code' and scan it with WhatsApp on your phone",
+    "5. Fill in phone (international format e.g. +201001234567), instance_id, and api_token below",
+    "6. Set enabled to true",
+    "7. Run: bash agent/setup-whatsapp.sh to test"
   ],
   "notify_on": {
     "session_start": true,
