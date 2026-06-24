@@ -26,10 +26,8 @@ jobs:
 
           QUEUE_FILE = ".claude/notification-queue.json"
           def clean(v): return re.sub(r'\s+', '', v)
-          PHONE      = clean(os.environ["PHONE"]).lstrip("+")
           INSTANCE   = clean(os.environ["INSTANCE"])
           API_TOKEN  = clean(os.environ["API_TOKEN"])
-          SUBDOMAIN  = INSTANCE[:4]
           CHAT_ID    = "204179171733739@lid"
 
           try:
@@ -49,7 +47,7 @@ jobs:
               text = msg.get("text", "")
               if not text:
                   continue
-              url     = f"https://{SUBDOMAIN}.api.greenapi.com/waInstance{INSTANCE}/sendMessage/{API_TOKEN}"
+              url     = f"https://api.green-api.com/waInstance{INSTANCE}/sendMessage/{API_TOKEN}"
               payload = json.dumps({"chatId": CHAT_ID, "message": text}).encode()
               req     = urllib.request.Request(url, data=payload,
                           headers={"Content-Type": "application/json"}, method="POST")
