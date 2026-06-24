@@ -24,6 +24,11 @@
       "timestamp": "2026-06-24T11:35:03.367938Z",
       "event": "session_start",
       "text": "[New-Power] Session started (session-20260624-113503-1401). Coordinator ready."
+    },
+    {
+      "timestamp": "2026-06-24T11:37:21.532236Z",
+      "event": "session_stop",
+      "text": "[New-Power] Initial setup \u2014 coordinator agent created. | Tasks: 0/0 done"
     }
   ],
   "last_processed": null,
