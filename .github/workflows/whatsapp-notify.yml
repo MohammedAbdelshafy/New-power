@@ -17,9 +17,9 @@ jobs:
 
       - name: Process notification queue
         env:
-          PHONE:      ${{ secrets.GREENAPI_PHONE }}
-          INSTANCE:   ${{ secrets.GREENAPI_INSTANCE }}
-          API_TOKEN:  ${{ secrets.GREENAPI_TOKEN }}
+          PHONE:      ${{ secrets.WHATSAPP2 }}
+          INSTANCE:   ${{ secrets.WHATSAPPIN }}
+          API_TOKEN:  ${{ secrets.WHATSAPP3 }}
         run: |
           python3 - <<'PYEOF'
           import json, urllib.request, urllib.error, os, datetime
