@@ -211,7 +211,7 @@
       "text": "[New-Power] Initial setup \u2014 coordinator agent created. | Tasks: 0/0 done"
     }
   ],
-  "last_processed": "2026-06-24T17:02:32.246929Z",
+  "last_processed": "2026-06-24T17:03:08.739056Z",
   "last_sent_count": 0,
   "trigger": "2026-06-24T17:01:00Z"
 }
