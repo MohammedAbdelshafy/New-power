@@ -29,9 +29,14 @@ jobs:
 
           QUEUE_FILE = ".claude/notification-queue.json"
           def clean(v): return re.sub(r'\s+', '', v)
+          PHONE      = clean(os.environ["PHONE"]).lstrip("+")
           INSTANCE   = clean(os.environ["INSTANCE"])
           API_TOKEN  = clean(os.environ["API_TOKEN"])
-          CHAT_ID    = "204179171733739@lid"
+          CHAT_ID    = f"{PHONE}@c.us"
+
+          print(f"DEBUG: INSTANCE={INSTANCE[:8]}... len={len(INSTANCE)}")
+          print(f"DEBUG: TOKEN={API_TOKEN[:8]}... len={len(API_TOKEN)}")
+          print(f"DEBUG: CHAT_ID={CHAT_ID}")
 
           try:
               data = json.load(open(QUEUE_FILE))
