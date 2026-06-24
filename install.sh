@@ -24,7 +24,9 @@ mkdir -p "$GUARDRAILS_DIR"
 cp "$SCRIPT_DIR/scripts/check-budget.sh"  "$GUARDRAILS_DIR/check-budget.sh"
 cp "$SCRIPT_DIR/scripts/update-budget.sh" "$GUARDRAILS_DIR/update-budget.sh"
 cp "$SCRIPT_DIR/scripts/session-end.sh"   "$GUARDRAILS_DIR/session-end.sh"
-chmod +x "$GUARDRAILS_DIR/check-budget.sh" "$GUARDRAILS_DIR/update-budget.sh" "$GUARDRAILS_DIR/session-end.sh"
+cp "$SCRIPT_DIR/scripts/session-start.sh" "$GUARDRAILS_DIR/session-start.sh"
+chmod +x "$GUARDRAILS_DIR/check-budget.sh" "$GUARDRAILS_DIR/update-budget.sh" \
+         "$GUARDRAILS_DIR/session-end.sh"   "$GUARDRAILS_DIR/session-start.sh"
 echo "[1/3] Scripts installed to $GUARDRAILS_DIR"
 
 # ── 2. Initialise budget file ────────────────────────────────────────────────
@@ -42,6 +44,7 @@ mkdir -p "$TARGET_CLAUDE_DIR"
 
 CHECK_CMD="$GUARDRAILS_DIR/check-budget.sh"
 STOP_CMD="$GUARDRAILS_DIR/session-end.sh"
+START_CMD="$GUARDRAILS_DIR/session-start.sh"
 
 python3 - <<PYEOF
 import json, sys, os
@@ -49,6 +52,7 @@ import json, sys, os
 settings_path = "$TARGET_SETTINGS"
 check_cmd = "$CHECK_CMD"
 stop_cmd  = "$STOP_CMD"
+start_cmd = "$START_CMD"
 
 # Load or create settings
 if os.path.exists(settings_path):
@@ -60,24 +64,21 @@ else:
 hooks = settings.setdefault("hooks", {})
 added = []
 
-# ── UserPromptSubmit (pre-prompt budget check) ───────────────────────────────
-ups = hooks.get("UserPromptSubmit", [])
-already = any(h.get("command") == check_cmd
-              for e in ups for h in e.get("hooks", []))
-if not already:
-    ups.append({"hooks": [{"type": "command", "command": check_cmd,
-                            "timeout": 10, "statusMessage": "Checking cost budget..."}]})
-    hooks["UserPromptSubmit"] = ups
-    added.append("UserPromptSubmit")
+def wire(event, cmd, extra=None):
+    entries = hooks.get(event, [])
+    already = any(h.get("command") == cmd
+                  for e in entries for h in e.get("hooks", []))
+    if not already:
+        hook = {"type": "command", "command": cmd, "timeout": 10}
+        if extra:
+            hook.update(extra)
+        entries.append({"hooks": [hook]})
+        hooks[event] = entries
+        added.append(event)
 
-# ── Stop (post-session reminder) ─────────────────────────────────────────────
-stop = hooks.get("Stop", [])
-already = any(h.get("command") == stop_cmd
-              for e in stop for h in e.get("hooks", []))
-if not already:
-    stop.append({"hooks": [{"type": "command", "command": stop_cmd, "timeout": 10}]})
-    hooks["Stop"] = stop
-    added.append("Stop")
+wire("SessionStart",      start_cmd)
+wire("UserPromptSubmit",  check_cmd, {"statusMessage": "Checking cost budget..."})
+wire("Stop",              stop_cmd)
 
 with open(settings_path, "w") as f:
     json.dump(settings, f, indent=2)
@@ -85,7 +86,7 @@ with open(settings_path, "w") as f:
 if added:
     print(f"[3/3] Hooks added ({', '.join(added)}): $TARGET_SETTINGS")
 else:
-    print("[3/3] Hooks already present (skipped)")
+    print("[3/3] All hooks already present (skipped)")
 PYEOF
 
 echo ""
