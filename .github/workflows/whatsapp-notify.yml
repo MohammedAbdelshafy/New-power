@@ -6,6 +6,9 @@ on:
     paths:
       - '.claude/notification-queue.json'
 
+permissions:
+  contents: write
+
 jobs:
   notify:
     runs-on: ubuntu-latest
