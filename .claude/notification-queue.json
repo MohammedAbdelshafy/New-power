@@ -134,6 +134,16 @@
       "timestamp": "2026-06-24T13:37:40.044689Z",
       "event": "session_start",
       "text": "[New-Power] Session started (session-20260624-133739-1009). Coordinator ready."
+    },
+    {
+      "timestamp": "2026-06-24T13:38:05.279657Z",
+      "event": "session_stop",
+      "text": "[New-Power] Initial setup \u2014 coordinator agent created. | Tasks: 0/0 done"
+    },
+    {
+      "timestamp": "2026-06-24T13:40:05.703691Z",
+      "event": "session_stop",
+      "text": "[New-Power] Initial setup \u2014 coordinator agent created. | Tasks: 0/0 done"
     }
   ],
   "last_processed": "2026-06-24T13:38:27.623429Z",
