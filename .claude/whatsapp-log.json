@@ -35,6 +35,13 @@
       "message": "[New-Power] Session started (session-20260623-215915-1195). Coordinator ready.",
       "success": false,
       "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "timestamp": "2026-06-24T11:35:03.367938Z",
+      "event": "session_start",
+      "message": "[New-Power] Session started (session-20260624-113503-1401). Coordinator ready.",
+      "success": false,
+      "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
     }
   ]
 }
