@@ -15,6 +15,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Patch DNS for Green API instance
+        run: echo "157.245.27.77 7107.api.greenapi.com" | sudo tee -a /etc/hosts
+
       - name: Process notification queue
         env:
           PHONE:      ${{ secrets.WHATSAPP2 }}
@@ -47,7 +50,7 @@ jobs:
               text = msg.get("text", "")
               if not text:
                   continue
-              url     = f"https://api.green-api.com/waInstance{INSTANCE}/sendMessage/{API_TOKEN}"
+              url     = f"https://7107.api.greenapi.com/waInstance{INSTANCE}/sendMessage/{API_TOKEN}"
               payload = json.dumps({"chatId": CHAT_ID, "message": text}).encode()
               req     = urllib.request.Request(url, data=payload,
                           headers={"Content-Type": "application/json"}, method="POST")
