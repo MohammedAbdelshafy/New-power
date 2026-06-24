@@ -1,2 +1,2 @@
-# Credentials — never commit
-.claude/whatsapp-config.json
+# WhatsApp log (large, local only)
+.claude/whatsapp-log.json
