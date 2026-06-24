@@ -120,6 +120,12 @@
       "event": "session_stop",
       "message": "[New-Power] Initial setup \u2014 coordinator agent created. | Tasks: 0/0 done",
       "queued": true
+    },
+    {
+      "timestamp": "2026-06-24T12:07:45.202533Z",
+      "event": "session_start",
+      "message": "[New-Power] Session started (session-20260624-120745-5031). Coordinator ready.",
+      "queued": true
     }
   ]
 }
