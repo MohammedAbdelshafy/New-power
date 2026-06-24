@@ -25,9 +25,9 @@ jobs:
           import json, urllib.request, urllib.error, os, datetime
 
           QUEUE_FILE = ".claude/notification-queue.json"
-          PHONE      = os.environ["PHONE"].lstrip("+")
-          INSTANCE   = os.environ["INSTANCE"]
-          API_TOKEN  = os.environ["API_TOKEN"]
+          PHONE      = os.environ["PHONE"].strip().lstrip("+")
+          INSTANCE   = os.environ["INSTANCE"].strip()
+          API_TOKEN  = os.environ["API_TOKEN"].strip()
           CHAT_ID    = f"{PHONE}@c.us"
 
           try:
