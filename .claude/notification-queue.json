@@ -104,14 +104,9 @@
       "timestamp": "2026-06-24T12:10:14.791218Z",
       "event": "session_stop",
       "text": "[New-Power] Initial setup \u2014 coordinator agent created. | Tasks: 0/0 done"
-    },
-    {
-      "timestamp": "2026-06-24T12:10:30.845486Z",
-      "event": "session_stop",
-      "text": "[New-Power] Initial setup \u2014 coordinator agent created. | Tasks: 0/0 done"
     }
   ],
-  "last_processed": null,
+  "last_processed": "2026-06-24T12:10:48.271237Z",
   "last_sent_count": 0,
-  "trigger": "2026-06-24T12:14:03.997050Z"
+  "trigger": "2026-06-24T12:15:21.679334Z"
 }
