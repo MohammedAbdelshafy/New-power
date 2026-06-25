@@ -2,6 +2,7 @@
   "provider": "greenapi",
   "phone": "+201040404118",
   "instance_id": "7107661969",
+  "chat_id": "204179171733739@lid",
   "enabled": true,
   "notify_on": {
     "session_start": true,

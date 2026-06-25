@@ -156,6 +156,12 @@
       "event": "session_start",
       "message": "[New-Power] Session started (session-20260625-105635-1294). Coordinator ready.",
       "queued": true
+    },
+    {
+      "timestamp": "2026-06-25T10:59:10.837621Z",
+      "event": "session_start",
+      "message": "[New-Power] Session started (session-20260625-105910-1473). Coordinator ready.",
+      "queued": true
     }
   ]
 }
