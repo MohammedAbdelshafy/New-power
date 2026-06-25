@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
   "last_session_id": "session-20260625-120707-1007",
   "last_session_timestamp": "2026-06-25T15:36:15Z",
+=======
+  "last_session_id": "session-20260625-105910-1473",
+  "last_session_timestamp": "2026-06-25T16:12:03Z",
+>>>>>>> 80e30f4 (Auto-save agent state [2026-06-25T16:12:47Z])
   "last_session_summary": "Initial setup \u2014 coordinator agent created.",
   "in_progress": [],
   "next_steps": [
@@ -29,6 +34,7 @@
     "session-20260624-210444-1233",
     "session-20260624-223652-1057",
     "session-20260625-105635-1294",
+<<<<<<< HEAD
     "session-20260625-105910-1473",
     "session-20260625-111241-1175",
     "session-20260625-120707-1007"
@@ -36,4 +42,11 @@
   "related_chats": [],
   "current_session_id": "session-20260625-153615-1145",
   "current_session_start": "2026-06-25T15:36:15Z"
+=======
+    "session-20260625-105910-1473"
+  ],
+  "related_chats": [],
+  "current_session_id": "session-20260625-161203-932",
+  "current_session_start": "2026-06-25T16:12:03Z"
+>>>>>>> 80e30f4 (Auto-save agent state [2026-06-25T16:12:47Z])
 }

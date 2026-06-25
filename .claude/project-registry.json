@@ -81,14 +81,11 @@
         { "name": "Register at least one real kickback endpoint to monitor", "status": "not_started", "blocker": "Need the user to provide kickback endpoint URL(s) — webhook/callback/commission endpoints to watch." }
       ],
       "next_step": "Ask user for kickback endpoint URLs, then run: bash agent/register-kickback.sh <name> <endpoint-url> [health-check-url]"
-    }
-  ],
-  ],
-  "projects": [
+    },
     {
       "id": "lead-gen-pipeline",
       "name": "Motivated-Seller Lead Pipeline (the product)",
-      "status": "complete",
+      "status": "in_progress",
       "description": "Pull pre-foreclosure and distressed property leads for any US city, enrich with owner contact info, export CSV. Used for live sales demos (demo mode) and daily delivery to paying clients ($1,500 setup fee). Runs via GitHub Actions — no server needed.",
       "tasks": [
         { "name": "leads/fetch.py — ATTOM API + demo data generator", "status": "complete" },
@@ -108,8 +105,8 @@
   "last_updated": "2026-06-25T00:00:00Z",
   "completion_summary": {
     "total": 30,
-    "complete": 28,
-    "in_progress": 0,
+    "complete": 27,
+    "in_progress": 1,
     "not_started": 2,
     "blocked": 0
   }
