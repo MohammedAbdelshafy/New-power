@@ -45,6 +45,14 @@ jobs:
               print("No messages in queue.")
               exit(0)
 
+          # Prefer chat_id from config (supports @lid format for newer WhatsApp accounts)
+          try:
+              cfg = json.load(open(".claude/whatsapp-config.json"))
+              CHAT_ID = cfg.get("chat_id") or CHAT_ID
+          except Exception:
+              pass
+          print(f"Using chatId: {CHAT_ID}")
+
           sent = []
           failed = []
           for msg in messages:
