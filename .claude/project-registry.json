@@ -57,6 +57,19 @@
       "verified": "2026-06-25 — bash -n clean on all 10 scripts; REPO derivation confirmed."
     },
     {
+      "id": "real-estate-app",
+      "name": "Real Estate App",
+      "status": "in_progress",
+      "description": "Playwright-based county property data scraper/app. Session shown in screenshot is actively working on it — navigating county sites past 'I Accept' gates and extracting real form fields. Needs to go live.",
+      "tasks": [
+        { "name": "Identify target repo and hosting destination", "status": "not_started", "blocker": "Need repo URL from user" },
+        { "name": "Fix Playwright pip install conflicts (WinError 32 / 38MB download timeout)", "status": "in_progress", "notes": "Other session retrying cleanly with single process + retries as of screenshot" },
+        { "name": "County site scraping works end-to-end", "status": "in_progress" },
+        { "name": "Deploy and go live", "status": "not_started" }
+      ],
+      "next_step": "User to confirm which repo this is in so coordinator can track and unblock it."
+    },
+    {
       "id": "kickback-monitoring",
       "name": "Kickback Monitoring",
       "status": "in_progress",
