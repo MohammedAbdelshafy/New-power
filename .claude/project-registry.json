@@ -83,12 +83,34 @@
       "next_step": "Ask user for kickback endpoint URLs, then run: bash agent/register-kickback.sh <name> <endpoint-url> [health-check-url]"
     }
   ],
+  ],
+  "projects": [
+    {
+      "id": "lead-gen-pipeline",
+      "name": "Motivated-Seller Lead Pipeline (the product)",
+      "status": "complete",
+      "description": "Pull pre-foreclosure and distressed property leads for any US city, enrich with owner contact info, export CSV. Used for live sales demos (demo mode) and daily delivery to paying clients ($1,500 setup fee). Runs via GitHub Actions — no server needed.",
+      "tasks": [
+        { "name": "leads/fetch.py — ATTOM API + demo data generator", "status": "complete" },
+        { "name": "leads/export.py — CSV export with clean headers", "status": "complete" },
+        { "name": "leads/mailer.py — SMTP delivery to client inbox", "status": "complete" },
+        { "name": "leads/run.py — CLI demo tool (90-second live flex)", "status": "complete" },
+        { "name": "leads/pipeline.py — daily pipeline runner per client", "status": "complete" },
+        { "name": ".github/workflows/daily-leads.yml — GitHub Actions daily cron", "status": "complete" },
+        { "name": "leads/clients/ — per-client config JSON files", "status": "complete" },
+        { "name": "Add ATTOM_API_KEY secret to GitHub repo for live data", "status": "not_started", "blocker": "Need ATTOM API key from https://api.attomdata.com" },
+        { "name": "Add first real paying client JSON to leads/clients/", "status": "not_started", "blocker": "Waiting on first closed deal" }
+      ],
+      "verified": "2026-06-25 — Demo mode tested: 10-lead pull in 1.2s, clean CSV, table display working.",
+      "notes": "Demo command: python leads/run.py --city 'Denver' --state CO --demo. For live data set ATTOM_API_KEY. Daily pipeline runs at 12:00 UTC (7 AM EST) via GitHub Actions."
+    }
+  ],
   "last_updated": "2026-06-25T00:00:00Z",
   "completion_summary": {
-    "total": 23,
-    "complete": 22,
+    "total": 30,
+    "complete": 28,
     "in_progress": 0,
-    "not_started": 1,
+    "not_started": 2,
     "blocked": 0
   }
 }
