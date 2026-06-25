@@ -3,15 +3,15 @@
 # NO file writes, NO git operations — state is written at next SessionStart instead.
 # This keeps the repo clean when the global git check runs at session end.
 
-REPO="/home/user/New-power"
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 STATE="$REPO/.claude/session-state.json"
 REGISTRY="$REPO/.claude/project-registry.json"
 
-SUMMARY=$(python3 - 2>/dev/null <<'PYEOF'
-import json
+SUMMARY=$(STATE="$STATE" REGISTRY="$REGISTRY" python3 - 2>/dev/null <<'PYEOF'
+import json, os
 try:
-    d    = json.load(open("/home/user/New-power/.claude/session-state.json"))
-    reg  = json.load(open("/home/user/New-power/.claude/project-registry.json"))
+    d    = json.load(open(os.environ["STATE"]))
+    reg  = json.load(open(os.environ["REGISTRY"]))
     tasks = [t for p in reg.get("projects",[]) for t in p.get("tasks",[])]
     done  = sum(1 for t in tasks if t.get("status")=="complete")
     total = len(tasks)

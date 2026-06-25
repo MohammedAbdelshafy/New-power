@@ -5,7 +5,7 @@
 #
 # Usage: bash agent/notify-whatsapp.sh "message text" [event_type]
 
-REPO="/home/user/New-power"
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CONFIG="$REPO/.claude/whatsapp-config.json"
 QUEUE="$REPO/.claude/notification-queue.json"
 LOG="$REPO/.claude/whatsapp-log.json"

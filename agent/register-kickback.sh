@@ -4,7 +4,7 @@
 
 set -euo pipefail
 
-REPO="/home/user/New-power"
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 KICKBACKS="$REPO/.claude/kickback-registry.json"
 
 NAME="${1:-}"

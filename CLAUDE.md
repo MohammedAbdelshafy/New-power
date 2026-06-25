@@ -75,6 +75,22 @@ Never push to `main` without explicit user permission.
 
 ---
 
+## Coordinator Commands
+All scripts derive their own repo path, so run them from anywhere:
+
+| Command | Purpose |
+|---------|---------|
+| `bash agent/status.sh` | Print the full dashboard: sessions, projects, kickbacks |
+| `bash agent/update-project.sh <project> <task> <status> [blocker]` | Set a task's status (`not_started\|in_progress\|blocked\|complete`); auto-rolls up project status and fires the matching WhatsApp notification |
+| `bash agent/register-kickback.sh <name> <endpoint-url> [health-url]` | Register a kickback/webhook/commission endpoint to monitor |
+| `bash agent/check-kickbacks.sh` | Health-check all kickbacks now; alerts WhatsApp on failure/recovery |
+| `bash agent/save-session-notes.sh "summary" "next step" ...` | Persist context + next steps for the next session |
+| `bash agent/notify-whatsapp.sh "message" [event_type]` | Queue a WhatsApp message (delivered by the GitHub Actions worker) |
+
+**Managing projects:** at session start, read the registry and drive every non-complete task. When you finish work, call `update-project.sh` so status, roll-up, and notifications stay in sync — don't hand-edit the registry JSON.
+
+---
+
 ## Tone
 Be concise. Report status updates in one line. Ask questions only when truly blocked.
 When resuming a session: state what you're picking up, then get to work.

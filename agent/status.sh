@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Print a full status dashboard: sessions, projects, and kickbacks.
 
-REPO="/home/user/New-power"
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 echo ""
 echo "╔══════════════════════════════════════════╗"

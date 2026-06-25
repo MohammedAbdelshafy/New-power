@@ -4,7 +4,7 @@
 
 set -euo pipefail
 
-REPO="/home/user/New-power"
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 STATE="$REPO/.claude/session-state.json"
 
 SUMMARY="${1:-}"

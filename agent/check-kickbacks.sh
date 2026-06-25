@@ -3,16 +3,16 @@
 
 set -euo pipefail
 
-REPO="/home/user/New-power"
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 KICKBACKS="$REPO/.claude/kickback-registry.json"
 
 echo "=== Kickback Health Check ==="
 
-python3 - <<'PYEOF'
-import json, urllib.request, urllib.error, datetime, subprocess, sys
+KICKBACKS="$KICKBACKS" REPO="$REPO" python3 - <<'PYEOF'
+import json, urllib.request, urllib.error, datetime, subprocess, sys, os
 
-KICKBACKS = "/home/user/New-power/.claude/kickback-registry.json"
-REPO = "/home/user/New-power"
+KICKBACKS = os.environ["KICKBACKS"]
+REPO = os.environ["REPO"]
 
 try:
     d = json.load(open(KICKBACKS))

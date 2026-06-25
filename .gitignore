@@ -1,2 +1,6 @@
-# WhatsApp log (large, local only)
+# Runtime logs — written by every session, cause merge conflicts if tracked
 .claude/whatsapp-log.json
+.claude/hook-debug.log
+
+# Never commit live credentials
+.claude/whatsapp-config.local.json
