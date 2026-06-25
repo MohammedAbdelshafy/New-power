@@ -2,7 +2,7 @@
 # Called by PostToolUse (Write|Edit) and as second Stop hook.
 # Commits any dirty .claude/ state files so the global git check passes.
 
-REPO="/home/user/New-power"
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LOG="$REPO/.claude/hook-debug.log"
 TIMESTAMP=$(date -u '+%Y-%m-%dT%H:%M:%SZ')
 
@@ -33,6 +33,14 @@ COMMIT_EXIT=$?
 log "git commit exit=$COMMIT_EXIT output: $COMMIT_OUT"
 [ $COMMIT_EXIT -ne 0 ] && exit 0
 
-PUSH_OUT=$(git push -u origin claude/chat-session-agent-cfzivv 2>&1)
-PUSH_EXIT=$?
-log "git push exit=$PUSH_EXIT output: $PUSH_OUT"
+# Push with rebase-retry: concurrent sessions push to the same branch, so a
+# non-fast-forward rejection is expected — rebase onto remote and retry.
+BRANCH="claude/chat-session-agent-cfzivv"
+for attempt in 1 2 3 4 5; do
+  PUSH_OUT=$(git push -u origin "$BRANCH" 2>&1)
+  PUSH_EXIT=$?
+  log "git push attempt=$attempt exit=$PUSH_EXIT output: $PUSH_OUT"
+  [ $PUSH_EXIT -eq 0 ] && break
+  log "push rejected — rebasing onto origin/$BRANCH (attempt $attempt)"
+  git pull --rebase origin "$BRANCH" >> "$LOG" 2>&1 || true
+done

@@ -1,6 +1,32 @@
 {
   "projects": [
     {
+      "id": "session-continuity",
+      "name": "Session Continuity",
+      "status": "complete",
+      "description": "Keep every Claude Code chat/session linked across ephemeral containers so context is never lost. State is committed to git on each session so the next container resumes exactly where the last left off.",
+      "tasks": [
+        { "name": "SessionStart hook opens new session, links to previous, writes session-state.json", "status": "complete" },
+        { "name": "linked_sessions chain maintained across containers", "status": "complete" },
+        { "name": "Stop hook is write-free to avoid git CAS race at session end", "status": "complete" },
+        { "name": "auto-commit-state.sh commits .claude/ state on SessionStart and after every Write/Edit", "status": "complete" },
+        { "name": "Push uses rebase-retry so concurrent sessions never lose state to non-fast-forward rejections", "status": "complete" }
+      ],
+      "verified": "9+ sessions linked correctly across containers; state survives container teardown."
+    },
+    {
+      "id": "auto-approval",
+      "name": "Auto-Approval of Safe Operations",
+      "status": "complete",
+      "description": "Never block the user on a yes/no prompt for safe operations — file ops, git on the working branch, installs, tests, builds, and configured API calls are all pre-authorized.",
+      "tasks": [
+        { "name": "Broad permissions allowlist in .claude/settings.json", "status": "complete" },
+        { "name": "autoApprove enabled", "status": "complete" },
+        { "name": "Guardrails documented in CLAUDE.md (still ask before main pushes, rm -rf, purchases, external messages)", "status": "complete" }
+      ],
+      "verified": "Sessions run end-to-end without manual approval prompts."
+    },
+    {
       "id": "whatsapp-notifications",
       "name": "WhatsApp Notification Pipeline",
       "status": "complete",
@@ -15,14 +41,41 @@
       ],
       "verified": "2026-06-24T22:39:03Z — Done: 62 sent, 0 failed.",
       "notes": "Token lives ONLY in GitHub secret WHATSAPP3, never in git. Instance subdomain IP 157.245.27.77 is patched into /etc/hosts inside the workflow because GitHub Actions DNS cannot resolve the bare subdomain. chatId format is <phone>@c.us."
+    },
+    {
+      "id": "coordinator-hardening",
+      "name": "Coordinator Hardening",
+      "status": "complete",
+      "description": "Make the coordinator's own tooling robust and portable so it isn't tied to one container path and doesn't churn on git pushes.",
+      "tasks": [
+        { "name": "All agent/*.sh derive REPO from script location instead of hardcoding /home/user/New-power", "status": "complete" },
+        { "name": "Embedded Python heredocs read paths from env instead of literals", "status": "complete" },
+        { "name": "settings.json hooks use $CLAUDE_PROJECT_DIR instead of absolute container path", "status": "complete" },
+        { "name": "auto-commit push hardened with rebase-retry loop", "status": "complete" },
+        { "name": "All scripts pass bash -n syntax check", "status": "complete" }
+      ],
+      "verified": "2026-06-25 — bash -n clean on all 10 scripts; REPO derivation confirmed."
+    },
+    {
+      "id": "kickback-monitoring",
+      "name": "Kickback Monitoring",
+      "status": "in_progress",
+      "description": "Keep all kickbacks (callbacks, webhooks, commission/referral endpoints) connected and healthy. Health-check machinery runs at every session start and after deployments, with WhatsApp alerts on failure and recovery. Awaiting real endpoints to monitor.",
+      "tasks": [
+        { "name": "kickback-registry.json schema + register-kickback.sh helper", "status": "complete" },
+        { "name": "check-kickbacks.sh health check with WhatsApp failure/recovery alerts", "status": "complete" },
+        { "name": "Health check wired into SessionStart hook", "status": "complete" },
+        { "name": "Register at least one real kickback endpoint to monitor", "status": "not_started", "blocker": "Need the user to provide kickback endpoint URL(s) — webhook/callback/commission endpoints to watch." }
+      ],
+      "next_step": "Ask user for kickback endpoint URLs, then run: bash agent/register-kickback.sh <name> <endpoint-url> [health-check-url]"
     }
   ],
-  "last_updated": "2026-06-24T22:39:00Z",
+  "last_updated": "2026-06-25T00:00:00Z",
   "completion_summary": {
-    "total": 1,
-    "complete": 1,
+    "total": 23,
+    "complete": 22,
     "in_progress": 0,
-    "not_started": 0,
+    "not_started": 1,
     "blocked": 0
   }
 }

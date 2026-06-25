@@ -1,0 +1,4 @@
+# Shell scripts MUST use LF — they run in a Linux container; CRLF breaks bash
+*.sh text eol=lf
+# JSON state files normalize to LF
+*.json text eol=lf

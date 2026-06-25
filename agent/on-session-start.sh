@@ -4,7 +4,7 @@
 
 set -euo pipefail
 
-REPO="/home/user/New-power"
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 STATE="$REPO/.claude/session-state.json"
 REGISTRY="$REPO/.claude/project-registry.json"
 KICKBACKS="$REPO/.claude/kickback-registry.json"
@@ -96,10 +96,10 @@ echo ""
 
 # ── Kickback health ────────────────────────────────────────────────────────
 echo "--- Kickback Health ---"
-python3 - <<'PYEOF2'
-import json, urllib.request, urllib.error, datetime
+KICKBACKS="$KICKBACKS" python3 - <<'PYEOF2'
+import json, urllib.request, urllib.error, datetime, os
 
-KICKBACKS = "/home/user/New-power/.claude/kickback-registry.json"
+KICKBACKS = os.environ["KICKBACKS"]
 try:
     d = json.load(open(KICKBACKS))
 except Exception:
