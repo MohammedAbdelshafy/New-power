@@ -1,16 +1,12 @@
 {
-<<<<<<< HEAD
   "last_session_id": "session-20260625-120707-1007",
   "last_session_timestamp": "2026-06-25T15:36:15Z",
-=======
-  "last_session_id": "session-20260625-105910-1473",
-  "last_session_timestamp": "2026-06-25T16:12:03Z",
->>>>>>> 80e30f4 (Auto-save agent state [2026-06-25T16:12:47Z])
-  "last_session_summary": "Initial setup \u2014 coordinator agent created.",
+  "last_session_summary": "Built motivated-seller lead pipeline: leads/run.py (demo CLI), leads/fetch.py (ATTOM + mock data), leads/export.py (CSV), leads/mailer.py (SMTP), leads/pipeline.py (daily runner), .github/workflows/daily-leads.yml (cron). Demo tested: 10 leads in 1.2s, clean CSV. Registry updated with lead-gen-pipeline project.",
   "in_progress": [],
   "next_steps": [
-    "Add your first project to .claude/project-registry.json",
-    "Add kickback endpoints to .claude/kickback-registry.json"
+    "Get ATTOM_API_KEY from https://api.attomdata.com and add as GitHub secret for live data",
+    "Add first real paying client JSON to leads/clients/ after closing first deal",
+    "Register kickback endpoint URLs via: bash agent/register-kickback.sh <name> <url>"
   ],
   "linked_sessions": [
     "session-20260623-160649-583",
@@ -34,19 +30,11 @@
     "session-20260624-210444-1233",
     "session-20260624-223652-1057",
     "session-20260625-105635-1294",
-<<<<<<< HEAD
     "session-20260625-105910-1473",
     "session-20260625-111241-1175",
     "session-20260625-120707-1007"
   ],
   "related_chats": [],
-  "current_session_id": "session-20260625-153615-1145",
-  "current_session_start": "2026-06-25T15:36:15Z"
-=======
-    "session-20260625-105910-1473"
-  ],
-  "related_chats": [],
   "current_session_id": "session-20260625-161203-932",
   "current_session_start": "2026-06-25T16:12:03Z"
->>>>>>> 80e30f4 (Auto-save agent state [2026-06-25T16:12:47Z])
 }
