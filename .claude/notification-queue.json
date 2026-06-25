@@ -1,12 +1,6 @@
 {
-  "messages": [
-    {
-      "timestamp": "2026-06-25T00:10:12.220415Z",
-      "event": "project_complete",
-      "text": "[New-Power] Coordinator finished. Managing 5 workstreams: session-continuity, auto-approval, WhatsApp, hardening = DONE. Kickback-monitoring ready (needs your endpoint URLs). 22/23 tasks complete."
-    }
-  ],
-  "last_processed": "2026-06-24T22:41:08.276820Z",
+  "messages": [],
+  "last_processed": "2026-06-25T00:10:32.908170Z",
   "last_sent_count": 1,
   "trigger": "2026-06-25T00:10:12.220517Z"
 }
