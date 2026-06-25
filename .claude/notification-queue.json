@@ -1,5 +1,11 @@
 {
-  "messages": [],
+  "messages": [
+    {
+      "timestamp": "2026-06-25T16:14:56.427417Z",
+      "event": "session_stop",
+      "text": "[New-Power] Built motivated-seller lead pipeline: leads/run.py (demo CLI), leads/fetch.py (ATTOM + mock data), leads/export.py (CSV), leads/mailer.py (SMTP), leads/pipeline.py (daily runner), .github/workflows/daily-leads.yml (cron). Demo tested: 10 leads in 1.2s, clean CSV. Registry updated with lead-gen-pipeline project. | Tasks: 29/36 done"
+    }
+  ],
   "last_processed": "2026-06-25T15:36:27.341672Z",
   "last_sent_count": 1,
   "trigger": "2026-06-25T00:10:12.220517Z"
