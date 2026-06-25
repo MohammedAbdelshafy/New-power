@@ -4,3 +4,6 @@
 
 # Never commit live credentials
 .claude/whatsapp-config.local.json
+
+# Generated lead CSVs — delivered to clients, not stored in repo
+output/
