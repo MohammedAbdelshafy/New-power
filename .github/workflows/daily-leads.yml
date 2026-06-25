@@ -1,0 +1,47 @@
+name: Daily Lead Pipeline
+
+on:
+  schedule:
+    # 7:00 AM EST = 12:00 UTC
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+    inputs:
+      client_file:
+        description: 'Client JSON file path (relative to repo root)'
+        required: false
+        default: 'leads/clients/example_client.json'
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run lead pipeline
+        env:
+          ATTOM_API_KEY: ${{ secrets.ATTOM_API_KEY }}
+          SMTP_HOST:     ${{ secrets.SMTP_HOST }}
+          SMTP_PORT:     ${{ secrets.SMTP_PORT }}
+          SMTP_USER:     ${{ secrets.SMTP_USER }}
+          SMTP_PASS:     ${{ secrets.SMTP_PASS }}
+          LEADS_OUTPUT_DIR: output
+        run: |
+          CLIENT="${{ github.event.inputs.client_file || 'leads/clients/example_client.json' }}"
+          echo "Running pipeline for: $CLIENT"
+          python leads/pipeline.py --client "$CLIENT"
+
+      - name: Upload CSV as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-leads-${{ github.run_id }}
+          path: output/*.csv
+          retention-days: 30
