@@ -14,6 +14,11 @@
       "timestamp": "2026-06-25T10:59:10.837621Z",
       "event": "session_start",
       "text": "[New-Power] Session started (session-20260625-105910-1473). Coordinator ready."
+    },
+    {
+      "timestamp": "2026-06-25T11:00:46.273267Z",
+      "event": "whatsapp_fix_test",
+      "text": "[New-Power] WhatsApp fix deployed \u2014 using @lid chatId. If you see this, delivery is working!"
     }
   ],
   "last_processed": "2026-06-24T22:41:08.276820Z",
