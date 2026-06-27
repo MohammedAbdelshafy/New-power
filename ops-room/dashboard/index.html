@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Master Operations Room</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --border: #1e1e2e;
+    --accent: #7c3aed;
+    --accent2: #06b6d4;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --green: #22c55e;
+    --yellow: #eab308;
+    --red: #ef4444;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Courier New', monospace; min-height: 100vh; }
+
+  header {
+    background: linear-gradient(135deg, #1a0533 0%, #0c1a2e 100%);
+    border-bottom: 1px solid var(--accent);
+    padding: 20px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  header h1 { font-size: 1.4rem; color: var(--accent2); letter-spacing: 0.05em; }
+  header .tag { font-size: 0.7rem; color: var(--muted); background: var(--border); padding: 3px 8px; border-radius: 4px; }
+  .pulse { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; margin-right: 8px; }
+  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+
+  .grid { display: grid; grid-template-columns: 260px 1fr; gap: 0; min-height: calc(100vh - 64px); }
+
+  .sidebar {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 24px 16px;
+  }
+  .sidebar h2 { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; }
+  .nav-item {
+    display: block; padding: 10px 12px; border-radius: 6px;
+    color: var(--text); text-decoration: none; font-size: 0.85rem;
+    margin-bottom: 4px; cursor: pointer; border: none; background: none; width: 100%; text-align: left;
+    transition: background 0.15s;
+  }
+  .nav-item:hover, .nav-item.active { background: var(--border); color: var(--accent2); }
+  .nav-item .icon { margin-right: 8px; }
+  .divider { border-top: 1px solid var(--border); margin: 16px 0; }
+
+  .main { padding: 32px; overflow-y: auto; }
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .section-title { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .card-title { font-size: 0.9rem; color: var(--accent2); margin-bottom: 8px; }
+  .card-meta { font-size: 0.75rem; color: var(--muted); }
+
+  .badge {
+    display: inline-block; font-size: 0.65rem; padding: 2px 8px;
+    border-radius: 4px; font-weight: bold; margin-left: 8px;
+  }
+  .badge-high   { background: #7f1d1d; color: #fca5a5; }
+  .badge-medium { background: #713f12; color: #fde68a; }
+  .badge-low    { background: #1e3a5f; color: #93c5fd; }
+  .badge-active { background: #14532d; color: #86efac; }
+  .badge-queued { background: #312e81; color: #c4b5fd; }
+
+  .cmd-box {
+    background: #050508;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+    font-size: 0.8rem;
+    color: var(--accent2);
+    margin-top: 12px;
+    overflow-x: auto;
+  }
+  .cmd-box span { color: var(--muted); }
+
+  .stats-row { display: flex; gap: 16px; margin-bottom: 24px; }
+  .stat-card {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    text-align: center;
+  }
+  .stat-card .num { font-size: 2rem; color: var(--accent); font-weight: bold; }
+  .stat-card .lbl { font-size: 0.7rem; color: var(--muted); margin-top: 4px; }
+
+  .op-input {
+    width: 100%; padding: 12px 16px;
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text); border-radius: 6px;
+    font-family: inherit; font-size: 0.85rem;
+    outline: none; margin-bottom: 12px;
+  }
+  .op-input:focus { border-color: var(--accent); }
+  .btn {
+    padding: 10px 20px;
+    background: var(--accent); color: #fff;
+    border: none; border-radius: 6px; cursor: pointer;
+    font-size: 0.85rem; font-family: inherit;
+    transition: opacity 0.15s;
+  }
+  .btn:hover { opacity: 0.85; }
+  .btn-secondary { background: var(--border); color: var(--text); }
+
+  .flow {
+    display: flex; gap: 0; margin-bottom: 32px;
+  }
+  .flow-step {
+    flex: 1; background: var(--surface); border: 1px solid var(--border);
+    padding: 16px; text-align: center; position: relative;
+  }
+  .flow-step:not(:last-child)::after {
+    content: '→'; position: absolute; right: -12px; top: 50%;
+    transform: translateY(-50%); color: var(--accent); z-index: 1;
+    background: var(--bg); padding: 0 2px;
+  }
+  .flow-step .step-icon { font-size: 1.5rem; margin-bottom: 8px; }
+  .flow-step .step-label { font-size: 0.7rem; color: var(--muted); }
+  .flow-step .step-title { font-size: 0.8rem; color: var(--text); margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1><span class="pulse"></span>MASTER OPERATIONS ROOM</h1>
+  <div>
+    <span class="tag">branch: claude/master-operations-room-8349xd</span>
+  </div>
+</header>
+
+<div class="grid">
+  <nav class="sidebar">
+    <h2>Navigation</h2>
+    <button class="nav-item active" onclick="show('overview')"><span class="icon">◈</span>Overview</button>
+    <button class="nav-item" onclick="show('intel')"><span class="icon">⬡</span>Content Intelligence</button>
+    <button class="nav-item" onclick="show('ops')"><span class="icon">▶</span>Operations Queue</button>
+    <button class="nav-item" onclick="show('sources')"><span class="icon">⊕</span>Source Intelligence</button>
+    <button class="nav-item" onclick="show('sessions')"><span class="icon">⊞</span>Session Manager</button>
+    <div class="divider"></div>
+    <h2>Quick Actions</h2>
+    <button class="nav-item" onclick="show('intel')"><span class="icon">▷</span>Analyze URL</button>
+    <button class="nav-item" onclick="show('sources')"><span class="icon">⌕</span>Find Repos</button>
+  </nav>
+
+  <main class="main">
+
+    <!-- OVERVIEW -->
+    <div id="page-overview" class="page active">
+      <div class="section-title">Overview</div>
+
+      <div class="stats-row">
+        <div class="stat-card"><div class="num" id="stat-sessions">1</div><div class="lbl">Sessions</div></div>
+        <div class="stat-card"><div class="num" id="stat-queued">0</div><div class="lbl">Queued Ops</div></div>
+        <div class="stat-card"><div class="num" id="stat-active">0</div><div class="lbl">Active Ops</div></div>
+        <div class="stat-card"><div class="num" id="stat-done">0</div><div class="lbl">Completed</div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Workflow</div>
+        <div class="flow">
+          <div class="flow-step"><div class="step-icon">📎</div><div class="step-title">Drop URL / Op</div><div class="step-label">YouTube, Instagram, GitHub, viral prompt</div></div>
+          <div class="flow-step"><div class="step-icon">🔬</div><div class="step-title">Analyze</div><div class="step-label">Extract hooks, structure, techniques</div></div>
+          <div class="flow-step"><div class="step-icon">📋</div><div class="step-title">Queue</div><div class="step-label">Tasks ranked by priority</div></div>
+          <div class="flow-step"><div class="step-icon">⚡</div><div class="step-title">Implement</div><div class="step-label">Applied to sessions/projects</div></div>
+          <div class="flow-step"><div class="step-icon">✓</div><div class="step-title">Complete</div><div class="step-label">Results tracked + logged</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">CLI Quick Reference</div>
+        <div class="cmd-box">
+          <span># Analyze a YouTube or Instagram URL</span><br>
+          python3 ops-room/intelligence/analyze-content.py &lt;url&gt;<br><br>
+          <span># Find repos on GitHub + GitLab</span><br>
+          bash ops-room/sources/find-repos.sh "viral ai automation"<br><br>
+          <span># Clone and reverse-engineer a repo</span><br>
+          bash ops-room/sources/clone-and-map.sh https://github.com/user/repo<br><br>
+          <span># Read another session's config</span><br>
+          bash ops-room/enhancer/read-session.sh /path/to/other-project<br><br>
+          <span># Patch a session's CLAUDE.md</span><br>
+          bash ops-room/enhancer/patch-session.sh /path/to/other-project patch.md<br><br>
+          <span># Live status dashboard</span><br>
+          python3 ops-room/dashboard/status.py
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENT INTELLIGENCE -->
+    <div id="page-intel" class="page">
+      <div class="section-title">Content Intelligence — YouTube / Instagram / TikTok</div>
+      <div class="card">
+        <div class="card-title">How it works</div>
+        <div class="card-meta">Drop any YouTube or Instagram URL. The ops room will:<br><br>
+          1. Extract full metadata (title, views, likes, tags, description)<br>
+          2. Pull the transcript/captions if available<br>
+          3. Detect: hooks, CTAs, structural techniques, pacing, engagement signals<br>
+          4. Generate ranked implementation tasks for your projects<br>
+          5. Save a patch you can apply to any session's CLAUDE.md
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Run from terminal</div>
+        <div class="cmd-box">
+          <span># YouTube</span><br>
+          python3 ops-room/intelligence/analyze-content.py https://youtube.com/watch?v=XXXX<br><br>
+          <span># Instagram Reel</span><br>
+          python3 ops-room/intelligence/analyze-content.py https://instagram.com/reel/XXXX<br><br>
+          <span># Then extract ranked techniques:</span><br>
+          python3 ops-room/intelligence/extract-techniques.py
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Detected Technique Categories</div>
+        <div class="card-meta">
+          <strong style="color:#c4b5fd">Hooks:</strong> Curiosity, Pattern Interrupt, Transformation Story, Anti-advice, Revelation<br>
+          <strong style="color:#c4b5fd">CTAs:</strong> Subscribe/Follow, Link/Navigate, Lead-gen, Comment Bait<br>
+          <strong style="color:#c4b5fd">Structure:</strong> Pacing (words/min), Format (short/mid/long-form), Sequential, Storytelling, Data authority<br>
+          <strong style="color:#c4b5fd">Engagement:</strong> Like-to-view ratio, tag density, SEO signals
+        </div>
+      </div>
+    </div>
+
+    <!-- OPERATIONS QUEUE -->
+    <div id="page-ops" class="page">
+      <div class="section-title">Operations Queue</div>
+      <div class="card">
+        <div class="card-title">Queue Directory Structure</div>
+        <div class="cmd-box">
+          ops-room/operations/<br>
+          &nbsp;&nbsp;queue/      ← incoming analyses (auto-saved by analyzer)<br>
+          &nbsp;&nbsp;active/     ← move here when you start implementing<br>
+          &nbsp;&nbsp;completed/  ← move here when done
+        </div>
+        <div class="card-meta" style="margin-top:12px">Each operation is a JSON file with: URL, platform, metadata, analysis, implementation_tasks[], status.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Viral Operation Format</div>
+        <div class="cmd-box">
+          <span># To manually queue a viral AI prompt:</span><br>
+          <span># Create: ops-room/operations/queue/YYYYMMDD-viral-op.md</span><br><br>
+          # Title: [describe the technique]<br>
+          # Source: [URL or description]<br>
+          # Target: [which session/project to apply it to]<br>
+          # Intent: [what problem does this solve]<br>
+          # Implementation: [how to apply it]
+        </div>
+      </div>
+    </div>
+
+    <!-- SOURCE INTELLIGENCE -->
+    <div id="page-sources" class="page">
+      <div class="section-title">Source Intelligence — GitHub / GitLab / Doppler</div>
+      <div class="card">
+        <div class="card-title">Find Repos</div>
+        <div class="cmd-box">
+          <span># Search GitHub + GitLab for repos</span><br>
+          bash ops-room/sources/find-repos.sh "viral content automation"<br>
+          bash ops-room/sources/find-repos.sh "instagram scraper" --stars 100 --lang python<br><br>
+          <span># Clone and reverse-engineer a repo</span><br>
+          bash ops-room/sources/clone-and-map.sh https://github.com/user/repo
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Doppler Secrets Sync</div>
+        <div class="cmd-box">
+          <span># Export secrets to current shell</span><br>
+          source &lt;(bash ops-room/sources/doppler-sync.sh --config dev)<br><br>
+          <span># Write to .env file</span><br>
+          bash ops-room/sources/doppler-sync.sh --config dev --env-file .env<br><br>
+          <span># Specific project</span><br>
+          bash ops-room/sources/doppler-sync.sh --project my-project --config prd
+        </div>
+      </div>
+    </div>
+
+    <!-- SESSION MANAGER -->
+    <div id="page-sessions" class="page">
+      <div class="section-title">Session Manager</div>
+      <div class="card">
+        <div class="card-title">Registered Sessions</div>
+        <div id="session-list">
+          <div style="padding:8px 0; border-bottom:1px solid var(--border)">
+            <span style="color:var(--green)">●</span>
+            <strong style="margin-left:8px">New Power (Master Ops Room)</strong>
+            <span class="badge badge-active">MASTER</span>
+            <div class="card-meta" style="margin-top:4px;margin-left:20px">branch: claude/master-operations-room-8349xd</div>
+          </div>
+        </div>
+        <div class="card-meta" style="margin-top:12px">Add sessions to <code>ops-room/sessions/manifest.json</code> to register them here.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Session Operations</div>
+        <div class="cmd-box">
+          <span># Read another session's CLAUDE.md + settings</span><br>
+          bash ops-room/enhancer/read-session.sh /path/to/session<br><br>
+          <span># Apply an enhancement patch</span><br>
+          bash ops-room/enhancer/patch-session.sh /path/to/session ops-room/operations/queue/patch.md<br><br>
+          <span># Create new session from template</span><br>
+          cp ops-room/sessions/templates/base-session.md /path/to/new-session/CLAUDE.md
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+function show(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>

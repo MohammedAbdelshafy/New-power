@@ -1,0 +1,16 @@
+{
+  "last_updated": "2026-06-27",
+  "sessions": [
+    {
+      "id": "new-power-main",
+      "name": "New Power (Master Ops Room)",
+      "repo": "mohammedabdelshafy/new-power",
+      "branch": "claude/master-operations-room-8349xd",
+      "local_path": "/home/user/New-power",
+      "role": "master",
+      "status": "active",
+      "notes": "Central operations room. All other sessions report here."
+    }
+  ],
+  "add_session_instructions": "To register a new session, add an entry to this array with: id, name, repo, branch, local_path, role (slave|peer|master), status (active|paused|archived), notes."
+}

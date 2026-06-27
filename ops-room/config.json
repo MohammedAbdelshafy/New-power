@@ -1,0 +1,44 @@
+{
+  "room": {
+    "name": "Master Operations Room",
+    "owner": "Mohammed Abdelshafy",
+    "branch": "claude/master-operations-room-8349xd",
+    "version": "1.0.0"
+  },
+  "sources": {
+    "github": {
+      "scope": "mohammedabdelshafy",
+      "search_enabled": true
+    },
+    "gitlab": {
+      "enabled": true,
+      "base_url": "https://gitlab.com"
+    },
+    "doppler": {
+      "enabled": true,
+      "config": "dev"
+    }
+  },
+  "intelligence": {
+    "youtube": {
+      "extractor": "yt-dlp",
+      "extract_transcript": true,
+      "extract_comments": false,
+      "analyze_hooks": true,
+      "analyze_structure": true
+    },
+    "instagram": {
+      "mode": "public_web",
+      "extract_captions": true,
+      "extract_hashtags": true
+    }
+  },
+  "operations": {
+    "auto_queue": true,
+    "require_approval_before_implement": true,
+    "status_tracking": true
+  },
+  "sessions": {
+    "manifest_auto_update": true
+  }
+}
