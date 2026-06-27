@@ -3,7 +3,17 @@
   "platform": "instagram",
   "queued_at": "2026-06-27T17:06:25Z",
   "analyzed_at": "2026-06-27T17:20:00Z",
-  "status": "analyzed",
+  "status": "completed",
+  "completed_at": "2026-06-27T17:35:00Z",
+  "completed_tasks": [
+    {
+      "task": "Implement Comment-to-DM CTA mechanic for start-of-play lead generation",
+      "priority": "HIGH",
+      "result": "ManyChat set up with keyword kickbacks. LIVE.",
+      "completed_by": "Moe"
+    }
+  ],
+  "remaining_tasks": ["HIGH x2", "MEDIUM x2", "LOW x2"],
   "source": "manual — 4 screenshots reviewed by JARVIS OPS",
   "creator": "@theaiscaler",
   "metadata": {
