@@ -1,0 +1,17 @@
+{
+  "url": "https://www.instagram.com/reel/DYkot-WslqA/?igsh=aGd4Z3V6ZDdrNXJ3",
+  "platform": "instagram",
+  "queued_at": "2026-06-27T17:06:25.050772",
+  "status": "queued",
+  "metadata": {
+    "error": "Could not fetch Instagram data — ensure yt-dlp is installed and the post is public."
+  },
+  "analysis": {
+    "hooks_detected": [],
+    "ctas_detected": [],
+    "structural_techniques": [
+      "Short-form: sub-60s optimized for retention loops"
+    ],
+    "implementation_tasks": []
+  }
+}
