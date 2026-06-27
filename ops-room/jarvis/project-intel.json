@@ -2,47 +2,127 @@
   "last_updated": "2026-06-27",
   "projects": {
     "new-power-main": {
-      "name": "New Power (Master Ops Room)",
-      "milestone": "v1.0 — JARVIS OPS Core",
-      "milestone_completion_pct": 100,
-      "blockers": [],
+      "name": "New Power — Master Ops Room",
+      "milestone": "v1.1 — All Systems Operational",
+      "milestone_completion_pct": 92,
+      "blockers": [
+        {
+          "severity": "LOW",
+          "description": "Doppler CLI not installable in remote sandbox — run doppler-setup.md locally to complete secrets setup"
+        }
+      ],
       "high_priority_bugs": [],
       "missing_features": [
-        "Discord/Slack notification integration (awaiting credential config)",
-        "GitHub CI/CD monitoring webhook",
-        "Automated daily report generation"
+        "Comms channels not yet activated — needs webhook URLs from owner",
+        "GitHub Actions CI/CD monitoring webhook not wired",
+        "Automated daily report cron not scheduled"
       ],
       "performance_regressions": [],
       "security_issues": [],
-      "documentation_gaps": [
-        "Install guide for yt-dlp dependency",
-        "Doppler CLI setup instructions"
+      "documentation_gaps": [],
+      "completed_tasks": [
+        "All 4 GitHub repos registered in sessions/manifest.json",
+        "yt-dlp v2026.06.09 installed — content intelligence ready",
+        "AI research scan executed — 16 discoveries logged",
+        "research-scan.py updated to use GitHub REST API (no gh CLI needed)",
+        "comms/notify.py built — Discord, Slack, Email notification sender",
+        "doppler-setup.md — full Doppler setup guide written"
       ],
       "next_priorities": [
         {
           "priority": "HIGH",
-          "task": "Register additional projects in sessions/manifest.json",
-          "detail": "Add all active Moe AI repos so JARVIS OPS can monitor them from one place."
+          "task": "Activate comms channel — paste webhook URL into channels.json",
+          "detail": "Discord: Server Settings → Integrations → Webhooks → Copy URL → set discord.enabled:true and add webhook_url in ops-room/comms/channels.json. Then: python3 ops-room/comms/notify.py --test discord"
         },
         {
           "priority": "HIGH",
-          "task": "Configure comms/channels.json with Discord or Slack webhook",
-          "detail": "Enables build notifications and daily reports to reach you automatically."
+          "task": "Review start-of-play open issue",
+          "detail": "github.com/MohammedAbdelshafy/start-of-play has 1 open issue. Clarify scope in this session or open start-of-play in its own session to triage."
+        },
+        {
+          "priority": "HIGH",
+          "task": "Clarify jarvis-mbm purpose",
+          "detail": "jarvis-mbm repo is empty with 1 open issue (created 2026-06-10). Either scaffold it here or confirm if it's superseded by new-power ops-room."
         },
         {
           "priority": "MEDIUM",
-          "task": "Install yt-dlp for content intelligence",
-          "detail": "pip install yt-dlp — required for YouTube/Instagram analysis."
+          "task": "Test content intelligence with a real YouTube URL",
+          "detail": "Drop any YouTube link here. Run: python3 ops-room/intelligence/analyze-content.py <url>. yt-dlp is installed and ready."
         },
         {
           "priority": "MEDIUM",
-          "task": "Run first AI research scan",
-          "detail": "python3 ops-room/jarvis/research-scan.py — discovers new tools and frameworks."
+          "task": "Evaluate obra/superpowers (239k⭐) for pattern adoption",
+          "detail": "Review subagent-driven development skills model at github.com/obra/superpowers. Adapt compatible patterns into ops-room/enhancer/templates/."
+        },
+        {
+          "priority": "MEDIUM",
+          "task": "Set up Doppler locally",
+          "detail": "Follow ops-room/sources/doppler-setup.md. Adds DISCORD_WEBHOOK_URL, SLACK_WEBHOOK_URL, SENDGRID_API_KEY as managed secrets."
         },
         {
           "priority": "LOW",
-          "task": "Set up Doppler project for secrets management",
-          "detail": "Creates a single source of truth for all API keys across projects."
+          "task": "Evaluate crewAI for start-of-play autonomous operations",
+          "detail": "crewAI (54k⭐, MIT) — role-based agent framework. Run: bash ops-room/sources/clone-and-map.sh https://github.com/crewAIInc/crewAI to build feature map."
+        }
+      ]
+    },
+    "start-of-play": {
+      "name": "Start of Play — Autonomous AI Command Center",
+      "milestone": "Unknown — needs triage",
+      "milestone_completion_pct": null,
+      "blockers": [
+        {
+          "severity": "MEDIUM",
+          "description": "1 open issue — not yet triaged. Session MCP scope doesn't include this repo."
+        }
+      ],
+      "high_priority_bugs": [],
+      "missing_features": [],
+      "next_priorities": [
+        {
+          "priority": "HIGH",
+          "task": "Triage open issue",
+          "detail": "Visit github.com/MohammedAbdelshafy/start-of-play/issues to review and resolve."
+        },
+        {
+          "priority": "MEDIUM",
+          "task": "Deploy status check",
+          "detail": "Last push was 2026-05-24. Check https://start-of-play.vercel.app deployment health."
+        }
+      ]
+    },
+    "jarvis-mbm": {
+      "name": "JARVIS MBM",
+      "milestone": "Not started — empty repo",
+      "milestone_completion_pct": 0,
+      "blockers": [
+        {
+          "severity": "MEDIUM",
+          "description": "Empty repo with 1 open issue. Purpose unclear — needs owner direction."
+        }
+      ],
+      "high_priority_bugs": [],
+      "missing_features": [],
+      "next_priorities": [
+        {
+          "priority": "HIGH",
+          "task": "Define purpose of jarvis-mbm",
+          "detail": "Is this a separate JARVIS instance? A mobile app? An API service? Clarify with owner, then either scaffold or close."
+        }
+      ]
+    },
+    "statsig-flags-sdk-example": {
+      "name": "Statsig Flags SDK Example",
+      "milestone": "Complete (example project)",
+      "milestone_completion_pct": 100,
+      "blockers": [],
+      "high_priority_bugs": [],
+      "missing_features": [],
+      "next_priorities": [
+        {
+          "priority": "LOW",
+          "task": "Extract feature flag patterns for standardization",
+          "detail": "Review Statsig SDK usage patterns. Consider whether feature flags should be standardized across other Moe AI projects."
         }
       ]
     }

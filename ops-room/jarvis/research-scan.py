@@ -36,17 +36,37 @@ def already_tracked(existing: dict, repo_url: str) -> bool:
     return any(d.get("source_url") == repo_url for d in existing.get("discoveries", []))
 
 def search_github(query: str, min_stars: int, limit: int = 5) -> list:
+    """Search GitHub via REST API — no gh CLI required."""
+    import urllib.request
+    import urllib.parse
+
+    q = urllib.parse.quote(f"{query} stars:>={min_stars}")
+    url = f"https://api.github.com/search/repositories?q={q}&sort=stars&order=desc&per_page={limit}"
+
+    headers = {"Accept": "application/vnd.github+json", "User-Agent": "jarvis-ops-research"}
+    token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+
     try:
-        result = subprocess.run(
-            ["gh", "search", "repos", f"{query} stars:>={min_stars}",
-             "--sort", "stars", "--order", "desc", "--limit", str(limit),
-             "--json", "fullName,description,stargazersCount,url,language,updatedAt,licenseInfo"],
-            capture_output=True, text=True, timeout=30
-        )
-        if result.returncode != 0:
-            return []
-        return json.loads(result.stdout)
-    except Exception:
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            data = json.loads(resp.read())
+            items = data.get("items", [])
+            return [
+                {
+                    "fullName":       r.get("full_name"),
+                    "description":    r.get("description", ""),
+                    "stargazersCount": r.get("stargazers_count", 0),
+                    "url":            r.get("html_url"),
+                    "language":       r.get("language"),
+                    "updatedAt":      r.get("updated_at"),
+                    "licenseInfo":    {"name": (r.get("license") or {}).get("name", "unknown")},
+                }
+                for r in items
+            ]
+    except Exception as e:
+        print(f"  [warn] GitHub API error: {e}")
         return []
 
 def evaluate_risk(repo: dict) -> str:
