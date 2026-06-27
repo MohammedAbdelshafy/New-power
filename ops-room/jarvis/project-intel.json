@@ -1,0 +1,50 @@
+{
+  "last_updated": "2026-06-27",
+  "projects": {
+    "new-power-main": {
+      "name": "New Power (Master Ops Room)",
+      "milestone": "v1.0 — JARVIS OPS Core",
+      "milestone_completion_pct": 100,
+      "blockers": [],
+      "high_priority_bugs": [],
+      "missing_features": [
+        "Discord/Slack notification integration (awaiting credential config)",
+        "GitHub CI/CD monitoring webhook",
+        "Automated daily report generation"
+      ],
+      "performance_regressions": [],
+      "security_issues": [],
+      "documentation_gaps": [
+        "Install guide for yt-dlp dependency",
+        "Doppler CLI setup instructions"
+      ],
+      "next_priorities": [
+        {
+          "priority": "HIGH",
+          "task": "Register additional projects in sessions/manifest.json",
+          "detail": "Add all active Moe AI repos so JARVIS OPS can monitor them from one place."
+        },
+        {
+          "priority": "HIGH",
+          "task": "Configure comms/channels.json with Discord or Slack webhook",
+          "detail": "Enables build notifications and daily reports to reach you automatically."
+        },
+        {
+          "priority": "MEDIUM",
+          "task": "Install yt-dlp for content intelligence",
+          "detail": "pip install yt-dlp — required for YouTube/Instagram analysis."
+        },
+        {
+          "priority": "MEDIUM",
+          "task": "Run first AI research scan",
+          "detail": "python3 ops-room/jarvis/research-scan.py — discovers new tools and frameworks."
+        },
+        {
+          "priority": "LOW",
+          "task": "Set up Doppler project for secrets management",
+          "detail": "Creates a single source of truth for all API keys across projects."
+        }
+      ]
+    }
+  }
+}

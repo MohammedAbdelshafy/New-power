@@ -1,0 +1,45 @@
+{
+  "_instructions": "Populate these fields with your credentials to activate each channel. JARVIS OPS will NOT send messages until a channel is marked enabled:true. Never commit real credentials — store them in Doppler and reference them here.",
+  "channels": {
+    "discord": {
+      "enabled": false,
+      "webhook_url": "",
+      "events": ["build_failure", "deployment", "critical_alert", "daily_report"],
+      "note": "Create a webhook in your Discord server settings → Integrations → Webhooks"
+    },
+    "slack": {
+      "enabled": false,
+      "webhook_url": "",
+      "channel": "#moe-ai-ops",
+      "events": ["critical_alert", "pr_merged", "ci_failure"],
+      "note": "Create an incoming webhook at api.slack.com/apps"
+    },
+    "whatsapp": {
+      "enabled": false,
+      "api": "twilio_business",
+      "account_sid": "",
+      "auth_token": "",
+      "from_number": "",
+      "to_number": "",
+      "events": ["critical_alert"],
+      "note": "Requires Twilio WhatsApp Business API — approved for business use only"
+    },
+    "email": {
+      "enabled": false,
+      "provider": "sendgrid",
+      "api_key": "",
+      "from": "",
+      "to": "abdelshafyplay@gmail.com",
+      "events": ["weekly_report", "security_alert"],
+      "note": "Use Doppler to inject SENDGRID_API_KEY at runtime"
+    }
+  },
+  "notification_rules": {
+    "critical_alert": "all enabled channels",
+    "build_failure": ["discord"],
+    "deployment": ["discord", "slack"],
+    "ci_failure": ["slack"],
+    "daily_report": ["discord"],
+    "weekly_report": ["email"]
+  }
+}

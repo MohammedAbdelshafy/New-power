@@ -1,0 +1,50 @@
+{
+  "last_scan": "2026-06-27",
+  "discoveries": [
+    {
+      "id": "claude-code-sdk-001",
+      "name": "Claude Agent SDK",
+      "category": "Agent Framework",
+      "status": "integrated",
+      "source_url": "https://code.claude.com/docs",
+      "stars": null,
+      "license": "Anthropic Terms",
+      "why_it_matters": "This session is already running on it. Core infrastructure for all JARVIS OPS operations.",
+      "benefits": ["Multi-agent coordination", "Tool use", "MCP server integration"],
+      "risks": ["Cost per session", "Context limits"],
+      "integration_effort": "none — already active",
+      "owner_approved": true,
+      "notes": "The foundation JARVIS OPS runs on."
+    },
+    {
+      "id": "yt-dlp-001",
+      "name": "yt-dlp",
+      "category": "Content Intelligence",
+      "status": "recommended",
+      "source_url": "https://github.com/yt-dlp/yt-dlp",
+      "stars": 95000,
+      "license": "Unlicense (public domain)",
+      "why_it_matters": "Required for ops-room content intelligence. Extracts YouTube/Instagram metadata and transcripts.",
+      "benefits": ["Free, actively maintained", "Handles 1000+ sites", "Transcript extraction"],
+      "risks": ["Sites may block scraping", "Rate limits"],
+      "integration_effort": "low — pip install yt-dlp",
+      "owner_approved": false,
+      "notes": "Install when ready to use analyze-content.py."
+    },
+    {
+      "id": "doppler-cli-001",
+      "name": "Doppler CLI",
+      "category": "Secrets Management",
+      "status": "recommended",
+      "source_url": "https://docs.doppler.com/docs/cli",
+      "stars": null,
+      "license": "Proprietary (free tier available)",
+      "why_it_matters": "Centralized secrets management across all Moe AI projects. Eliminates .env sprawl.",
+      "benefits": ["Single source of truth for secrets", "Audit log", "Environment-specific configs"],
+      "risks": ["Vendor dependency", "Free tier limits"],
+      "integration_effort": "low — single CLI install, doppler-sync.sh already written",
+      "owner_approved": false,
+      "notes": "ops-room/sources/doppler-sync.sh is ready. Just needs CLI installed and project configured."
+    }
+  ]
+}
