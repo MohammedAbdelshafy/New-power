@@ -1,0 +1,146 @@
+{
+  "last_updated": "2026-06-27",
+  "owner": "Mohammed Abdelshafy",
+  "goal": "All 15 accounts fully monetized — generating passive USD revenue from US audience",
+  "programs": {
+    "youtube_partner_program": {
+      "name": "YouTube Partner Program (YPP)",
+      "platform": "YouTube",
+      "revenue_type": "AdSense CPM + Channel Memberships + Super Thanks",
+      "us_rpm_estimate": "$8–$25 per 1,000 views (AI/Tech niche highest)",
+      "requirements": {
+        "long_form": {
+          "subscribers": 1000,
+          "watch_hours_last_90d": 4000,
+          "policy_compliant": true,
+          "2fa_enabled": true,
+          "linked_adsense": true
+        },
+        "shorts_only_path": {
+          "subscribers": 1000,
+          "shorts_views_last_90d": 10000000,
+          "note": "10M Shorts views path — achievable with 5-channel × daily posting strategy"
+        }
+      },
+      "milestones": [
+        {"milestone": "100 subs", "status": "pending", "reached_at": null},
+        {"milestone": "500 subs", "status": "pending", "reached_at": null},
+        {"milestone": "1,000 subs (YPP threshold)", "status": "pending", "reached_at": null},
+        {"milestone": "YPP applied", "status": "pending", "reached_at": null},
+        {"milestone": "YPP approved", "status": "pending", "reached_at": null},
+        {"milestone": "First $100 AdSense", "status": "pending", "reached_at": null}
+      ],
+      "channel_tracking": {
+        "yt-01": {"subs": null, "watch_hours": null, "shorts_views": null, "ypp_status": "not_applied"},
+        "yt-02": {"subs": null, "watch_hours": null, "shorts_views": null, "ypp_status": "not_applied"},
+        "yt-03": {"subs": null, "watch_hours": null, "shorts_views": null, "ypp_status": "not_applied"},
+        "yt-04": {"subs": null, "watch_hours": null, "shorts_views": null, "ypp_status": "not_applied"},
+        "yt-05": {"subs": null, "watch_hours": null, "shorts_views": null, "ypp_status": "not_applied"}
+      },
+      "action": "Apply via YouTube Studio > Earn > Apply once threshold is hit. Takes 1–30 days for review.",
+      "acceleration": "Long-form 10-20 min compilations build watch hours. Shorts build sub count simultaneously."
+    },
+    "tiktok_creator_rewards": {
+      "name": "TikTok Creator Rewards Program",
+      "platform": "TikTok",
+      "revenue_type": "Per-view reward (qualified views only)",
+      "rate": "$1 per 1,000 qualified views (US audience views pay highest)",
+      "requirements": {
+        "followers": 10000,
+        "views_last_30d": 100000,
+        "account_age_days": 30,
+        "original_content": true,
+        "age": "18+",
+        "region": "US account OR eligible country",
+        "note": "Must post ORIGINAL content — reposts/clipped content must add commentary or transformation"
+      },
+      "milestones": [
+        {"milestone": "1,000 followers", "status": "pending", "reached_at": null},
+        {"milestone": "5,000 followers", "status": "pending", "reached_at": null},
+        {"milestone": "10,000 followers (threshold)", "status": "pending", "reached_at": null},
+        {"milestone": "100K views in 30d", "status": "pending", "reached_at": null},
+        {"milestone": "Applied to Creator Rewards", "status": "pending", "reached_at": null},
+        {"milestone": "Approved", "status": "pending", "reached_at": null}
+      ],
+      "account_tracking": {
+        "tt-01": {"followers": null, "views_30d": null, "status": "not_applied"},
+        "tt-02": {"followers": null, "views_30d": null, "status": "not_applied"},
+        "tt-03": {"followers": null, "views_30d": null, "status": "not_applied"},
+        "tt-04": {"followers": null, "views_30d": null, "status": "not_applied"},
+        "tt-05": {"followers": null, "views_30d": null, "status": "not_applied"}
+      },
+      "originality_strategy": "Add text overlays, captions with commentary, or voice-over to every clip. This transforms repurposed content into 'original' under TikTok's definition.",
+      "also_consider": "TikTok LIVE Gifts — enabled at 1,000 followers. Schedule weekly lives for additional revenue."
+    },
+    "instagram_reels_bonus": {
+      "name": "Instagram Reels Play Bonus",
+      "platform": "Instagram",
+      "revenue_type": "Per-view bonus (invitation only)",
+      "rate": "Variable — $0.01–$0.05 per view depending on invitation tier",
+      "requirements": {
+        "eligibility": "INVITATION ONLY — Instagram invites based on Reels performance",
+        "us_creator_account": true,
+        "minimum_views_to_qualify": "1,000,000+ Reels views typically triggers invitation",
+        "original_content": true,
+        "music_rights": "Use royalty-free or Instagram music library only"
+      },
+      "milestones": [
+        {"milestone": "100K Reel views (ig-01)", "status": "pending", "reached_at": null},
+        {"milestone": "500K Reel views", "status": "pending", "reached_at": null},
+        {"milestone": "1M Reel views (bonus invitation likely)", "status": "pending", "reached_at": null},
+        {"milestone": "Bonus invitation received", "status": "pending", "reached_at": null},
+        {"milestone": "Bonus activated", "status": "pending", "reached_at": null}
+      ],
+      "account_tracking": {
+        "ig-01": {"reel_views_total": null, "bonus_status": "not_invited"},
+        "ig-02": {"reel_views_total": null, "bonus_status": "not_invited"},
+        "ig-03": {"reel_views_total": null, "bonus_status": "not_invited"},
+        "ig-04": {"reel_views_total": null, "bonus_status": "not_invited"},
+        "ig-05": {"reel_views_total": null, "bonus_status": "not_invited"}
+      },
+      "primary_revenue_path": "Until Reels Bonus invitation, Instagram revenue comes from ManyChat lead capture → email list → affiliate / digital product sales. Higher value than direct ad rev at small scale."
+    },
+    "affiliate_and_sponsorships": {
+      "name": "Affiliate Marketing + Sponsorships",
+      "platforms": ["All"],
+      "revenue_type": "Commission + flat fee deals",
+      "best_programs": [
+        {
+          "program": "Amazon Associates",
+          "commission": "1–10% per sale",
+          "fit": "Tech products, books, equipment in video descriptions",
+          "signup": "affiliate-program.amazon.com"
+        },
+        {
+          "program": "Impact.com / ShareASale",
+          "commission": "Varies by advertiser",
+          "fit": "Software tools, SaaS, AI products",
+          "signup": "impact.com"
+        },
+        {
+          "program": "AI tool affiliates (Jasper, Copy.ai, Notion)",
+          "commission": "$30–$200 per customer",
+          "fit": "AI niche channels specifically",
+          "signup": "Check each tool's affiliate page"
+        }
+      ],
+      "minimum_for_sponsorship": "10,000 followers + US audience = first $200–500/post sponsors start appearing",
+      "action": "Add affiliate links to all video descriptions from Day 1. Zero threshold required."
+    }
+  },
+  "priority_order": [
+    "1. YouTube AdSense (highest RPM, most reliable, $8-25 RPM US audience)",
+    "2. TikTok Creator Rewards (fastest to 10K followers with 3 posts/day strategy)",
+    "3. Affiliate links in all bios/descriptions (zero threshold, starts earning Day 1)",
+    "4. Instagram Reels Bonus (invitation-based, focus on view volume first)",
+    "5. Sponsorships (unlocks at 10K+ followers on any platform)"
+  ],
+  "monthly_revenue_projections": {
+    "month1": {"note": "Setup + posting. Zero revenue. Focus on consistency.", "est_usd": "$0"},
+    "month2": {"note": "First accounts hit 100-500 subs. Affiliate clicks start.", "est_usd": "$10–50"},
+    "month3": {"note": "First YPP approvals. TikTok Creator Rewards on 1-2 accounts.", "est_usd": "$100–300"},
+    "month6": {"note": "Multiple monetized accounts. Compound growth.", "est_usd": "$500–2,000"},
+    "month12": {"note": "All 15 accounts monetized + affiliate + sponsors.", "est_usd": "$2,000–10,000+"},
+    "disclaimer": "Projections assume daily posting + US audience targeting + no copyright strikes"
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "last_updated": "2026-06-27",
+  "target_audience": "United States",
+  "target_timezones": ["EST", "CST", "MST", "PST"],
+  "strategy": "Post 30 minutes before peak EST window — algorithm distributes before the audience peak hits. US audience = highest CPM ($8-25 RPM on YouTube vs $1-3 in non-tier-1).",
+  "platforms": {
+    "youtube_shorts": {
+      "daily_uploads_per_channel": 2,
+      "optimal_windows_est": [
+        {
+          "window": "Morning",
+          "time_est": "07:00–09:00",
+          "post_at_est": "07:30",
+          "reason": "US commute scroll time. Shorts algorithm pushes overnight queue."
+        },
+        {
+          "window": "Evening",
+          "time_est": "17:00–20:00",
+          "post_at_est": "17:30",
+          "reason": "Post-work scroll peak. Highest engagement window for US audience."
+        }
+      ],
+      "best_days": ["Tuesday", "Wednesday", "Thursday"],
+      "avoid": ["Sunday early morning"],
+      "cadence": "2 Shorts/day minimum per channel. 5 channels = 10 Shorts/day total.",
+      "long_form_schedule": {
+        "uploads_per_week": 1,
+        "best_time_est": "Saturday 10:00",
+        "length": "10–20 min compilation (builds watch hours for YPP)"
+      }
+    },
+    "instagram_reels": {
+      "daily_uploads_per_account": 2,
+      "optimal_windows_est": [
+        {
+          "window": "Midday",
+          "time_est": "11:00–13:00",
+          "post_at_est": "11:30",
+          "reason": "US lunch scroll peak. Instagram Reels peak engagement midday EST."
+        },
+        {
+          "window": "Evening",
+          "time_est": "19:00–21:00",
+          "post_at_est": "19:30",
+          "reason": "After-dinner prime time. Highest save+share rates for Reels."
+        }
+      ],
+      "best_days": ["Monday", "Tuesday", "Wednesday", "Friday"],
+      "avoid": ["Saturday afternoon"],
+      "cadence": "2 Reels/day per account. 5 accounts = 10 Reels/day total.",
+      "manychat_rule": "Add keyword trigger comment on every Reel within 30 min of posting. Example: 'Comment GUIDE and I'll send you the full breakdown'"
+    },
+    "tiktok": {
+      "daily_uploads_per_account": 3,
+      "optimal_windows_est": [
+        {
+          "window": "Morning",
+          "time_est": "06:00–10:00",
+          "post_at_est": "07:00",
+          "reason": "TikTok early morning US is extremely high-reach. Algorithm rewards early posters."
+        },
+        {
+          "window": "Lunch",
+          "time_est": "12:00–14:00",
+          "post_at_est": "12:30",
+          "reason": "US lunch break. Second-highest TikTok engagement window."
+        },
+        {
+          "window": "Night",
+          "time_est": "19:00–23:00",
+          "post_at_est": "20:00",
+          "reason": "US prime time entertainment window. Longest watch sessions."
+        }
+      ],
+      "best_days": ["Tuesday", "Thursday", "Friday", "Saturday"],
+      "avoid": ["Sunday morning"],
+      "cadence": "3 videos/day per account. 5 accounts = 15 TikToks/day total.",
+      "us_targeting_note": "TikTok serves by region. Post from US IP or use US-targeted account settings. If Moe is outside US, schedule posts via TikTok scheduler or third-party tool during US hours."
+    }
+  },
+  "daily_total": {
+    "youtube_shorts": "10 (5 channels × 2)",
+    "instagram_reels": "10 (5 accounts × 2)",
+    "tiktok_videos": "15 (5 accounts × 3)",
+    "total_posts_per_day": 35,
+    "note": "This is maximum cadence. Start with 50% (18/day) and scale up as content library grows."
+  },
+  "weekly_schedule": {
+    "Monday":    {"youtube": 2, "instagram": 2, "tiktok": 3, "note": "Week launch — use best clips"},
+    "Tuesday":   {"youtube": 2, "instagram": 2, "tiktok": 3, "note": "Peak engagement day — post strongest content"},
+    "Wednesday": {"youtube": 2, "instagram": 2, "tiktok": 3, "note": "Mid-week high — consistent strong performance"},
+    "Thursday":  {"youtube": 2, "instagram": 2, "tiktok": 3, "note": "Pre-weekend — audience in discovery mode"},
+    "Friday":    {"youtube": 2, "instagram": 2, "tiktok": 3, "note": "JUMU'AH — Islamic content gets highest reach on Fridays"},
+    "Saturday":  {"youtube": 1, "instagram": 1, "tiktok": 2, "note": "Reduced — audience outside, lower completion rates"},
+    "Sunday":    {"youtube": 1, "instagram": 1, "tiktok": 2, "note": "Reduced — use for testing new clip styles"}
+  },
+  "special_windows": {
+    "ramadan": "3× posting frequency — Islamic content gets 5–10× normal reach during Ramadan",
+    "us_holidays": "Black Friday, New Year, July 4 — reduce posting (ad competition lowers organic reach)",
+    "trending_hijack": "When a topic trends in US, drop a relevant clip within 2 hours — massive reach multiplier"
+  },
+  "tools": {
+    "scheduling": ["Later.com", "Buffer", "TikTok native scheduler", "YouTube Studio scheduler"],
+    "time_conversion": "Use worldtimebuddy.com to convert local time to EST posting windows"
+  }
+}

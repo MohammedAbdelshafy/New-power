@@ -1,0 +1,163 @@
+{
+  "last_updated": "2026-06-27",
+  "total_sources": 12,
+  "sources": [
+    {
+      "id": "src-01",
+      "name": "Clipping.com",
+      "url": "https://www.clipping.com",
+      "type": "clip_marketplace",
+      "niche": ["general", "viral", "sports", "entertainment"],
+      "us_content": true,
+      "free_tier": true,
+      "paid_tier": true,
+      "status": "primary",
+      "notes": "Primary clipping marketplace. Wide category coverage."
+    },
+    {
+      "id": "src-02",
+      "name": "MuslimsClipping.com",
+      "url": "https://www.muslimsclipping.com",
+      "type": "clip_marketplace",
+      "niche": ["islamic", "faith", "motivation", "lectures"],
+      "us_content": true,
+      "free_tier": true,
+      "paid_tier": false,
+      "status": "primary",
+      "notes": "Primary for Islamic/faith niche accounts. Verified by Moe."
+    },
+    {
+      "id": "src-03",
+      "name": "StreamClip",
+      "url": "https://streamclip.com",
+      "type": "clip_tool",
+      "niche": ["general"],
+      "us_content": true,
+      "free_tier": true,
+      "paid_tier": false,
+      "status": "evaluate",
+      "notes": "Open-source clip extractor. Review terms before use at scale."
+    },
+    {
+      "id": "src-04",
+      "name": "Opus Clip",
+      "url": "https://www.opus.pro",
+      "type": "ai_clip_tool",
+      "niche": ["all"],
+      "us_content": true,
+      "free_tier": true,
+      "paid_tier": true,
+      "status": "evaluate",
+      "notes": "AI-powered clip extraction from long-form videos. Automatically finds viral moments. Free tier: 60 min/month. Best for converting Moe's own long-form to shorts."
+    },
+    {
+      "id": "src-05",
+      "name": "Vidyo.ai",
+      "url": "https://vidyo.ai",
+      "type": "ai_clip_tool",
+      "niche": ["all"],
+      "us_content": true,
+      "free_tier": true,
+      "paid_tier": true,
+      "status": "evaluate",
+      "notes": "AI video repurposing — clips + captions + resize for all platforms in one step. Free tier available."
+    },
+    {
+      "id": "src-06",
+      "name": "2short.ai",
+      "url": "https://2short.ai",
+      "type": "ai_clip_tool",
+      "niche": ["youtube", "podcasts"],
+      "us_content": true,
+      "free_tier": true,
+      "paid_tier": true,
+      "status": "evaluate",
+      "notes": "YouTube-native AI clipper. Paste any YouTube URL → AI finds best moments → exports as Shorts/Reels."
+    },
+    {
+      "id": "src-07",
+      "name": "Clip.fm",
+      "url": "https://clip.fm",
+      "type": "ai_clip_tool",
+      "niche": ["podcasts", "interviews"],
+      "us_content": true,
+      "free_tier": true,
+      "paid_tier": true,
+      "status": "evaluate",
+      "notes": "Podcast-to-clip AI. Best for extracting motivational/interview moments."
+    },
+    {
+      "id": "src-08",
+      "name": "yt-dlp",
+      "url": "https://github.com/yt-dlp/yt-dlp",
+      "type": "cli_tool",
+      "niche": ["all"],
+      "us_content": true,
+      "free_tier": true,
+      "paid_tier": false,
+      "status": "installed",
+      "notes": "Already installed in JARVIS OPS (v2026.06.09). Downloads from 1000+ sites. Use for batch downloading source clips. Usage: yt-dlp <url> -o '%(title)s.%(ext)s'"
+    },
+    {
+      "id": "src-09",
+      "name": "Islamic Finder Videos",
+      "url": "https://www.islamicfinder.org",
+      "type": "content_source",
+      "niche": ["islamic"],
+      "us_content": true,
+      "free_tier": true,
+      "paid_tier": false,
+      "status": "evaluate",
+      "notes": "Islamic content source. Verify copyright/reuse terms per video before clipping."
+    },
+    {
+      "id": "src-10",
+      "name": "Archive.org",
+      "url": "https://archive.org",
+      "type": "content_source",
+      "niche": ["all", "islamic", "historical"],
+      "us_content": true,
+      "free_tier": true,
+      "paid_tier": false,
+      "status": "approved",
+      "notes": "Internet Archive — all content is public domain or Creative Commons. Zero copyright risk. Massive library of speeches, lectures, historical footage."
+    },
+    {
+      "id": "src-11",
+      "name": "Pexels / Pixabay Videos",
+      "url": "https://www.pexels.com/videos/",
+      "type": "stock_footage",
+      "niche": ["b-roll", "backgrounds"],
+      "us_content": true,
+      "free_tier": true,
+      "paid_tier": false,
+      "status": "approved",
+      "notes": "Royalty-free b-roll for overlays and background. Use to enhance clips visually. No copyright issues."
+    },
+    {
+      "id": "src-12",
+      "name": "Descript",
+      "url": "https://www.descript.com",
+      "type": "editing_tool",
+      "niche": ["all"],
+      "us_content": true,
+      "free_tier": true,
+      "paid_tier": true,
+      "status": "evaluate",
+      "notes": "AI video editor. Auto-captions, filler-word removal, speaker detection. Strong for polishing clips before posting."
+    }
+  ],
+  "workflow": {
+    "step1_source": "Get clip URL from clipping.com, muslimsclipping.com, or archive.org",
+    "step2_download": "Run yt-dlp <url> or use AI clipper (Opus Clip / 2short.ai)",
+    "step3_process": "Run scripts/clip-processor.py — trim, add captions, resize for each platform",
+    "step4_schedule": "Upload per posting-schedule.json for US peak windows",
+    "step5_engage": "Add ManyChat keyword trigger within 30 min of posting on Instagram"
+  },
+  "copyright_rules": {
+    "safe": ["Archive.org (CC/public domain)", "Pexels / Pixabay (royalty-free)", "Own original content"],
+    "requires_license": ["clipping.com clips (check per-clip license)", "muslimsclipping.com (check terms)"],
+    "avoid": ["Random YouTube downloads without permission", "Copyrighted music without license"],
+    "fair_use_note": "Short clips (under 30s) of public speeches may qualify as fair use commentary. Always add value — captions, context, commentary."
+  }
+}

@@ -1,0 +1,278 @@
+{
+  "last_updated": "2026-06-27",
+  "owner": "Mohammed Abdelshafy",
+  "total_accounts": 15,
+  "accounts": {
+    "youtube": [
+      {
+        "id": "yt-01",
+        "name": "Channel 1",
+        "handle": "",
+        "url": "",
+        "niche": "AI Tools & Automation",
+        "status": "active",
+        "subscribers": null,
+        "total_views": null,
+        "monetization": {
+          "adsense_active": false,
+          "ypp_eligible": false,
+          "subs_needed": 1000,
+          "watch_hours_needed": 4000,
+          "shorts_views_needed": 10000000
+        },
+        "notes": "Add handle and URL when logged in"
+      },
+      {
+        "id": "yt-02",
+        "name": "Channel 2",
+        "handle": "",
+        "url": "",
+        "niche": "Islamic Motivation & Clips",
+        "status": "active",
+        "subscribers": null,
+        "total_views": null,
+        "monetization": {
+          "adsense_active": false,
+          "ypp_eligible": false,
+          "subs_needed": 1000,
+          "watch_hours_needed": 4000,
+          "shorts_views_needed": 10000000
+        },
+        "notes": "Add handle and URL when logged in"
+      },
+      {
+        "id": "yt-03",
+        "name": "Channel 3",
+        "handle": "",
+        "url": "",
+        "niche": "Viral Clips & Moments",
+        "status": "active",
+        "subscribers": null,
+        "total_views": null,
+        "monetization": {
+          "adsense_active": false,
+          "ypp_eligible": false,
+          "subs_needed": 1000,
+          "watch_hours_needed": 4000,
+          "shorts_views_needed": 10000000
+        },
+        "notes": "Add handle and URL when logged in"
+      },
+      {
+        "id": "yt-04",
+        "name": "Channel 4",
+        "handle": "",
+        "url": "",
+        "niche": "Developer & Tech Shorts",
+        "status": "active",
+        "subscribers": null,
+        "total_views": null,
+        "monetization": {
+          "adsense_active": false,
+          "ypp_eligible": false,
+          "subs_needed": 1000,
+          "watch_hours_needed": 4000,
+          "shorts_views_needed": 10000000
+        },
+        "notes": "Add handle and URL when logged in"
+      },
+      {
+        "id": "yt-05",
+        "name": "Channel 5",
+        "handle": "",
+        "url": "",
+        "niche": "General Viral / Mixed",
+        "status": "active",
+        "subscribers": null,
+        "total_views": null,
+        "monetization": {
+          "adsense_active": false,
+          "ypp_eligible": false,
+          "subs_needed": 1000,
+          "watch_hours_needed": 4000,
+          "shorts_views_needed": 10000000
+        },
+        "notes": "Add handle and URL when logged in"
+      }
+    ],
+    "instagram": [
+      {
+        "id": "ig-01",
+        "handle": "",
+        "url": "",
+        "niche": "AI Tools & Automation",
+        "status": "setup_needed",
+        "followers": null,
+        "total_reel_views": null,
+        "manychat_active": false,
+        "monetization": {
+          "reels_bonus_active": false,
+          "reels_bonus_eligible": false,
+          "requirement": "Invitation-based — focus on 1M+ Reel views to qualify"
+        },
+        "notes": "Create account. Enable ManyChat keyword triggers immediately."
+      },
+      {
+        "id": "ig-02",
+        "handle": "",
+        "url": "",
+        "niche": "Islamic Motivation & Clips",
+        "status": "setup_needed",
+        "followers": null,
+        "total_reel_views": null,
+        "manychat_active": false,
+        "monetization": {
+          "reels_bonus_active": false,
+          "reels_bonus_eligible": false,
+          "requirement": "Invitation-based — focus on 1M+ Reel views to qualify"
+        },
+        "notes": "Create account. Enable ManyChat keyword triggers immediately."
+      },
+      {
+        "id": "ig-03",
+        "handle": "",
+        "url": "",
+        "niche": "Viral Clips & Moments",
+        "status": "setup_needed",
+        "followers": null,
+        "total_reel_views": null,
+        "manychat_active": false,
+        "monetization": {
+          "reels_bonus_active": false,
+          "reels_bonus_eligible": false,
+          "requirement": "Invitation-based — focus on 1M+ Reel views to qualify"
+        },
+        "notes": "Create account. Enable ManyChat keyword triggers immediately."
+      },
+      {
+        "id": "ig-04",
+        "handle": "",
+        "url": "",
+        "niche": "Developer & Tech Shorts",
+        "status": "setup_needed",
+        "followers": null,
+        "total_reel_views": null,
+        "manychat_active": false,
+        "monetization": {
+          "reels_bonus_active": false,
+          "reels_bonus_eligible": false,
+          "requirement": "Invitation-based — focus on 1M+ Reel views to qualify"
+        },
+        "notes": "Create account. Enable ManyChat keyword triggers immediately."
+      },
+      {
+        "id": "ig-05",
+        "handle": "",
+        "url": "",
+        "niche": "General Viral / Mixed",
+        "status": "setup_needed",
+        "followers": null,
+        "total_reel_views": null,
+        "manychat_active": false,
+        "monetization": {
+          "reels_bonus_active": false,
+          "reels_bonus_eligible": false,
+          "requirement": "Invitation-based — focus on 1M+ Reel views to qualify"
+        },
+        "notes": "Create account. Enable ManyChat keyword triggers immediately."
+      }
+    ],
+    "tiktok": [
+      {
+        "id": "tt-01",
+        "handle": "",
+        "url": "",
+        "niche": "AI Tools & Automation",
+        "status": "setup_needed",
+        "followers": null,
+        "total_views": null,
+        "monetization": {
+          "creator_rewards_active": false,
+          "creator_rewards_eligible": false,
+          "followers_needed": 10000,
+          "views_needed_30d": 100000,
+          "rpm": "$1/1,000 qualified views (Creator Rewards Program)"
+        },
+        "notes": "Create account. Post during US peak hours (EST/CST)."
+      },
+      {
+        "id": "tt-02",
+        "handle": "",
+        "url": "",
+        "niche": "Islamic Motivation & Clips",
+        "status": "setup_needed",
+        "followers": null,
+        "total_views": null,
+        "monetization": {
+          "creator_rewards_active": false,
+          "creator_rewards_eligible": false,
+          "followers_needed": 10000,
+          "views_needed_30d": 100000,
+          "rpm": "$1/1,000 qualified views (Creator Rewards Program)"
+        },
+        "notes": "Create account. Post during US peak hours (EST/CST)."
+      },
+      {
+        "id": "tt-03",
+        "handle": "",
+        "url": "",
+        "niche": "Viral Clips & Moments",
+        "status": "setup_needed",
+        "followers": null,
+        "total_views": null,
+        "monetization": {
+          "creator_rewards_active": false,
+          "creator_rewards_eligible": false,
+          "followers_needed": 10000,
+          "views_needed_30d": 100000,
+          "rpm": "$1/1,000 qualified views (Creator Rewards Program)"
+        },
+        "notes": "Create account. Post during US peak hours (EST/CST)."
+      },
+      {
+        "id": "tt-04",
+        "handle": "",
+        "url": "",
+        "niche": "Developer & Tech Shorts",
+        "status": "setup_needed",
+        "followers": null,
+        "total_views": null,
+        "monetization": {
+          "creator_rewards_active": false,
+          "creator_rewards_eligible": false,
+          "followers_needed": 10000,
+          "views_needed_30d": 100000,
+          "rpm": "$1/1,000 qualified views (Creator Rewards Program)"
+        },
+        "notes": "Create account. Post during US peak hours (EST/CST)."
+      },
+      {
+        "id": "tt-05",
+        "handle": "",
+        "url": "",
+        "niche": "General Viral / Mixed",
+        "status": "setup_needed",
+        "followers": null,
+        "total_views": null,
+        "monetization": {
+          "creator_rewards_active": false,
+          "creator_rewards_eligible": false,
+          "followers_needed": 10000,
+          "views_needed_30d": 100000,
+          "rpm": "$1/1,000 qualified views (Creator Rewards Program)"
+        },
+        "notes": "Create account. Post during US peak hours (EST/CST)."
+      }
+    ]
+  },
+  "niche_strategy": {
+    "why_these_niches": "5 niches cover all major high-CPM US audience segments: AI/tech (highest CPM $15-25), Islamic faith content (underserved, high loyalty), general viral (highest volume), developer shorts (strong share behavior), mixed viral (safety net)",
+    "cross_posting_rule": "Same clip can post to all same-niche accounts across YT+IG+TT. Different niches = different clips.",
+    "us_targeting": {
+      "language": "English only",
+      "captions": "Auto-generate or manual — US English",
+      "posting_times": "US EST/CST peak windows — see schedules/posting-schedule.json",
+      "hashtags": "US-trending tags only — no country-specific foreign tags"
+    }
+  }
+}

@@ -161,14 +161,41 @@ def print_dashboard(sessions, intel, ops_counts, approvals, discoveries):
     print(f"\n{SEP}")
     print("  JARVIS OPS COMMANDS")
     print("  ops-center:         python3 ops-room/jarvis/ops-center.py")
+    print("  ops-center+refresh: python3 ops-room/jarvis/ops-center.py --refresh")
     print("  analyze url:        python3 ops-room/intelligence/analyze-content.py <url>")
     print("  find repos:         bash ops-room/sources/find-repos.sh \"<query>\"")
     print("  read session:       bash ops-room/enhancer/read-session.sh <path>")
     print("  full dashboard:     python3 ops-room/dashboard/status.py")
+    print("  content empire:     python3 projects/content-empire/scripts/status-report.py")
+    print("  process clip:       python3 projects/content-empire/scripts/clip-processor.py --url <url>")
     print(SEP)
 
 
+def refresh_sub_projects():
+    """Auto-refresh any sub-project that has a push_to_intel_cmd registered."""
+    manifest_path = OPS_ROOT / "sessions" / "manifest.json"
+    if not manifest_path.exists():
+        return
+    sessions = json.loads(manifest_path.read_text()).get("sessions", [])
+    for s in sessions:
+        cmd = s.get("push_to_intel_cmd")
+        local = s.get("local_path", "")
+        if cmd and local and os.path.isdir(local):
+            try:
+                subprocess.run(
+                    ["python3"] + cmd.split()[1:],
+                    cwd=REPO_ROOT,
+                    capture_output=True,
+                    timeout=15
+                )
+            except Exception:
+                pass
+
+
 def main():
+    if "--refresh" in sys.argv:
+        refresh_sub_projects()
+
     sessions    = load_manifest()
     intel       = load_intel()
     ops_counts  = load_ops_queue()
