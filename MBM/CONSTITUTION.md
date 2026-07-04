@@ -31,3 +31,6 @@ The system exists to generate revenue: meetings booked, opportunities created, d
 
 ## Article 10 — Quality gates are binary
 Acceptance criteria are written so a stranger can verify them true/false. A mission whose criteria can't be checked gets its criteria rewritten before work starts. Review (`Review/` state) is a real gate, not a formality — the reviewer is named on the mission and is never its owner.
+
+## Article 11 — Production requires improvement (amendment 2026-07-04, ADR DL-011)
+Every completed mission must improve at least one of: **revenue, lead quality, customer satisfaction, automation, operational speed** — and its Lessons Learned must name which. A mission that improves none of these does not enter production; its output is archived, not shipped. GitHub is the work queue: every mission either creates revenue or makes the next revenue-generating mission faster.
