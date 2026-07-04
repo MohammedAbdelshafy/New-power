@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MBM Revenue Dashboard</title>
+<style>
+:root{
+  --surface:#0B1A12; --panel:#10231A; --line:#1f3a29;
+  --ink:#F3F0E6; --ink-2:#9DB1A2; --ink-3:#6c8275;
+  --green:#33A03E; --blue:#3489BD; --amber:#B58322;
+  --r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--surface);color:var(--ink);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;
+     line-height:1.5;-webkit-font-smoothing:antialiased;padding:28px 20px 60px}
+.wrap{max-width:1060px;margin:0 auto}
+header{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+h1{font-size:20px;font-weight:700;letter-spacing:-.01em}
+.updated{font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+h2{font-size:13px;font-weight:600;color:var(--ink-2);text-transform:uppercase;letter-spacing:.08em;margin:30px 0 12px}
+
+/* hero + tiles */
+.hero{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin-bottom:14px}
+.hero .label{font-size:12px;color:var(--ink-2);text-transform:uppercase;letter-spacing:.08em}
+.hero .num{font-size:44px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em;margin:2px 0 10px}
+.hero .num small{font-size:18px;color:var(--ink-3);font-weight:500}
+.meter{height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--green);border-radius:99px;min-width:2px}
+.meter-cap{font-size:12px;color:var(--ink-2);margin-top:6px;font-variant-numeric:tabular-nums}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}
+.tile .label{font-size:11px;color:var(--ink-2);text-transform:uppercase;letter-spacing:.07em}
+.tile .num{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:2px}
+
+/* funnel */
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px}
+.frow{display:grid;grid-template-columns:130px 1fr 60px;align-items:center;gap:12px;padding:7px 0;cursor:default}
+.frow .name{font-size:13px;color:var(--ink-2)}
+.frow .val{font-size:13px;font-variant-numeric:tabular-nums;text-align:right;color:var(--ink)}
+.bar-track{position:relative;height:18px}
+.bar{position:absolute;left:0;top:2px;height:14px;background:var(--green);border-radius:0 4px 4px 0;min-width:2px;transition:filter .15s}
+.frow:hover .bar{filter:brightness(1.25)}
+.conv{font-size:11px;color:var(--ink-3);grid-column:2;padding-left:2px;font-variant-numeric:tabular-nums}
+
+/* table + tooltip */
+.tbl-toggle{background:none;border:1px solid var(--line);color:var(--ink-2);border-radius:8px;
+  font-size:12px;padding:5px 12px;cursor:pointer;margin-top:14px}
+.tbl-toggle:hover{color:var(--ink)}
+table{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line)}
+th{color:var(--ink-2);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+td:last-child,th:last-child{text-align:right}
+[hidden]{display:none !important}
+.tip{position:fixed;pointer-events:none;background:#050d08;border:1px solid var(--line);border-radius:8px;
+  padding:7px 10px;font-size:12px;color:var(--ink);z-index:10;max-width:240px;box-shadow:0 6px 20px rgba(0,0,0,.5)}
+.note{font-size:12px;color:var(--ink-3);margin-top:26px}
+.note code{font-family:ui-monospace,monospace;background:var(--panel);padding:1px 5px;border-radius:5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>MBM Revenue Dashboard</h1>
+    <span class="updated" id="updated"></span>
+  </header>
+
+  <div class="hero">
+    <div class="label">Revenue generated — goal $100,000</div>
+    <div class="num" id="revenue"></div>
+    <div class="meter"><i id="goalbar"></i></div>
+    <div class="meter-cap" id="goalcap"></div>
+  </div>
+
+  <div class="tiles" id="tiles"></div>
+
+  <h2>Pipeline funnel</h2>
+  <div class="panel">
+    <div id="funnel"></div>
+    <button class="tbl-toggle" id="tblbtn" aria-expanded="false">Show data table</button>
+    <div id="tblwrap" hidden></div>
+  </div>
+
+  <p class="note">Data source: <code>metrics.json</code> — refresh with <code>bash scripts/mbm.sh metrics</code> after CRM changes, then commit. Stage definitions in <code>MBM/CRM/README.md</code>.</p>
+</div>
+
+<script>
+const FALLBACK = {"updated":"2026-07-04","goal_usd":100000,"leads_found":0,"qualified_leads":0,
+  "outreach_sent":0,"meetings_booked":0,"proposals_sent":0,"close_rate":0,
+  "pipeline_value":0,"mrr":0,"revenue":0,
+  "stages":{"new":0,"researched":0,"contacted":0,"replied":0,"meeting":0,"proposal":0,"won":0,"lost":0}};
+
+const $ = id => document.getElementById(id);
+const usd = n => "$" + (n||0).toLocaleString("en-US");
+const pct = n => Math.round((n||0)*100) + "%";
+
+function render(m){
+  $("updated").textContent = "as of " + m.updated;
+  $("revenue").innerHTML = usd(m.revenue) + (m.mrr ? ' <small>+ ' + usd(m.mrr) + '/mo recurring</small>' : '');
+  const share = Math.min(1, m.revenue / m.goal_usd);
+  $("goalbar").style.width = (share*100) + "%";
+  $("goalcap").textContent = pct(share) + " of goal · pipeline " + usd(m.pipeline_value);
+
+  const tiles = [
+    ["Pipeline value", usd(m.pipeline_value)],
+    ["MRR", usd(m.mrr)],
+    ["Meetings booked", m.meetings_booked],
+    ["Close rate", pct(m.close_rate)],
+    ["Qualified leads", m.qualified_leads],
+  ];
+  $("tiles").innerHTML = tiles.map(([l,v]) =>
+    '<div class="tile"><div class="label">'+l+'</div><div class="num">'+v+'</div></div>').join("");
+
+  const steps = [
+    ["Leads found", m.leads_found, "all lead records in the CRM"],
+    ["Qualified", m.qualified_leads, "fit_score ≥ 60"],
+    ["Outreach sent", m.outreach_sent, "reached stage contacted or later"],
+    ["Meetings", m.meetings_booked, "reached stage meeting or later"],
+    ["Proposals", m.proposals_sent, "reached stage proposal or later"],
+    ["Won", (m.stages && m.stages.won) || 0, "closed-won deals"],
+  ];
+  const max = Math.max(1, ...steps.map(s => s[1]));
+  $("funnel").innerHTML = steps.map((s, i) => {
+    const prev = i ? steps[i-1][1] : 0;
+    const conv = i && prev ? '<div class="conv">↳ ' + Math.round(s[1]/prev*100) + '% of ' + steps[i-1][0].toLowerCase() + '</div>' : '';
+    return '<div class="frow" data-tip="' + s[0] + ': ' + s[1] + ' — ' + s[2] + '">' +
+      '<span class="name">' + s[0] + '</span>' +
+      '<span class="bar-track"><span class="bar" style="width:' + (s[1]/max*100) + '%"></span></span>' +
+      '<span class="val">' + s[1] + '</span></div>' + conv;
+  }).join("");
+
+  $("tblwrap").innerHTML = '<table><thead><tr><th>Stage</th><th>Definition</th><th>Count</th></tr></thead><tbody>' +
+    steps.map(s => '<tr><td>'+s[0]+'</td><td>'+s[2]+'</td><td>'+s[1]+'</td></tr>').join("") +
+    '</tbody></table>';
+}
+
+// hover tooltip
+let tip = null;
+document.addEventListener("mousemove", e => {
+  const row = e.target.closest("[data-tip]");
+  if (row){
+    if (!tip){ tip = document.createElement("div"); tip.className = "tip"; document.body.appendChild(tip); }
+    tip.textContent = row.dataset.tip;
+    tip.style.left = Math.min(e.clientX + 14, innerWidth - 260) + "px";
+    tip.style.top = (e.clientY + 14) + "px";
+  } else if (tip){ tip.remove(); tip = null; }
+});
+
+document.getElementById("tblbtn").addEventListener("click", function(){
+  const w = $("tblwrap"), open = w.hidden;
+  w.hidden = !open;
+  this.textContent = open ? "Hide data table" : "Show data table";
+  this.setAttribute("aria-expanded", String(open));
+});
+
+fetch("metrics.json").then(r => r.ok ? r.json() : FALLBACK).then(render).catch(() => render(FALLBACK));
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "updated": "2026-07-04",
+  "goal_usd": 100000,
+  "leads_found": 0,
+  "qualified_leads": 0,
+  "outreach_sent": 0,
+  "meetings_booked": 0,
+  "proposals_sent": 0,
+  "close_rate": 0,
+  "pipeline_value": 0,
+  "mrr": 0,
+  "revenue": 0,
+  "stages": {
+    "new": 0,
+    "researched": 0,
+    "contacted": 0,
+    "replied": 0,
+    "meeting": 0,
+    "proposal": 0,
+    "won": 0,
+    "lost": 0
+  }
+}
