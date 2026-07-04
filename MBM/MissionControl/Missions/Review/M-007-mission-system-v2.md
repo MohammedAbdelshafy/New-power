@@ -14,8 +14,8 @@ preferred_worker: fabel
 fallback_workers:
   - claude
   - opencode
-status: inbox
-owner: ""
+status: review
+owner: fabel
 reviewer: human-founder
 created: 2026-07-04
 due: 2026-07-04
@@ -46,3 +46,9 @@ Extend, never duplicate (Article 6): upgrade the existing MissionControl/CLI in 
 
 ## Log
 - 2026-07-04 created by fabel (this upgrade dogfoods the system it builds)
+- 2026-07-04 claimed by fabel
+- 2026-07-04 started
+- 2026-07-04 BLOCKED: testing blocked state
+- 2026-07-04 unblocked
+- 2026-07-04 started
+- 2026-07-04 moved to review
