@@ -14,3 +14,4 @@
 {"ts": "2026-07-04T14:32:28+00:00", "event": "MissionCreated", "mission": "M-012", "actor": "fabel", "note": "filed by M-011"}
 {"ts": "2026-07-04T14:32:28+00:00", "event": "MissionReviewed", "mission": "M-011", "actor": "fabel", "note": ""}
 {"ts": "2026-07-04T14:32:28+00:00", "event": "MissionCompleted", "mission": "M-011", "actor": "human-founder", "note": ""}
+{"ts": "2026-07-04T14:34:28+00:00", "event": "MissionCreated", "mission": "M-013", "actor": "fabel", "note": "website HQ, docs-first"}
