@@ -93,7 +93,7 @@ import re, sys
 text = open(sys.argv[1]).read()
 m = re.search(r"## Lessons Learned\n(.*?)(?=\n## |\Z)", text, re.S)
 body = (m.group(1) if m else "")
-body = re.sub(r"\(fill before completion[^)]*\)", "", body).strip()
+body = re.sub(r"\((?:fill before completion|REQUIRED before completion)[^)]*\)", "", body).strip()
 sys.exit(0 if len(body) >= 20 else 1)
 PY
 }
@@ -198,6 +198,7 @@ def frontmatter(path):
         m = re.match(r"^(\w+):\s*(.*)$", line)
         if m:
             key, val = m.group(1), m.group(2).strip()
+            val = re.sub(r"\s+#.*$", "", val).strip()  # drop inline comments
             if val in ("", "[]"): data[key] = [] if val == "[]" else ""
             else: data[key] = val.strip('"')
         elif re.match(r"^\s+- ", line) and key:

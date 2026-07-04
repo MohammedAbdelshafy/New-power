@@ -27,7 +27,7 @@ Why this mission exists. Links to leads, prior missions, decisions.
 Anything beyond the role's standard SOP.
 
 ## Lessons Learned
-(REQUIRED before completion — Article 7. What worked, what didn't, what the next worker should know. Durable lessons also go to Knowledge_Base/.)
+(fill before completion — Article 7. What worked, what didn't, what the next worker should know. Durable lessons also go to Knowledge_Base/.)
 
 ## Log
 - YYYY-MM-DD created by <actor>
