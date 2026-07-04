@@ -1,0 +1,96 @@
+name: Notify (Telegram / Discord)
+
+# Fires on repo activity and relays a short update to Telegram and/or Discord.
+# A channel is used only if its secret is set, so you can enable either or both:
+#   Settings > Secrets and variables > Actions
+#     TELEGRAM_BOT_TOKEN   - from @BotFather
+#     TELEGRAM_CHAT_ID     - your user/group/channel id (from @userinfobot)
+#     DISCORD_WEBHOOK_URL  - Server Settings > Integrations > Webhooks
+# Missing secrets are skipped silently; nothing breaks if you set up only one.
+
+on:
+  push:
+  issues:
+    types: [opened, closed, reopened]
+  pull_request:
+    types: [opened, closed, reopened, ready_for_review]
+  workflow_dispatch:
+    inputs:
+      message:
+        description: "Custom message to broadcast"
+        required: false
+        default: "Manual ping from GitHub Actions"
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build message
+        id: msg
+        env:
+          EVENT: ${{ github.event_name }}
+          REPO: ${{ github.repository }}
+          ACTOR: ${{ github.actor }}
+          REF: ${{ github.ref_name }}
+          COMPARE: ${{ github.event.compare }}
+          HEAD_MSG: ${{ github.event.head_commit.message }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+          ISSUE_ACTION: ${{ github.event.action }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          INPUT_MSG: ${{ github.event.inputs.message }}
+        run: |
+          NL=$'\n'
+          case "$EVENT" in
+            push)
+              TEXT="🚀 [$REPO] $ACTOR pushed to $REF${NL}$(printf '%s' "$HEAD_MSG" | head -n1)${NL}$COMPARE" ;;
+            issues)
+              TEXT="📝 [$REPO] issue $ISSUE_ACTION by $ACTOR${NL}$ISSUE_TITLE${NL}$ISSUE_URL" ;;
+            pull_request)
+              TEXT="🔀 [$REPO] PR ${ISSUE_ACTION} by $ACTOR${NL}$PR_TITLE${NL}$PR_URL" ;;
+            workflow_dispatch)
+              TEXT="📣 [$REPO] $INPUT_MSG" ;;
+            *)
+              TEXT="ℹ️ [$REPO] event: $EVENT by $ACTOR" ;;
+          esac
+          # Stash multi-line text for later steps.
+          {
+            echo 'text<<__EOF__'
+            echo "$TEXT"
+            echo '__EOF__'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Send to Telegram
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TEXT: ${{ steps.msg.outputs.text }}
+        run: |
+          if [ -z "$TOKEN" ] || [ -z "$CHAT_ID" ]; then
+            echo "Telegram secrets not set - skipping."
+            exit 0
+          fi
+          curl -sS --fail-with-body \
+            "https://api.telegram.org/bot${TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=${CHAT_ID}" \
+            --data-urlencode "text=${TEXT}" \
+            --data-urlencode "disable_web_page_preview=true" \
+            > /dev/null && echo "Telegram: sent."
+
+      - name: Send to Discord
+        env:
+          WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          TEXT: ${{ steps.msg.outputs.text }}
+        run: |
+          if [ -z "$WEBHOOK" ]; then
+            echo "Discord webhook not set - skipping."
+            exit 0
+          fi
+          # Send content as a JSON field via jq to stay safe with quotes/newlines.
+          jq -nc --arg c "$TEXT" '{content: $c}' \
+            | curl -sS --fail-with-body -H "Content-Type: application/json" \
+                -d @- "$WEBHOOK" > /dev/null && echo "Discord: sent."
