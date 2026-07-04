@@ -18,6 +18,12 @@ This exact system (Mission Control + workers + CRM + dashboard) installed and ad
 ### Offer 3 — Zero Waste Misr commercial contracts
 Recyclable collection contracts for businesses in Cairo & Giza (hotels, factories, compounds, offices). Recurring revenue per site.
 
+### Offer 4 — 100-Lead Packs (founder-ordered 2026-07-04; fastest cash)
+100 verified, scored, signal-backed B2B leads in one segment (buyer's choice: construction, industrial, recycling, ports, manufacturing — Egypt/GCC), delivered as CSV/Sheet with per-lead "why now" signals and sourcing notes. Produced by the Lead Hunter role from public sources; zero fabricated contacts.
+- **Pack:** $250–$450 · **Pack + 10 deep intel reports:** $750–$1,200 · **Monthly refresh subscription:** $200–$350/mo. *(Draft bands — M-001 sign-off required.)*
+- **Buyers:** marketing/sales agencies, B2B services firms, SaaS/exporters entering Egypt & GCC.
+- Upsell path: pack → intel reports → Offer 1 automation pilot.
+
 **Path to $100k (working hypothesis, CRO to validate weekly):**
 8 pilots ($5k avg) + 6 retainers ($2.5k/mo avg × 4 months = $60k) ≈ $100k. That requires ≈ 25 qualified meetings ≈ 100 researched leads ≈ 300–400 raw leads. That is the funnel the dashboard tracks.
 

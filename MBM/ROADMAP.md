@@ -55,5 +55,17 @@ The minimum system that turns effort into meetings. Everything here is live in t
 - NVIDIA local runner wired to the git bridge — brings `nvidia-local` online for zero-cost draft work.
 - Recurring-mission generator (M-006 Sunday copies file themselves).
 
+## Sprint plan (weekly sprints; numbering continues from the three build sprints of 2026-07-04)
+
+Every sprint must move: revenue · automation · quality · subscribers/audience · views/reach · maintainability. Each sprint's missions are filed in Inbox at the preceding Sunday review.
+
+| Sprint | Focus | Committed outcomes |
+|---|---|---|
+| **4** (Jul 6–12) | **First money motion** | M-001 signed; M-012 lead pack #1 built + priced; M-002/M-003 hunt & research running; founder pitches pack to 10 agencies. *Revenue target: first pack sold* |
+| **5** (Jul 13–19) | **Outreach at volume** | M-004 wave-1 sent (10 sequences); M-005 ZWM case study + posts live; pack #2 in a second segment; follow-up sweeps daily. *Target: 5 replies, 2 meetings* |
+| **6** (Jul 20–26) | **MBM-Social spine** | M-008 complete (video→3 clips, AR+EN test); quality thresholds tuned on real output; services pipeline keeps running via follow-up manager. *Target: 1 proposal out* |
+| **7** (Jul 27–Aug 2) | **MBM-Social sellable** | M-009 packaging complete; first free pilot clips for one real creator/business; issue #notify wiring so blocked missions ping Telegram. *Target: first automation pilot signed OR 2 packs sold* |
+| **8** (Aug 3–9) | **Validate & learn** | M-010 benchmarks + real reports; clipping go/no-go; CRO month-1 retro reprices all offers from actual win/loss data; Jarvis v0 watcher if capacity allows. *Target: $3–5k cumulative revenue* |
+
 ## Standing decision rules
 Before building anything, ask: Can this be a reusable worker? An SOP? A Mission? A Skill? Can another agent reuse it? If all answers are no — don't build it.

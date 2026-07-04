@@ -8,3 +8,9 @@
 {"ts": "2026-07-04T02:23:21+00:00", "event": "MissionCreated", "mission": "M-011", "actor": "human-founder", "note": "production readiness order"}
 {"ts": "2026-07-04T02:23:21+00:00", "event": "MissionClaimed", "mission": "M-011", "actor": "fabel", "note": ""}
 {"ts": "2026-07-04T02:23:21+00:00", "event": "MissionStarted", "mission": "M-011", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T14:32:28+00:00", "event": "MissionCreated", "mission": "M-008", "actor": "fabel", "note": "filed by M-011"}
+{"ts": "2026-07-04T14:32:28+00:00", "event": "MissionCreated", "mission": "M-009", "actor": "fabel", "note": "filed by M-011"}
+{"ts": "2026-07-04T14:32:28+00:00", "event": "MissionCreated", "mission": "M-010", "actor": "fabel", "note": "filed by M-011"}
+{"ts": "2026-07-04T14:32:28+00:00", "event": "MissionCreated", "mission": "M-012", "actor": "fabel", "note": "filed by M-011"}
+{"ts": "2026-07-04T14:32:28+00:00", "event": "MissionReviewed", "mission": "M-011", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T14:32:28+00:00", "event": "MissionCompleted", "mission": "M-011", "actor": "human-founder", "note": ""}
