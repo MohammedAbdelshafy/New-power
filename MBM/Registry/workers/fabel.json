@@ -1,0 +1,50 @@
+{
+  "id": "fabel",
+  "name": "Claude Fable 5 (Claude Code cloud session)",
+  "kind": "llm-agent",
+  "skills": [
+    "research",
+    "web-search",
+    "writing",
+    "arabic",
+    "sales",
+    "marketing",
+    "strategy",
+    "pricing",
+    "analysis",
+    "code",
+    "architecture",
+    "git",
+    "review",
+    "long-context"
+  ],
+  "roles": [
+    "chief-revenue-officer",
+    "lead-hunter",
+    "company-researcher",
+    "outreach-agent",
+    "content-engine",
+    "proposal-generator",
+    "followup-manager",
+    "crm-brain",
+    "marketing-agent"
+  ],
+  "cost": "high",
+  "speed": "medium",
+  "confidence": 0.92,
+  "context_size": 200000,
+  "tools": [
+    "websearch",
+    "webfetch",
+    "bash",
+    "git",
+    "gmail-mcp",
+    "github-mcp",
+    "playwright"
+  ],
+  "availability": "available",
+  "mcp_support": true,
+  "git_support": true,
+  "web_support": true,
+  "notes": "Highest reasoning quality; use for strategy, architecture, customer-facing drafts. Invoke via Claude Code session on this repo."
+}

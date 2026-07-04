@@ -1,0 +1,44 @@
+{
+  "id": "claude",
+  "name": "Claude (Sonnet/Opus via Claude Code)",
+  "kind": "llm-agent",
+  "skills": [
+    "research",
+    "web-search",
+    "writing",
+    "arabic",
+    "sales",
+    "marketing",
+    "analysis",
+    "code",
+    "git",
+    "review",
+    "long-context"
+  ],
+  "roles": [
+    "lead-hunter",
+    "company-researcher",
+    "outreach-agent",
+    "content-engine",
+    "proposal-generator",
+    "followup-manager",
+    "crm-brain"
+  ],
+  "cost": "medium",
+  "speed": "fast",
+  "confidence": 0.85,
+  "context_size": 200000,
+  "tools": [
+    "websearch",
+    "webfetch",
+    "bash",
+    "git",
+    "gmail-mcp",
+    "github-mcp"
+  ],
+  "availability": "available",
+  "mcp_support": true,
+  "git_support": true,
+  "web_support": true,
+  "notes": "Workhorse for volume missions: lead hunts, research batches, follow-up sweeps."
+}

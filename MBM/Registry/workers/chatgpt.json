@@ -1,0 +1,30 @@
+{
+  "id": "chatgpt",
+  "name": "ChatGPT (human-proxied)",
+  "kind": "llm-agent",
+  "skills": [
+    "research",
+    "web-search",
+    "writing",
+    "arabic",
+    "marketing",
+    "analysis"
+  ],
+  "roles": [
+    "company-researcher",
+    "content-engine",
+    "outreach-agent"
+  ],
+  "cost": "low",
+  "speed": "slow",
+  "confidence": 0.75,
+  "context_size": 128000,
+  "tools": [
+    "browser"
+  ],
+  "availability": "available",
+  "mcp_support": false,
+  "git_support": false,
+  "web_support": true,
+  "notes": "No git access: founder pastes mission text in, commits outputs back on its behalf (SOP-add-worker rule for git_support=false)."
+}
