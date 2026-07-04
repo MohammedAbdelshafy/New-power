@@ -1,0 +1,37 @@
+{
+  "selected": [
+    {
+      "start": 0.0,
+      "end": 22.99,
+      "hook_line": "Why do most factories in Egypt lose money on paperwork?",
+      "hook_score": 83.0,
+      "text": "Why do most factories in Egypt lose money on paperwork? Here is the truth nobody talks about. Last year we ran our own recycling operation in Cairo, and the biggest mistake was simple. Two full days every week went to weighbridge tickets and collection logs, written by hand, typed again into Excel, and checked a third time by the accountant.",
+      "predicted": {
+        "hook": 83.0,
+        "retention": 79.9,
+        "ctr": 68.2
+      }
+    },
+    {
+      "start": 32.45,
+      "end": 50.66,
+      "hook_line": "What took two days now takes twenty minutes.",
+      "hook_score": 73.9,
+      "text": "What took two days now takes twenty minutes. How much does that save? Around forty thousand pounds a year for one site, before you count the errors it prevents. Stop paying salaries for copy paste work. If your plant still runs on paper, this is the sign to fix it.",
+      "predicted": {
+        "hook": 73.9,
+        "retention": 77.2,
+        "ctr": 64.6
+      }
+    }
+  ],
+  "rejected_count": 9,
+  "thresholds": {
+    "_doc": "QC gates for stage s03_rank. Clips scoring below a gate are rejected with a ClipRejected event. Scores are heuristic/LLM predictions until M-010 calibrates them against real analytics - tune these numbers from measured retention, not taste.",
+    "hook_min": 40,
+    "min_clip_s": 20,
+    "max_clip_s": 60,
+    "max_clips_per_job": 5
+  },
+  "scores_are": "predicted (uncalibrated until M-010)"
+}

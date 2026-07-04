@@ -1,0 +1,97 @@
+{
+  "language": "en",
+  "language_prob": 1.0,
+  "note": "INJECTED transcript - espeak narration script aligned to ffmpeg silencedetect boundaries; whisper blocked by env network policy (see Performance_Report)",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 3.54,
+      "text": "Why do most factories in Egypt lose money on paperwork?",
+      "words": []
+    },
+    {
+      "start": 3.94,
+      "end": 6.32,
+      "text": "Here is the truth nobody talks about.",
+      "words": []
+    },
+    {
+      "start": 6.71,
+      "end": 12.35,
+      "text": "Last year we ran our own recycling operation in Cairo, and the biggest mistake was simple.",
+      "words": []
+    },
+    {
+      "start": 12.84,
+      "end": 22.99,
+      "text": "Two full days every week went to weighbridge tickets and collection logs, written by hand, typed again into Excel, and checked a third time by the accountant.",
+      "words": []
+    },
+    {
+      "start": 23.44,
+      "end": 26.39,
+      "text": "So we built a system that does it automatically.",
+      "words": []
+    },
+    {
+      "start": 26.79,
+      "end": 32.04,
+      "text": "The driver scans the ticket, the platform reads it, and the report writes itself.",
+      "words": []
+    },
+    {
+      "start": 32.45,
+      "end": 35.21,
+      "text": "What took two days now takes twenty minutes.",
+      "words": []
+    },
+    {
+      "start": 35.66,
+      "end": 37.18,
+      "text": "How much does that save?",
+      "words": []
+    },
+    {
+      "start": 37.63,
+      "end": 43.28,
+      "text": "Around forty thousand pounds a year for one site, before you count the errors it prevents.",
+      "words": []
+    },
+    {
+      "start": 43.69,
+      "end": 46.33,
+      "text": "Stop paying salaries for copy paste work.",
+      "words": []
+    },
+    {
+      "start": 46.73,
+      "end": 50.66,
+      "text": "If your plant still runs on paper, this is the sign to fix it.",
+      "words": []
+    },
+    {
+      "start": 51.13,
+      "end": 52.88,
+      "text": "The secret is not more staff.",
+      "words": []
+    },
+    {
+      "start": 53.36,
+      "end": 56.82,
+      "text": "The secret is one boring system that never gets tired.",
+      "words": []
+    },
+    {
+      "start": 57.25,
+      "end": 61.48,
+      "text": "Never trust a report that was typed three times by three tired people.",
+      "words": []
+    },
+    {
+      "start": 61.88,
+      "end": 66.0,
+      "text": "Fix the pipeline once, and the numbers stay honest forever.",
+      "words": []
+    }
+  ]
+}

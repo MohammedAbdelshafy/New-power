@@ -30,3 +30,6 @@ A mission is claimed by moving it to `Claimed/` with `owner` set and pushing imm
 
 **DL-009 · 2026-07-04 · Routing is advisory for humans, binding for autonomous loops.**
 `mbm.sh route` scores skills, confidence, cost, speed, workload, availability, and event-bus performance (completions +1, failures −2) with preferred/fallback bonuses. Real history outvotes self-declared confidence over time; the CRO reconciles registry confidence at weekly review. Rejected: hard-binding routing for humans — the founder may always claim anything.
+
+**DL-010 · 2026-07-04 · MBM-Social is stages-on-the-OS, not a platform-within-the-platform.**
+The clipping pipeline (MBM-Social/) is 8 restartable stage modules + a one-job runner. Mission Control is its queue, mission re-claim is its retry system, the event bus is its logging, job dirs + the CRM ledger are its asset manager, and publishing stays human-gated. Rationale: every "queue manager / retry system / workflow automation" request resolved to a system that already existed (Article 6); building them again would have doubled surface area with zero new capability. Rejected: a celery/redis job system, platform upload APIs in v1, a GPU dependency (CPU measured fast enough for pilot volume: 66s source → 2 finished packages in 21s).
