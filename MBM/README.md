@@ -1,62 +1,75 @@
-# MBM Revenue Engine
+# MBM Operating System
 
-The operating system for a revenue-generating company. File-based, git-first, agent-agnostic.
+An AI Operating System for a revenue-generating company: file-based, git-first, agent-agnostic, governed by a Constitution. Built to coordinate unlimited specialized workers.
 
 **Prime directive: fastest path to the first $100,000, while every action leaves behind a reusable asset.**
 
-## How it works
+Read `CONSTITUTION.md` first — its 10 articles bind every worker. The three that matter most: **everything is a mission** (Art. 1), **git is the single source of truth** (Art. 2), **claim before you execute** (Art. 3).
+
+## Architecture
 
 ```
-                     ┌──────────────────────────────────────────┐
-                     │              MISSION CONTROL             │
-                     │  Inbox → InProgress → Review → Completed │
-                     └───────────────────┬──────────────────────┘
-                                         │ missions assign work to workers
-     ┌─────────────┬─────────────┬───────┴──────┬──────────────┬─────────────┐
-     ▼             ▼             ▼              ▼              ▼             ▼
- Lead Hunter → Researcher → Outreach Agent → Follow-up Mgr → Proposal Gen → CRO
-     │             │             │              │              │             │
-     └─────────────┴─────────────┴──────┬───────┴──────────────┴─────────────┘
-                                        ▼
-                              CRM (files, git-versioned)
-                                        ▼
-                              Dashboard + Weekly Review
+                          ┌────────────────────────────────────────────────────┐
+                          │                  MISSION CONTROL                   │
+                          │ Inbox → Claimed → InProgress → Review → Completed  │
+                          │        → Archive        (+ Blocked, Templates, SOPs)│
+                          └──────┬─────────────────────────────────┬───────────┘
+      claim/route                │ what to do                      │ every transition
+ ┌───────────────┐        ┌──────▼──────┐                   ┌──────▼──────┐
+ │   REGISTRY    │◀──────▶│    ROLES    │                   │  EVENT BUS  │
+ │ who can work  │ route  │ Workers/*.md│                   │ events.jsonl│
+ │ 9 executors   │        │ 9 revenue   │                   │ append-only │
+ └───────────────┘        │   roles     │                   └─────────────┘
+                          └──────┬──────┘
+                                 │ outputs
+              ┌──────────────────┼──────────────────────┐
+              ▼                  ▼                      ▼
+        CRM (leads, intel,   Artifacts +          Dashboard
+        proposals, content)  Knowledge_Base       (metrics.json)
 ```
 
-- **Git is the database.** Leads, missions, intel, proposals, decisions — all files, all versioned, all readable by any agent.
-- **Workers are markdown.** `MBM/Workers/*.md` are simultaneously system prompts, SOPs, and specs. Claude, ChatGPT, Antigravity, opencode, and local models all operate them the same way: read the worker file, follow its SOP, write its outputs.
-- **No parallel systems.** All work flows through Mission Control. All state lives in the CRM. All irreversible choices go in the Decision Log.
+- **Missions** carry the work (schema v2: objective, dependencies, required skills, preferred/fallback workers, reviewer, acceptance criteria, lessons learned).
+- **Roles** (`Workers/`) define *what* to do — SOPs any executor can follow.
+- **Registry** (`Registry/`) defines *who* can do it — plug-and-play: one JSON file per worker (Claude, Fabel, ChatGPT, Jarvis, Antigravity, OpenCode, NVIDIA local, scripts, humans).
+- **Routing** (`mbm.sh route M-012`) matches missions to executors by skills, confidence, cost, speed, workload, availability, and event-bus performance history, with automatic fallback.
+- **Event bus** (`EventBus/events.jsonl`) is how workers communicate — never hidden state.
+- **Knowledge capture** is mechanical: completion is blocked until Lessons Learned is filled; lessons auto-mirror to `Knowledge_Base/LESSONS.md`.
 
 ## Directory map
 
 | Path | Purpose |
 |---|---|
-| `MissionControl/Missions/{Inbox,InProgress,Review,Completed}/` | Mission lifecycle (see `MissionControl/README.md` for the protocol) |
-| `MissionControl/Artifacts/` | Deliverables produced by missions (reports, reviews, decks) |
-| `MissionControl/Knowledge_Base/` | Offer, ICP, pricing, playbooks — the company's brain |
-| `MissionControl/Decision_Log/` | Append-only record of significant decisions |
-| `Workers/` | The 8 revenue workers (role + SOP + output schema each) |
-| `CRM/leads/` | One JSON file per lead (`schema` in `CRM/README.md`) |
-| `CRM/intel/` | Company intelligence reports (Researcher output) |
-| `CRM/proposals/` | Generated proposals & ROI sheets |
-| `CRM/content/` | Outreach sequences, LinkedIn posts, case studies |
-| `Dashboard/` | Marketing/revenue dashboard (`index.html` + `metrics.json`) |
-| `../scripts/mbm.sh` | CLI: mission lifecycle, lead intake, metric recompute |
+| `CONSTITUTION.md` | The 10 articles every worker operates under |
+| `MissionControl/Missions/{Inbox,Claimed,InProgress,Review,Completed,Blocked,Archive}/` | The 7-state mission lifecycle |
+| `MissionControl/Missions/Templates/` | `mission-template.md` — schema v2 source of truth |
+| `MissionControl/Missions/SOPs/` | Lifecycle, worker onboarding, knowledge capture procedures |
+| `MissionControl/{Artifacts,Knowledge_Base,Decision_Log}/` | Deliverables · company brain + LESSONS.md · decision record |
+| `Workers/` | The 9 revenue roles (CRO, Lead Hunter, Researcher, Outreach, Content, Proposal, Follow-up, CRM Brain, Marketing) |
+| `Registry/workers/` | Executor capability files — who can work, at what cost/speed/confidence |
+| `EventBus/events.jsonl` | Append-only event log (MissionCreated…MissionEscalated) |
+| `CRM/` | File-based CRM: leads, intel, proposals, content (schema in `CRM/README.md`) |
+| `Dashboard/` | Revenue dashboard + `metrics.json` |
+| `../scripts/mbm.sh` | The CLI — run `bash scripts/mbm.sh` for full usage |
 
-## Operating it (any agent, any session)
+## Operating it (any worker, any session)
 
-1. `bash scripts/mbm.sh status` — see pipeline + open missions.
-2. Pick the top-priority mission in `Missions/Inbox/`, move it to `InProgress` (`mbm.sh mission start <id>`).
-3. Open the worker file the mission names, follow its SOP.
-4. Write outputs where the worker's contract says (CRM/Artifacts), move the mission to `Review`.
-5. A human (or the CRO worker in weekly review) approves → `Completed`.
-6. Commit and push. The commit **is** the status report.
+```bash
+export MBM_WORKER=<your-registry-id>       # actor attribution (Article 4)
+git pull                                   # always
+bash scripts/mbm.sh status                 # pipeline, missions, events, follow-ups
+bash scripts/mbm.sh route M-012            # who should take it?
+bash scripts/mbm.sh mission claim M-012 <your-id>
+git add -A && git commit -m "claim M-012" && git push    # claim is not yours until pushed
+bash scripts/mbm.sh mission start M-012
+# ... execute per MBM/Workers/<role>.md ...
+bash scripts/mbm.sh mission review M-012   # reviewer then runs: mission complete M-012
+```
 
-In Claude Code, the skills `/mbm-lead-hunt`, `/mbm-research`, `/mbm-outreach`, `/mbm-proposal`, `/mbm-followup`, `/mbm-revenue-review` invoke workers directly.
+Full procedure: `MissionControl/Missions/SOPs/SOP-mission-lifecycle.md`. Joining as a new worker: `SOP-add-worker.md`. In Claude Code, `/mbm-lead-hunt`, `/mbm-research`, `/mbm-outreach`, `/mbm-content`, `/mbm-proposal`, `/mbm-followup`, `/mbm-revenue-review` wrap the roles.
 
-## Ground rules
+## Ground rules (enforced, not aspirational)
 
-- **Humans send outreach.** Agents draft; a human reviews and hits send. Protects deliverability, reputation, and legality.
-- **No invented facts in outreach or proposals.** Every claim traces to a research citation in `CRM/intel/`.
-- **Update metrics after CRM changes:** `bash scripts/mbm.sh metrics`.
-- **Decisions with consequences get a Decision Log entry** — one paragraph, dated, with alternatives considered.
+- Humans send outreach, publish content, and sign pricing (Article 5).
+- No invented facts in anything customer-facing — every claim traces to `CRM/intel/`.
+- `mbm.sh validate && mbm.sh metrics` after CRM changes; the dashboard never lies.
+- Extend, never duplicate (Article 6). Decisions with consequences → `Decision_Log/`.

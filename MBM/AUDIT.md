@@ -1,4 +1,22 @@
-# MBM Repository Audit — 2026-07-04
+# MBM Repository Audit
+
+## v2 audit — 2026-07-04 (Mission System upgrade)
+
+Gaps found in the v1 system built earlier the same day, and their resolution:
+
+| Gap | Resolution |
+|---|---|
+| No claim step — two workers could execute the same mission | `Claimed/` state + `mbm.sh mission claim` + pull/push-immediately protocol (Article 3) |
+| Only 4 lifecycle states | 7 states + Templates/ + SOPs/ (Blocked with escalation, Archive as terminal store) |
+| Mission schema missing dependencies, required skills, preferred/fallback workers, reviewer, lessons | Schema v2 in `Templates/mission-template.md`; all 6 existing missions migrated |
+| No worker registry — executors were implicit | `Registry/workers/` — 9 workers publishing skills/cost/speed/confidence/context/tools/availability/MCP/git/web |
+| No event bus — coordination relied on reading git log | `EventBus/events.jsonl`, append-only, 10-event vocabulary, emitted automatically by every CLI transition |
+| No routing | `mbm.sh route` — skills, confidence, cost, speed, workload, availability, event-history performance, preferred/fallback bonuses |
+| Knowledge capture was convention | Mechanically enforced: completion blocked on empty Lessons Learned; auto-mirror to `Knowledge_Base/LESSONS.md`; capture SOP checklist |
+| No governance document | `CONSTITUTION.md` — 10 articles |
+| Marketing/Sales/Dashboard not first-class workers | `09-marketing-agent.md` added; Sales = outreach-agent + human-founder; Dashboard = `mbm-scripts` worker (mapping table in `Workers/README.md`) |
+
+## v1 audit — 2026-07-04 (original revenue-engine build)
 
 ## What existed before this build
 

@@ -18,3 +18,15 @@ Phase 1 targets 3 booked meetings with mostly-manual worker execution before Pha
 
 **DL-005 · 2026-07-04 · Anchor offer on the Zero Waste Misr proof point.**
 Positioning leads with "we run our own recycling operation on this technology". Rationale: the strongest differentiator available today is a real deployed system in a hard industry, and it gives insider credibility in the recycling/industrial segments. Revisit when a paying client case study exists.
+
+**DL-006 · 2026-07-04 · The event bus is a JSONL file in git, not a message broker.**
+Workers coordinate via append-only `EventBus/events.jsonl` committed like any other file. Rationale: every current and future worker already reads files and pulls git; a broker (Redis/NATS/webhooks) adds infrastructure, credentials, and a non-versioned side channel that violates Article 2. Rejected: GitHub webhooks as the primary bus — kept as an optional notification layer (existing notify.yml), not the source of truth.
+
+**DL-007 · 2026-07-04 · Claims are file moves; git push is the lock.**
+A mission is claimed by moving it to `Claimed/` with `owner` set and pushing immediately; a rejected push means someone else won the race. Rationale: git's atomic ref updates give us distributed mutual exclusion for free at our scale (missions/day, not missions/second). Rejected: lock files and claim servers — more machinery for the same guarantee.
+
+**DL-008 · 2026-07-04 · Roles and executors are separate namespaces.**
+`Workers/*.md` define roles (what/how); `Registry/workers/*.json` define executors (who). A mission names a role and routing picks the executor. Rationale: the same role must be executable by Claude today, a local model tomorrow, and a human always — coupling them would break plug-and-play (Article 8). This also resolved the "Sales Agent"/"Revenue Dashboard" requests without duplicate systems: Sales = outreach-agent role + human-founder executor; Dashboard = revenue-dashboard role + mbm-scripts executor.
+
+**DL-009 · 2026-07-04 · Routing is advisory for humans, binding for autonomous loops.**
+`mbm.sh route` scores skills, confidence, cost, speed, workload, availability, and event-bus performance (completions +1, failures −2) with preferred/fallback bonuses. Real history outvotes self-declared confidence over time; the CRO reconciles registry confidence at weekly review. Rejected: hard-binding routing for humans — the founder may always claim anything.

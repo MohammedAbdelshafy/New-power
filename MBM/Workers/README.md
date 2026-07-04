@@ -1,6 +1,6 @@
-# Workers — Protocol
+# Workers — Roles & Protocol
 
-A worker file is a complete role: identity, standing responsibilities, SOP, output contract, and handoffs. Any agent (Claude, ChatGPT, Antigravity, opencode, local models) or human executes a worker the same way:
+A worker file here is a **role**: identity, standing responsibilities, SOP, output contract, and handoffs. *Who* executes a role is a separate question answered by `MBM/Registry/` (executors) and `scripts/mbm.sh route` (matching). Any registered executor — Claude, Fabel, ChatGPT, Jarvis, Antigravity, OpenCode, local models, scripts, humans — runs a role the same way:
 
 1. **Load context:** read the worker file, `Knowledge_Base/offer.md`, and the mission being executed.
 2. **Follow the SOP.** Deviations that matter get logged in the mission's `## Log`.
@@ -20,6 +20,22 @@ A worker file is a complete role: identity, standing responsibilities, SOP, outp
 | `06-proposal-generator.md` | Proposal Generator | Proposal + scope + ROI + pricing options within 24h of a meeting |
 | `07-followup-manager.md` | Follow-up Manager | No lead ever goes cold by accident; tracks replies/objections/next actions |
 | `08-crm-brain.md` | CRM Brain | Data integrity of `CRM/`; the memory every other worker relies on |
+| `09-marketing-agent.md` | Marketing Agent | Channels, distribution, campaigns, inbound — makes content travel |
+
+## The 10 revenue workers — where each lives
+
+| Requested worker | Implementation (Article 6: extend, don't duplicate) |
+|---|---|
+| Chief Revenue Officer | `01-chief-revenue-officer.md` |
+| Lead Hunter | `02-lead-hunter.md` |
+| Company Researcher | `03-company-researcher.md` |
+| Marketing Agent | `09-marketing-agent.md` |
+| Sales Agent | `04-outreach-agent.md` (drafting) + `human-founder` (sending/closing, Article 5) — one funnel, two hands |
+| Proposal Generator | `06-proposal-generator.md` |
+| CRM Brain | `08-crm-brain.md` |
+| Content Engine | `05-content-engine.md` |
+| Follow-up Manager | `07-followup-manager.md` |
+| Revenue Dashboard | `Dashboard/` + the `mbm-scripts` registry worker (role `revenue-dashboard`, deterministic — refreshed via `mbm.sh metrics`) |
 
 ## The pipeline they form
 

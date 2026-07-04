@@ -45,5 +45,15 @@ The minimum system that turns effort into meetings. Everything here is live in t
 - Dashboard metrics recomputed on every push via GitHub Action.
 - Exit: weekly review lands without being asked for.
 
+## Platform track (the OS underneath the phases)
+
+**v2 — SHIPPED 2026-07-04:** Constitution · 7-state claim-based mission lifecycle + Templates/SOPs · schema v2 · worker registry (9 executors, plug-and-play) · event bus · intelligent routing with fallback · enforced knowledge capture · Marketing Agent role. (See `AUDIT.md` v2 section; M-007.)
+
+**v2.1 — next platform increment (build only when Phase 1–2 revenue work demands it):**
+- GitHub Action: on push, run `mbm.sh validate + metrics` and surface Blocked>7d missions (auto-escalate).
+- Jarvis v0: a watcher loop (local or Action) that reads Inbox, runs routing, and notifies the recommended worker via the existing Telegram/Discord bridge — brings `jarvis` registry entry online.
+- NVIDIA local runner wired to the git bridge — brings `nvidia-local` online for zero-cost draft work.
+- Recurring-mission generator (M-006 Sunday copies file themselves).
+
 ## Standing decision rules
 Before building anything, ask: Can this be a reusable worker? An SOP? A Mission? A Skill? Can another agent reuse it? If all answers are no — don't build it.
