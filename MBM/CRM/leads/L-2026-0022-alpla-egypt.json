@@ -1,0 +1,39 @@
+{
+  "id": "L-2026-0022",
+  "company": "ALPLA Egypt",
+  "domain": "www.alpla.com",
+  "website": "https://www.alpla.com",
+  "industry": "manufacturing",
+  "geography": "Egypt (El Obour + 10th Ramadan)",
+  "size": "",
+  "language": "en",
+  "source": "revenue-sprint web hunt 2026-07-04",
+  "signals": [
+    {
+      "date": "2026-07-04",
+      "signal": "Two plants in Egypt; packaging demand up on record $6.1B food exports 2024 (+21%)",
+      "url": "https://www.mordorintelligence.com/industry-reports/egypt-plastic-packaging-market"
+    }
+  ],
+  "contacts": [],
+  "pain_points": [],
+  "fit_score": 64,
+  "stage": "new",
+  "owner": "fabel",
+  "next_action": {
+    "date": "2026-07-11",
+    "action": "pack 003: enrich contacts after PII decision (issue #3); researcher pass for top scores"
+  },
+  "estimated_value": 0,
+  "won": null,
+  "lost_reason": null,
+  "relationships": [],
+  "history": [
+    {
+      "date": "2026-07-04",
+      "actor": "fabel",
+      "event": "created",
+      "note": "revenue sprint hunt, lead pack 003"
+    }
+  ]
+}

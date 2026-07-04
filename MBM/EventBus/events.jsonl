@@ -75,3 +75,7 @@
 {"ts": "2026-07-04T19:45:33+00:00", "event": "MissionStarted", "mission": "M-015", "actor": "fabel", "note": ""}
 {"ts": "2026-07-04T19:45:33+00:00", "event": "MissionClaimed", "mission": "M-016", "actor": "fabel", "note": ""}
 {"ts": "2026-07-04T19:45:33+00:00", "event": "MissionStarted", "mission": "M-016", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:49:17+00:00", "event": "MissionReviewed", "mission": "M-012", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:49:17+00:00", "event": "MissionReviewed", "mission": "M-014", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:49:17+00:00", "event": "MissionReviewed", "mission": "M-015", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:49:18+00:00", "event": "MissionReviewed", "mission": "M-016", "actor": "fabel", "note": ""}

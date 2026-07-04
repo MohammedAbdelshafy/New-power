@@ -14,7 +14,7 @@ preferred_worker: claude
 fallback_workers:
   - fabel
   - chatgpt
-status: in_progress
+status: review
 owner: fabel
 reviewer: human-founder
 created: 2026-07-04
@@ -28,7 +28,8 @@ acceptance_criteria:
   - CSV/Sheet export + a delivery doc explaining scoring and signals (this is what the buyer receives)
   - one-page sales sheet for the pack (what it is, sample rows, price per offer.md Offer 4)
   - zero fabricated contacts - public sources only, every signal traceable
-artifacts: []
+artifacts:
+  - MBM/CRM/content/lead-packs/pack-001/
 ---
 
 ## Context
@@ -38,10 +39,11 @@ Founder order: "let's start selling 100-pack leads." Offer 4 in Knowledge_Base/o
 Run `/mbm-lead-hunt` per the role SOP; export via a simple script into pack-001/. Note: web-search quota limits mean this needs a fresh session window.
 
 ## Lessons Learned
-(fill before completion — Article 7)
+- 9-lead tranche 1 shipped; construction giants score lower on reachability than mid-size - packs need a mid-size quota next tranche.
 
 ## Log
 - 2026-07-04 created by fabel per founder order
 - 2026-07-04 founder revenue-sprint order: Revenue > all; M-001 dep lifted (pricing stays DRAFT until sign-off)
 - 2026-07-04 claimed by fabel
 - 2026-07-04 started
+- 2026-07-04 moved to review

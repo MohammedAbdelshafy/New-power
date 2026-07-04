@@ -1,8 +1,8 @@
 {
   "updated": "2026-07-04",
   "goal_usd": 100000,
-  "leads_found": 0,
-  "qualified_leads": 0,
+  "leads_found": 26,
+  "qualified_leads": 26,
   "outreach_sent": 0,
   "meetings_booked": 0,
   "proposals_sent": 0,
@@ -11,7 +11,7 @@
   "mrr": 0,
   "revenue": 0,
   "stages": {
-    "new": 0,
+    "new": 26,
     "researched": 0,
     "contacted": 0,
     "replied": 0,
