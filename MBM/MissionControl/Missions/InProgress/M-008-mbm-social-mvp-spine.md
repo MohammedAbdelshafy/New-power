@@ -13,8 +13,8 @@ preferred_worker: fabel
 fallback_workers:
   - claude
   - antigravity
-status: inbox
-owner: ""
+status: in_progress
+owner: fabel
 reviewer: human-founder
 created: 2026-07-04
 due: ""
@@ -41,3 +41,5 @@ Build inside `MBM-Social/` at repo root as stage scripts + a thin runner reading
 
 ## Log
 - 2026-07-04 created by fabel per M-011 pipeline audit
+- 2026-07-04 claimed by fabel
+- 2026-07-04 started
