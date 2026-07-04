@@ -4,8 +4,7 @@ title: "Build and package lead pack #1 (100 leads, one segment) as a sellable pr
 objective: "A founder-sellable 100-lead pack: verified, scored, signal-backed leads with delivery doc and sales one-pager — the fastest path from the existing system to invoiced revenue"
 priority: P0
 phase: 1
-dependencies:
-  - M-001
+dependencies: []
 role: lead-hunter
 required_skills:
   - web-search
@@ -15,8 +14,8 @@ preferred_worker: claude
 fallback_workers:
   - fabel
   - chatgpt
-status: inbox
-owner: ""
+status: in_progress
+owner: fabel
 reviewer: human-founder
 created: 2026-07-04
 due: 2026-07-10
@@ -43,3 +42,6 @@ Run `/mbm-lead-hunt` per the role SOP; export via a simple script into pack-001/
 
 ## Log
 - 2026-07-04 created by fabel per founder order
+- 2026-07-04 founder revenue-sprint order: Revenue > all; M-001 dep lifted (pricing stays DRAFT until sign-off)
+- 2026-07-04 claimed by fabel
+- 2026-07-04 started

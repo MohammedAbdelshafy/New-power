@@ -64,3 +64,14 @@
 {"ts": "2026-07-04T14:52:46+00:00", "event": "StageCompleted", "mission": "test-001", "actor": "fabel", "note": "s07_package 0.0s"}
 {"ts": "2026-07-04T14:52:46+00:00", "event": "PipelineCompleted", "mission": "test-001", "actor": "fabel", "note": "publish packages ready (human posts)"}
 {"ts": "2026-07-04T14:55:29+00:00", "event": "MissionReviewed", "mission": "M-008", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:45:33+00:00", "event": "MissionCreated", "mission": "M-014", "actor": "fabel", "note": "Lead pack #2: recycling & waste (Egypt/GCC)"}
+{"ts": "2026-07-04T19:45:33+00:00", "event": "MissionCreated", "mission": "M-015", "actor": "fabel", "note": "Lead pack #3: manufacturing & industrial (Egypt)"}
+{"ts": "2026-07-04T19:45:33+00:00", "event": "MissionCreated", "mission": "M-016", "actor": "fabel", "note": "Three outreach campaigns (pack buyers, automation pilots, recycling)"}
+{"ts": "2026-07-04T19:45:33+00:00", "event": "MissionClaimed", "mission": "M-012", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:45:33+00:00", "event": "MissionStarted", "mission": "M-012", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:45:33+00:00", "event": "MissionClaimed", "mission": "M-014", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:45:33+00:00", "event": "MissionStarted", "mission": "M-014", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:45:33+00:00", "event": "MissionClaimed", "mission": "M-015", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:45:33+00:00", "event": "MissionStarted", "mission": "M-015", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:45:33+00:00", "event": "MissionClaimed", "mission": "M-016", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:45:33+00:00", "event": "MissionStarted", "mission": "M-016", "actor": "fabel", "note": ""}
