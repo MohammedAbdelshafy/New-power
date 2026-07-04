@@ -1,18 +1,30 @@
 ---
 id: M-001
-title: Founder sign-off on offer, ICP and pricing
-phase: 1
-worker: chief-revenue-officer
+title: "Founder sign-off on offer, ICP and pricing"
+objective: "Founder-approved offer, ICP and pricing that every downstream worker can inherit"
 priority: P0
+phase: 1
+dependencies: []
+role: chief-revenue-officer
+required_skills:
+  - strategy
+  - pricing
+preferred_worker: human-founder
+fallback_workers:
+  - fabel
+  - claude
 status: inbox
+owner: ""
+reviewer: human-founder
 created: 2026-07-04
 due: 2026-07-07
-owner: ""
-success_criteria:
+outputs:
+  - MBM/MissionControl/Knowledge_Base/offer.md
+acceptance_criteria:
   - Knowledge_Base/offer.md reviewed line-by-line by the founder
   - pricing bands confirmed or corrected
   - positioning line finalized (EN + AR)
-  - "Status: SEEDED" banner removed from offer.md
+  - the SEEDED status banner removed from offer.md
 artifacts: []
 ---
 
@@ -22,5 +34,9 @@ Every downstream worker (hunter scoring, outreach angles, proposal pricing) inhe
 ## Instructions
 Founder edits `offer.md` directly or dictates changes to any agent. CRO logs material changes in the Decision Log.
 
+## Lessons Learned
+(fill before completion — Article 7)
+
 ## Log
 - 2026-07-04 created by CRO during system build
+- 2026-07-04 migrated to mission schema v2

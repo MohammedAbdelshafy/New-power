@@ -1,60 +1,46 @@
-# Mission Control — Protocol
+# Mission Control — Protocol (v2)
 
-Every unit of revenue work is a **mission file** that moves through four folders:
+Every unit of work in the MBM Operating System is a **mission file** moving through folders. Constitution Article 1: everything is a mission — no direct prompting, no isolated workflows.
 
 ```
-Missions/Inbox  →  Missions/InProgress  →  Missions/Review  →  Missions/Completed
- (queued)            (one owner)            (awaiting human       (done; outputs
-                                             or CRO approval)      linked)
+Inbox ──claim──▶ Claimed ──start──▶ InProgress ──review──▶ Review ──complete──▶ Completed ──archive──▶ Archive
+                    │                   │
+                    └───────block───────┴──▶ Blocked ──unblock──▶ Claimed
 ```
 
-Moves are `git mv` (or `scripts/mbm.sh mission start|review|complete <id>`), so the git log is the audit trail.
+All moves go through `scripts/mbm.sh mission <claim|start|block|unblock|review|complete|fail|archive> <id>`, which validates the transition, updates `status:`, appends to the mission log, and **emits the matching event** to `MBM/EventBus/events.jsonl` (MissionCreated, MissionClaimed, MissionStarted, MissionBlocked, MissionCompleted, MissionReviewed, MissionArchived, MissionFailed, MissionEscalated).
 
-## Mission file format
+## Folders
 
-Filename: `M-###-short-slug.md`. YAML front-matter + body:
+| Folder | Meaning |
+|---|---|
+| `Missions/Inbox/` | Universal queue. Readable/claimable by every registered worker — Claude, Fabel, ChatGPT, Jarvis, Antigravity, OpenCode, local models, scripts, humans |
+| `Missions/Claimed/` | Claimed but not started. **Claiming prevents duplicate execution** (Article 3): pull → claim → push immediately; rejected push = already claimed |
+| `Missions/InProgress/` | Being executed by its single owner |
+| `Missions/Review/` | Awaiting the named reviewer (never the owner) — binary acceptance-criteria check |
+| `Missions/Completed/` | Done; knowledge captured (CLI blocks completion with empty Lessons Learned) |
+| `Missions/Blocked/` | Stuck, with a logged reason. Blocked > 7 days → CRO escalates |
+| `Missions/Archive/` | Terminal storage for completed + failed missions |
+| `Missions/Templates/` | `mission-template.md` — the schema v2 source of truth |
+| `Missions/SOPs/` | The procedure library: lifecycle, adding workers, knowledge capture |
 
-```markdown
----
-id: M-007
-title: Research top 20 construction leads
-phase: 2                # roadmap phase
-worker: company-researcher   # which Workers/*.md executes this
-priority: P1            # P0 (revenue-blocking) / P1 / P2
-status: inbox           # inbox | in_progress | review | completed
-created: 2026-07-04
-due: 2026-07-08
-owner: ""               # agent/human who picked it up
-success_criteria:
-  - 20 intel reports in CRM/intel/
-  - each report lists ≥1 named decision maker and ≥2 verified pain signals
-artifacts: []           # filled on completion with paths to outputs
----
+## Mission schema (v2)
 
-## Context
-Why this mission exists, links to related leads/missions.
+See `Missions/Templates/mission-template.md`. Front-matter fields: `id, title, objective, priority, phase, dependencies, role, required_skills, preferred_worker, fallback_workers, status, owner, reviewer, created, due, outputs, acceptance_criteria, artifacts` + body sections `Context, Instructions, Lessons Learned (required), Log`.
 
-## Instructions
-Anything beyond the worker's standard SOP.
-
-## Log
-- 2026-07-04 created by CRO
-```
+`role` names the `MBM/Workers/*.md` file whose SOP governs execution (*what* to do). `preferred_worker`/`fallback_workers`/`owner` are `MBM/Registry/` ids (*who* does it). Routing (`mbm.sh route <id>`) recommends the executor.
 
 ## Rules
 
-1. **One owner per mission.** Set `owner` when moving to InProgress.
-2. **Success criteria are binary.** If you can't verify them, rewrite them before starting.
-3. **Outputs never live in the mission file.** They go to `CRM/` or `Artifacts/`; the mission links them in `artifacts:`.
-4. **Review is not optional** for anything customer-facing (outreach copy, proposals, published content). A human approves before it leaves the building.
-5. **Completed missions are immutable.** Follow-up work = new mission.
-6. **Anyone can file to Inbox** — humans, workers, scheduled jobs. The CRO worker prioritizes Inbox during the weekly review.
+1. One owner per mission; claim before executing (Article 3).
+2. Acceptance criteria are binary and stranger-verifiable (Article 10). Rewrite before starting if they aren't.
+3. Outputs live in `CRM/` or `Artifacts/`, never in the mission file; the mission lists them in `artifacts:`.
+4. Dependencies must be Completed before a mission is claimable.
+5. Review is a real gate for anything customer-facing; the reviewer is never the owner.
+6. Completed missions are immutable — follow-up work is a new mission.
+7. Anyone can file to Inbox (humans, workers, scheduled jobs). The CRO triages weekly.
+8. Every completion runs `SOPs/SOP-knowledge-capture.md` (Article 7).
 
-## Artifacts/
-Deliverables produced by missions: revenue reviews, research reports, decks. Name them `YYYY-MM-DD-description.md` (or a subfolder per recurring series, e.g. `revenue-reviews/`).
+## Artifacts/ · Knowledge_Base/ · Decision_Log/
 
-## Knowledge_Base/
-The company's brain: `offer.md` (ICP + offers + pricing), playbooks, templates. Workers read it before acting; missions update it when learning something durable.
-
-## Decision_Log/
-Append entries to `DECISIONS.md`. One paragraph per decision: date, decision, why, alternatives rejected. If a future agent would ask "why is it like this?" — log it.
+Unchanged in role: deliverables → `Artifacts/` (dated names, series subfolders); durable company knowledge, playbooks, and auto-mirrored `LESSONS.md` → `Knowledge_Base/`; dated decision paragraphs → `Decision_Log/DECISIONS.md`.
