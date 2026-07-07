@@ -1,0 +1,14 @@
+# MBM Hunter — optional runtime dependencies.
+#
+# The core (parse + grade + pipeline + CLI) needs NONE of these — it runs on the
+# Python standard library. Install extras only to unlock the matching capability.
+
+# --- Tier-1 fetch backends (registry: web-agent-tools.md) ---
+scrapling>=0.2            # adaptive/resilient scraping (BSD-3)
+playwright>=1.44          # browser engine (Apache-2.0); provisioned in web sessions
+
+# --- MCP integration (expose hunter tools to any agent) ---
+mcp[cli]>=1.2             # modelcontextprotocol Python SDK (MIT)
+
+# --- Tier-2 agentic navigation (adopt per Backlog trigger only) ---
+# browser-use>=0.1        # LLM-driven browser agent (MIT) — needs an LLM API key

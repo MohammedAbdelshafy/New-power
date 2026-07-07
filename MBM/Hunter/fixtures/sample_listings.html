@@ -1,0 +1,63 @@
+<!doctype html>
+<!-- Synthetic county-records-style listings page used for offline tests + smoke run.
+     Data is fictional. Real sources are configured in hunter/sources.py. -->
+<html>
+<head><title>County Records — Distressed Property Search Results</title></head>
+<body>
+  <h1>Search results (5)</h1>
+
+  <article class="listing card"
+    data-parcel="APN-11-223-004"
+    data-owner="Dolores Vance"
+    data-address="418 Marigold Ln"
+    data-city="Tampa" data-state="FL" data-zip="33607"
+    data-mailing="PO Box 771, Sarasota FL 34230"
+    data-phone="813-555-0142" data-email="dvance@example.com"
+    data-type="SFR"
+    data-signals="pre_foreclosure tax_delinquent absentee_owner high_equity">
+  </article>
+
+  <article class="listing card"
+    data-parcel="APN-22-104-991"
+    data-owner="Marcus Bell"
+    data-address="9 Kestrel Ct"
+    data-city="Tampa" data-state="FL" data-zip="33612"
+    data-mailing="9 Kestrel Ct, Tampa FL 33612"
+    data-phone=""
+    data-type="SFR"
+    data-signals="vacant code_violation">
+  </article>
+
+  <article class="listing card"
+    data-parcel="APN-33-778-215"
+    data-owner="Estate of R. Okafor"
+    data-address="1200 Bayshore Blvd Unit 5"
+    data-city="Tampa" data-state="FL" data-zip="33606"
+    data-mailing="c/o Okafor Law, 55 Main St, Tampa FL 33602"
+    data-phone="813-555-0199"
+    data-type="CONDO"
+    data-signals="probate high_equity">
+  </article>
+
+  <!-- Reject case: no owner, no contact path -> not a sellable lead -->
+  <article class="listing card"
+    data-parcel="APN-44-000-000"
+    data-address="Unknown parcel"
+    data-city="Tampa" data-state="FL" data-zip="33610"
+    data-signals="tax_delinquent">
+  </article>
+
+  <!-- Low-motivation but contactable -> Bronze/Silver band -->
+  <article class="listing card"
+    data-parcel="APN-55-321-887"
+    data-owner="Priya Nair"
+    data-address="77 Sunset Ridge"
+    data-city="Brandon" data-state="FL" data-zip="33511"
+    data-mailing="77 Sunset Ridge, Brandon FL 33511"
+    data-phone="813-555-0007"
+    data-type="SFR"
+    data-signals="liens">
+  </article>
+
+</body>
+</html>
