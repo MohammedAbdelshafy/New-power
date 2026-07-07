@@ -271,27 +271,78 @@ const S = {
     {id:'LOT-2274', mat:'glass', kg:5100, status:'available'},
   ],
   revenueBooked:0,
-  // Sales pipeline — REACHABLE targets (owner/manager answers, short decision cycle).
-  // Phone/contact left blank on purpose: paste the VERIFIED number from Google Maps.
-  // Never call a made-up number — it kills your credibility on the first ring.
+  // Sales pipeline — VERIFIED leads (public switchboards/hotlines, confirmed from live directories, wk of 7 Jul 2026).
+  // These are official company lines, NOT personal mobiles. Ask for the role in the note. Reconfirm on Google Maps before a first call.
   leads:[
-    // ── Tier 1 · fastest close (one person answers, one person decides) ──
-    {biz:'Kazyon (nearest branch)', cat:'Supermarket chain', area:'Giza / 6 Oct', mat:'paper', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'', note:'Ask for the branch manager. Daily cardboard + shrink-wrap — a cost for them, pure profit for you.'},
-    {biz:'Seoudi Supermarket', cat:'Supermarket', area:'Sheikh Zayed', mat:'paper', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'', note:'Branch manager decides on the spot. Clean baled cardboard.'},
-    {biz:'B.TECH / 2B', cat:'Electronics retail', area:'6 October', mat:'paper', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'', note:'Every delivered fridge = a huge box + EPS foam. Store manager.'},
-    {biz:'Print shops — El-Haram strip', cat:'Printing cluster', area:'El-Haram / Faisal', mat:'paper', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'', note:'Walk it on foot — 50+ owners at the counter in one afternoon. Daily paper offcuts.'},
-    {biz:'Furniture showrooms', cat:'Furniture retail', area:'6 Oct furniture strip', mat:'paper', vol:'High', stage:'contacted', pri:'warm', contact:'', phone:'', note:'Cardboard + wood + foam. They pay to remove it today.'},
-    {biz:'Coffee roasteries', cat:'F&B', area:'Zayed / October', mat:'paper', vol:'Med', stage:'prospect', pri:'warm', contact:'', phone:'', note:'Jute + burlap sacks sell well. Owner-run, quick yes.'},
-    // ── Tier 2 · high volume, still reachable (ask for the right role) ──
-    {biz:'Pyramids Rd hotel cluster', cat:'Hotel', area:'Giza', mat:'glass', vol:'High', stage:'contacted', pri:'warm', contact:'', phone:'', note:'Ask for the CHIEF STEWARD (not procurement) — stewarding owns waste. Skips 3 gatekeepers.'},
-    {biz:'Mall of Egypt / Mall of Arabia', cat:'Mall', area:'6 October', mat:'paper', vol:'High', stage:'trial', pri:'hot', contact:'', phone:'', note:'Loading-bay supervisor can wave you in for a trial before management even signs.'},
-    {biz:'Gated compound (Beverly / Allegria)', cat:'Compound', area:'Zayed / October', mat:'plastic', vol:'High', stage:'contacted', pri:'hot', contact:'', phone:'', note:'Community manager. ONE contract = hundreds of villas + landscaping.'},
-    {biz:'Café chain — regional ops', cat:'F&B chain', area:'Cairo / Giza', mat:'oil', vol:'Med', stage:'prospect', pri:'warm', contact:'', phone:'', note:'5+ outlets → used cooking oil + cardboard + glass. One ops manager, many sites.'},
-    // ── Tier 3 · off-takers (buyers of your sorted material — visit with a sample) ──
-    {biz:'PET recycler', cat:'Off-taker (buyer)', area:'6 October', mat:'plastic', vol:'—', stage:'signed', pri:'hot', contact:'', phone:'', note:'Buys clean baled PET. Bring a sample bale, agree a price/kg before you scale collection.'},
-    {biz:'Egg-tray / paper-pulp mill', cat:'Off-taker (buyer)', area:'Obour', mat:'paper', vol:'—', stage:'contacted', pri:'warm', contact:'', phone:'', note:'Buys waste paper + cardboard by the ton.'},
-    {biz:'Scrap metal yard', cat:'Off-taker (buyer)', area:'Shubra El-Kheima', mat:'metal', vol:'—', stage:'prospect', pri:'warm', contact:'', phone:'', note:'Aluminium + copper. Cash on delivery — know the day-rate before selling.'},
-    {biz:'Plastic scrap aggregator', cat:'Off-taker (buyer)', area:'El-Marg / 10th Ramadan', mat:'plastic', vol:'—', stage:'prospect', pri:'cold', contact:'', phone:'', note:'LDPE / HDPE / PP. Backup buyer to keep prices honest.'},
+    // ── Retail & supermarket chains (ask for branch manager) ──
+    {biz:'Seoudi Supermarket', cat:'Supermarket', area:'Multi', mat:'paper', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'16176', note:'Branch manager decides on the spot. Daily cardboard + film.'},
+    {biz:'Spinneys Egypt', cat:'Supermarket', area:'Multi', mat:'paper', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'16005', note:'Ask for branch / ops manager. Clean cardboard.'},
+    {biz:'Gourmet Egypt', cat:'Supermarket', area:'Multi', mat:'paper', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'19339', note:'Branch manager. Cardboard + glass.'},
+    {biz:'Metro Market', cat:'Supermarket', area:'Multi', mat:'paper', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'19619', note:'Branch manager. Daily cardboard.'},
+    {biz:'Kheir Zaman', cat:'Supermarket', area:'Multi', mat:'paper', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'16007', note:'Branch manager. Daily cardboard.'},
+    {biz:'Fathalla Market', cat:'Supermarket', area:'Multi / Alex', mat:'paper', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'15260', note:'Branch manager. Cardboard.'},
+    {biz:'Awlad Ragab', cat:'Supermarket', area:'Multi', mat:'paper', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'010-0073-0308', note:'Ops manager. Cardboard.'},
+    {biz:'Carrefour Egypt', cat:'Hypermarket', area:'Multi', mat:'paper', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'02-2520-4200', note:'Facilities / waste-contract desk. Huge cardboard.'},
+    {biz:'Kazyon', cat:'Supermarket chain', area:'Multi (100s stores)', mat:'paper', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'19609', note:'Store manager per branch. Cardboard.'},
+    {biz:'Hyper One', cat:'Hypermarket', area:'Sheikh Zayed', mat:'paper', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'16404', note:'Facility manager. Cardboard + film.'},
+    {biz:'B.TECH', cat:'Electronics retail', area:'Multi', mat:'paper', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'19966', note:'Store / logistics mgr. Cardboard + EPS foam.'},
+    {biz:'IKEA Egypt', cat:'Furniture retail', area:'Mall of Arabia', mat:'paper', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'16576', note:'Facility manager. Cardboard, wood, foam.'},
+    // ── Restaurants, cafés & bakeries (used oil + cardboard) ──
+    {biz:"McDonald's Egypt", cat:'Restaurant chain', area:'Multi', mat:'oil', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'19991', note:'Ops / supplier desk. Used oil + cardboard.'},
+    {biz:'Abou Shakra', cat:'Restaurant chain', area:'Multi', mat:'oil', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'19090', note:'Branch / central kitchen. Used oil + cardboard.'},
+    {biz:'Buffalo Burger', cat:'Restaurant chain', area:'Multi', mat:'oil', vol:'Med', stage:'prospect', pri:'warm', contact:'', phone:'19914', note:'Ops manager. Used oil + cardboard.'},
+    {biz:'Cilantro', cat:'Café chain', area:'Multi', mat:'oil', vol:'Med', stage:'prospect', pri:'warm', contact:'', phone:'012-0120-0061', note:'Ops manager. Cardboard, oil, glass.'},
+    {biz:"Beano's Cafe", cat:'Café chain', area:'Multi', mat:'oil', vol:'Med', stage:'prospect', pri:'warm', contact:'', phone:'02-2358-5336', note:'Ops manager. Cardboard, oil.'},
+    {biz:'TBS – The Bakery Shop', cat:'Bakery chain', area:'Multi', mat:'paper', vol:'Med', stage:'prospect', pri:'warm', contact:'', phone:'16679', note:'Central kitchen mgr. Cardboard, film.'},
+    {biz:'Abu Auf', cat:'Retail / roastery', area:'Multi', mat:'paper', vol:'Med', stage:'prospect', pri:'warm', contact:'', phone:'19969', note:'Ops / purchasing. Cardboard, jute sacks.'},
+    // ── Hotels (ask for the Chief Steward) ──
+    {biz:'Marriott Mena House', cat:'Hotel', area:'Pyramids Rd', mat:'glass', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'+20 2 3377-3222', note:'Chief Steward. Cardboard, glass, oil.'},
+    {biz:'JW Marriott Cairo', cat:'Hotel', area:'Mirage City', mat:'glass', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'+20 2 2411-5588', note:'Chief Steward. Cardboard, glass, oil.'},
+    {biz:'Four Seasons Nile Plaza', cat:'Hotel', area:'Garden City', mat:'glass', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'+20 2 2791-7000', note:'Chief Steward. Glass, cardboard, oil.'},
+    {biz:'Sofitel Cairo Nile El Gezirah', cat:'Hotel', area:'Zamalek', mat:'glass', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'+20 2 2737-3737', note:'Chief Steward. Glass, paper, oil.'},
+    {biz:'Hyatt Regency Cairo West', cat:'Hotel', area:'Sheikh Zayed', mat:'glass', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'+20 2 3536-9500', note:'Chief Steward. Cardboard, glass.'},
+    {biz:'Steigenberger El Tahrir', cat:'Hotel', area:'Downtown', mat:'glass', vol:'Med', stage:'prospect', pri:'warm', contact:'', phone:'+20 2 2575-0777', note:'Chief Steward. Glass, cardboard.'},
+    {biz:'Fairmont Nile City', cat:'Hotel', area:'Boulaq', mat:'glass', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'+20 2 2461-9770', note:'Chief Steward. Glass, cardboard, oil.'},
+    {biz:'Kempinski Nile Hotel', cat:'Hotel', area:'Garden City', mat:'glass', vol:'Med', stage:'prospect', pri:'warm', contact:'', phone:'+20 2 2798-0000', note:'Chief Steward. Glass, cardboard, oil.'},
+    // ── Factories: food & beverage (ask for supply chain / purchasing) ──
+    {biz:'Juhayna', cat:'Factory · dairy/juice', area:'6 October', mat:'plastic', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'16630', note:'Logistics mgr. PET, HDPE, cardboard.'},
+    {biz:'PepsiCo (Chipsy)', cat:'Factory · snacks', area:'6 October', mat:'plastic', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'02-3832-9714', note:'Waste-contract desk. PET, cardboard, foil.'},
+    {biz:'Edita Food Industries', cat:'Factory · bakery', area:'6 Oct / Zayed', mat:'paper', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'02-3851-6464', note:'Purchasing. Cardboard, LDPE film.'},
+    {biz:'Savola (oils / Beyti)', cat:'Factory · oils/dairy', area:'Nasr City', mat:'plastic', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'02-2403-3856', note:'Supply chain. HDPE, cardboard, oil.'},
+    {biz:'Faragalla / Faragello', cat:'Factory · food', area:'Borg El Arab / 6 Oct', mat:'paper', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'03-5450-200', note:'Purchasing. Cardboard, food plastic.'},
+    {biz:'Halwani Bros', cat:'Factory · halawa/meat', area:'10th Ramadan', mat:'glass', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'012-6366-6667', note:'Purchasing. Glass, cans, cardboard.'},
+    {biz:'Nestlé Egypt', cat:'Factory · food', area:'New Cairo', mat:'paper', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'+20 2 2614-6400', note:'Supply chain. Cardboard, plastic, PET.'},
+    {biz:'Domty (Arabian Food Ind.)', cat:'Factory · dairy/cheese', area:'Giza / Sadat', mat:'paper', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'02-3572-4924', note:'Supply chain. Cardboard, plastic.'},
+    {biz:'El Rashidi El Mizan', cat:'Factory · confectionery', area:'6 October', mat:'paper', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'010-1339-2758', note:'Purchasing. Paper, plastic.'},
+    {biz:'Farm Frites (Americana)', cat:'Factory · frozen food', area:'10th Ramadan', mat:'paper', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'055-4411431', note:'Supply chain. Cardboard, film.'},
+    {biz:'Egypt Foods (snacks)', cat:'Factory · snacks', area:'Quesna', mat:'paper', vol:'Med', stage:'prospect', pri:'warm', contact:'', phone:'048-2590050', note:'Purchasing. Cardboard, film.'},
+    {biz:'Cairo Poultry Co. (CPC)', cat:'Factory · poultry', area:'6 October', mat:'paper', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'02-3571-7753', note:'Supply chain. Cardboard, plastic crates.'},
+    {biz:'Cairo 3A Poultry', cat:'Factory · poultry/feed', area:'Giza / Delta', mat:'paper', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'16993', note:'Supply chain. Feed bags, cardboard.'},
+    // ── Factories: pharma & cosmetics ──
+    {biz:'EIPICO', cat:'Factory · pharma', area:'10th Ramadan', mat:'paper', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'+20 55 4499-199', note:'Supply chain. Cardboard, paper, bottles.'},
+    {biz:'Eva Pharma', cat:'Factory · pharma', area:'6 Oct / Haram', mat:'paper', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'+20 2 2399-2700', note:'Supply chain. Cardboard, plastic.'},
+    {biz:'Pharco', cat:'Factory · pharma', area:'Alexandria', mat:'paper', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'+20 3 4480-130', note:'Purchasing. Cardboard, bottles.'},
+    {biz:'Amoun Pharmaceutical', cat:'Factory · pharma', area:'Obour', mat:'paper', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'02-4614-0100', note:'Supply chain. Cardboard, plastic.'},
+    {biz:'SEDICO', cat:'Factory · pharma', area:'6 October', mat:'paper', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'02-3820-0575', note:'Supply chain. Cardboard, bottles.'},
+    // ── Factories: heavy industry (high scrap value) ──
+    {biz:'El Sewedy Electric', cat:'Factory · cables', area:'10th Ramadan', mat:'metal', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'19052', note:'Purchasing. Metal scrap, wood reels, cardboard.'},
+    {biz:'Oriental Weavers', cat:'Factory · carpets', area:'10th Ramadan', mat:'paper', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'010-5410-417', note:'Purchasing. Fabric offcuts, cardboard, wrap.'},
+    {biz:'Ceramica Cleopatra', cat:'Factory · ceramics', area:'10th Ramadan', mat:'paper', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'010-6667-0007', note:'Purchasing. Cardboard, wood pallets, wrap.'},
+    // ── Malls & developers (facility / community management) ──
+    {biz:'Mall of Arabia', cat:'Mall', area:'6 October', mat:'paper', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'19226', note:'Facility / loading bay. Cardboard from all shops.'},
+    {biz:'Mall of Egypt', cat:'Mall', area:'6 October', mat:'paper', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'+20 2 3612-0084', note:'Facility mgmt. Cardboard (logistics bay).'},
+    {biz:'City Stars', cat:'Mall', area:'Heliopolis', mat:'paper', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'16478', note:'Facility mgmt. Cardboard, glass.'},
+    {biz:'Talaat Moustafa Group', cat:'Developer / compounds', area:'New Cairo', mat:'plastic', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'19691', note:'Facility mgmt. Madinaty/Rehab — household + landscaping.'},
+    {biz:'Palm Hills Developments', cat:'Developer / compounds', area:'6 Oct / Zayed', mat:'plastic', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'02-3886-0103', note:'Community mgmt. Household + landscaping.'},
+    {biz:'SODIC', cat:'Developer / compounds', area:'Zayed / October', mat:'plastic', vol:'High', stage:'prospect', pri:'hot', contact:'', phone:'19839', note:'Community mgmt. Beverly/Allegria/Karma/Zed.'},
+    {biz:'Emaar Misr', cat:'Developer / compounds', area:'New Cairo / Zayed', mat:'plastic', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'16116', note:'Community mgmt. Uptown / Mivida — household.'},
+    {biz:'Mountain View', cat:'Developer / compounds', area:'October / New Cairo', mat:'plastic', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'16547', note:'Community mgmt. Household.'},
+    {biz:'Hassan Allam Properties', cat:'Developer / compounds', area:'Zayed / October', mat:'plastic', vol:'High', stage:'prospect', pri:'warm', contact:'', phone:'+20 2 2265-9000', note:'Facility mgmt. Household.'},
+    // ── Off-takers / BUYERS (they pay you — line up before scaling) ──
+    {biz:'Geocycle (Lafarge/Holcim)', cat:'BUYER · RDF', area:'5th Settlement', mat:'plastic', vol:'—', stage:'contacted', pri:'hot', contact:'', phone:'+20 2 2768-9200', note:'Buys non-recyclable fluff (RDF). Alt-fuels / waste intake.'},
+    {biz:'Tagaddod', cat:'BUYER · used oil', area:'Nationwide', mat:'oil', vol:'—', stage:'contacted', pri:'hot', contact:'', phone:'19481', note:'Buys used cooking oil. Supply team.'},
+    {biz:'Bekia', cat:'BUYER · recyclables', area:'Dokki', mat:'plastic', vol:'—', stage:'contacted', pri:'hot', contact:'', phone:'011-2542-8292', note:'Buys plastic, paper, oil, metal. Partnerships.'},
+    {biz:'Recyclobekia', cat:'BUYER · e-waste', area:'Maadi', mat:'metal', vol:'—', stage:'prospect', pri:'warm', contact:'', phone:'02-2359-2506', note:'Buys electronics / e-waste. Procurement.'},
   ],
 };
 
