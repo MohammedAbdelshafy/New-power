@@ -56,8 +56,9 @@ def to_csv(leads: list[Lead], *, sellable_only: bool = False) -> str:
 
 
 def write_csv(leads: list[Lead], path: str, *, sellable_only: bool = False) -> int:
-    """Write a LeadPack CSV to `path`; return the number of rows written."""
+    """Write a LeadPack CSV to `path`; return the number of data rows written."""
+    rows = [l for l in leads if not sellable_only or l.grade != Grade.REJECT.value]
     text = to_csv(leads, sellable_only=sellable_only)
     with open(path, "w", encoding="utf-8", newline="") as fh:
         fh.write(text)
-    return text.count("\n") - 1  # minus header
+    return len(rows)  # exact row count; robust to newlines inside quoted fields
