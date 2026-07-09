@@ -1,0 +1,50 @@
+<!doctype html>
+<!-- Synthetic public wholesaler/buyer directory (business listings, not homeowner PII).
+     Stands in for compliant sources: REIA member directories, public "we buy houses"
+     business listings, BiggerPockets public profiles where ToS permits. Fictional. -->
+<html>
+<head><title>Active Buyers Directory</title></head>
+<body>
+  <h1>Buyers (5)</h1>
+
+  <div class="buyer"
+    data-company="Bayline Acquisitions LLC" data-name="Rick Alvarez"
+    data-role="Acquisitions Manager" data-market="Tampa FL"
+    data-email="rick@baylineacq.example" data-phone="813-555-0400"
+    data-website="baylineacq.example"
+    data-reason="You posted asking for graded Tampa lists last week."
+    data-signals="list_request acquiring cash_buyer">
+  </div>
+
+  <div class="buyer"
+    data-company="Harbor Capital Homes" data-name="Dana Wu"
+    data-role="Principal" data-market="Tampa FL"
+    data-email="dana@harborcap.example"
+    data-website="harborcap.example"
+    data-reason="Hiring two acquisition reps per your job post."
+    data-signals="hiring_acquisitions high_volume">
+  </div>
+
+  <div class="buyer"
+    data-company="Gulf Coast Wholesale" data-name="Marco Reyes"
+    data-role="Owner" data-market="Clearwater FL"
+    data-phone="727-555-0088"
+    data-reason="Expanding from Clearwater into Tampa this quarter."
+    data-signals="expanding_market cash_buyer">
+  </div>
+
+  <!-- No contact path -> NO_CONTACT, dropped from outreach -->
+  <div class="buyer"
+    data-company="Anonymous Flips" data-market="Tampa FL"
+    data-signals="acquiring">
+  </div>
+
+  <!-- Duplicate of Bayline (same email) -> deduped -->
+  <div class="buyer"
+    data-company="Bayline Acquisitions" data-name="Rick Alvarez"
+    data-market="Tampa FL" data-email="rick@baylineacq.example"
+    data-signals="high_volume">
+  </div>
+
+</body>
+</html>

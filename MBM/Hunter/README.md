@@ -34,6 +34,24 @@ python3 -m hunter hunt fixture-county fixture-marketplace --ledger master.csv
 python3 -m hunter ledger master.csv                          # ledger stats
 ```
 
+### Demand side — find buyers, prepare outreach (never sends)
+
+```bash
+python3 -m hunter buyers fixture-wholesalers --csv buyers.csv   # find + rank wholesalers
+python3 -m hunter outreach fixture-wholesalers --out drafts/     # review-ready email drafts
+python3 -m hunter outreach fixture-wholesalers --tone direct     # assertive Meet push
+```
+
+Wholesalers/buyers are **businesses** with public contact info, so this stays inside the
+FD-001 compliance floor (which restricts private-homeowner PII). Buyers rank on
+CEO-REVIEW-001 axes (urgency/budget/response/decision-speed/LTV) into Hot/Warm/Cold.
+
+`outreach` **generates drafts only** — it never contacts a mail server (FD-001 Art. 5 /
+OPERATION ORDER 001: *humans send all outreach*). Each draft leads with the free
+graded-pack offer, invites a Google Meet, and carries a CAN-SPAM footer. It refuses to
+draft when the `[WHY-THEM]` personalization slot can't be filled. Fill the
+`[Google Meet link]` and `[mailing address]` placeholders before sending.
+
 ## What's proven to run today
 
 | Path | Status | Notes |
@@ -68,7 +86,9 @@ hunter/
   grade.py       pure scoring/grading — Platinum..Bronze, REJECT gate
   dedup.py       merge duplicates by parcel/owner key; union signals + contacts
   ledger.py      persistent master LeadPack with first_seen/last_seen tracking
-  sources.py     declarative source registry (add county/marketplace sources here)
+  buyers.py      wholesaler/buyer finder — parse, dedup, rank (Hot/Warm/Cold)
+  outreach.py    review-ready email draft generator — prepares, NEVER sends
+  sources.py     declarative source registry + GATED_SOURCES (auction.com etc. disabled)
   pipeline.py    hunt() / hunt_many(); to_csv()/write_csv() LeadPack output
   __main__.py    the CLI (python -m hunter ...)
   mcp_server.py  exposes list_sources/hunt/hunt_many/grade as MCP tools

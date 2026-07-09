@@ -31,4 +31,12 @@ echo "== LeadPack CSV head =="
 head -3 /tmp/mbm_leadpack_smoke.csv
 
 echo
+echo "== find wholesalers (buyer finder) =="
+python3 -m hunter buyers fixture-wholesalers --backend urllib
+
+echo
+echo "== outreach drafts (soft tone, HUMAN SENDS — never auto-sent) =="
+python3 -m hunter outreach fixture-wholesalers --backend urllib --out /tmp/mbm_drafts
+
+echo
 echo "SMOKE OK"

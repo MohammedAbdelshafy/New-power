@@ -22,6 +22,7 @@ from .grade import grade_lead
 from .models import Lead
 from .pipeline import hunt as run_hunt, hunt_many as run_hunt_many
 from .sources import list_sources as _list_sources
+from .buyers import find_buyers as _find_buyers
 
 
 def build_server():
@@ -60,6 +61,12 @@ def build_server():
             "summary": result.summary(),
             "sellable_leads": [l.to_row() for l in result.sellable],
         }
+
+    @server.tool()
+    def find_buyers(source: str, backend: str = "auto") -> dict:
+        """Find and rank wholesalers/buyers from a source (Hot/Warm/Cold)."""
+        buyers = _find_buyers(source, backend=backend)
+        return {"source": source, "buyers": [b.to_row() for b in buyers]}
 
     @server.tool()
     def grade(

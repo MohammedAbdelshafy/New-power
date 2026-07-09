@@ -15,9 +15,11 @@ import argparse
 import sys
 
 from .pipeline import hunt, hunt_many, write_csv, to_csv
-from .sources import list_sources
+from .sources import list_sources, GATED_SOURCES
 from .ledger import Ledger
 from .models import Grade
+from .buyers import find_buyers, buyers_to_csv, Tier
+from .outreach import build_drafts, write_drafts
 
 _GRADE_ORDER = ["Platinum", "Gold", "Silver", "Bronze", "Reject", "total", "sellable"]
 
@@ -35,6 +37,49 @@ def _cmd_sources(_args: argparse.Namespace) -> int:
         print(f"{s.name:24} [{kind}{render}] {s.location}")
         if s.notes:
             print(f"{'':24} {s.notes}")
+    print("\ngated (registered, DISABLED — compliance/ToS):")
+    for g in GATED_SOURCES:
+        print(f"  {g.name:20} {g.url}\n{'':22} {g.reason}")
+    return 0
+
+
+def _cmd_buyers(args: argparse.Namespace) -> int:
+    buyers = find_buyers(args.source, backend=args.backend)
+    counts: dict[str, int] = {}
+    for b in buyers:
+        counts[b.tier] = counts.get(b.tier, 0) + 1
+    print(f"source={args.source} backend={args.backend}")
+    for tier in (Tier.HOT.value, Tier.WARM.value, Tier.COLD.value, Tier.NO_CONTACT.value):
+        print(f"  {tier:11} {counts.get(tier, 0)}")
+    print(f"  {'total':11} {len(buyers)}")
+    if args.csv:
+        with open(args.csv, "w", encoding="utf-8", newline="") as fh:
+            fh.write(buyers_to_csv(buyers, actionable_only=args.actionable_only))
+        print(f"wrote -> {args.csv}")
+    elif args.print_csv:
+        sys.stdout.write(buyers_to_csv(buyers, actionable_only=args.actionable_only))
+    return 0
+
+
+def _cmd_outreach(args: argparse.Namespace) -> int:
+    buyers = find_buyers(args.source, backend=args.backend)
+    tiers = tuple(args.tiers.split(",")) if args.tiers else (Tier.HOT.value, Tier.WARM.value)
+    drafts, skipped = build_drafts(
+        buyers, tiers=tiers, market=args.market, tone=args.tone,
+        free_pack_count=args.free_count,
+    )
+    print(f"source={args.source} tone={args.tone} tiers={','.join(tiers)}")
+    print(f"  drafts   {len(drafts)}")
+    print(f"  skipped  {len(skipped)}")
+    for s in skipped:
+        print(f"    - {s}")
+    if args.out:
+        paths = write_drafts(drafts, args.out)
+        print(f"wrote {len(paths)} review-ready drafts -> {args.out}/ (HUMAN SENDS)")
+    else:
+        for d in drafts:
+            print("\n" + "=" * 60)
+            print(d.as_markdown())
     return 0
 
 
@@ -100,6 +145,28 @@ def build_parser() -> argparse.ArgumentParser:
     lp = sub.add_parser("ledger", help="show stats for a ledger CSV")
     lp.add_argument("path", help="ledger CSV path")
     lp.set_defaults(func=_cmd_ledger)
+
+    bp = sub.add_parser("buyers", help="find + rank wholesalers/buyers from a source")
+    bp.add_argument("source", help="registered buyer source name")
+    bp.add_argument("--backend", default="auto",
+                    choices=["auto", "scrapling", "playwright", "urllib"])
+    bp.add_argument("--csv", metavar="PATH", help="write ranked buyers CSV to PATH")
+    bp.add_argument("--print-csv", action="store_true")
+    bp.add_argument("--actionable-only", action="store_true",
+                    help="drop No-contact buyers from CSV")
+    bp.set_defaults(func=_cmd_buyers)
+
+    op = sub.add_parser("outreach",
+                        help="generate review-ready email drafts (never sends)")
+    op.add_argument("source", help="registered buyer source name")
+    op.add_argument("--backend", default="auto",
+                    choices=["auto", "scrapling", "playwright", "urllib"])
+    op.add_argument("--market", help="override market in the copy")
+    op.add_argument("--tone", default="soft", choices=["soft", "direct"])
+    op.add_argument("--tiers", help="comma list, default Hot,Warm")
+    op.add_argument("--free-count", type=int, default=50, dest="free_count")
+    op.add_argument("--out", metavar="DIR", help="write drafts to DIR (else print)")
+    op.set_defaults(func=_cmd_outreach)
     return p
 
 

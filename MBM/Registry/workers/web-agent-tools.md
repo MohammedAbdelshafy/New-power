@@ -85,5 +85,12 @@ A tool moves from "registered" to "wired" only when its trigger fires:
   cross-source/repeat **dedup** (union signals, backfill contacts), and a persistent
   **ledger** with first/last-seen tracking. 23/23 offline tests pass; multi-source hunt
   exposed over MCP (`hunt_many`).
-- Runnable proof: `MBM/Hunter/` produces enriched, deduped, graded leads offline today
-  (Playwright/Scrapling used when installed, stdlib fallback otherwise).
+- **2026-07-09** — Demand side added: **buyer/wholesaler finder** (rank Hot/Warm/Cold on
+  CEO-REVIEW-001 axes) + **outreach draft generator** (free-pack + Google Meet invite,
+  CAN-SPAM footer, refuses unfilled personalization) — **prepares drafts only, never
+  sends** (FD-001 Art. 5). Commercial/ToS-restricted sites (auction.com, zillow,
+  realtor.com, biggerpockets) registered as **GATED_SOURCES — disabled** pending
+  compliance/ToS clearance. 33/33 offline tests pass.
+- Runnable proof: `MBM/Hunter/` produces enriched, deduped, graded seller leads AND
+  ranked buyers + review-ready outreach drafts offline today (Playwright/Scrapling used
+  when installed, stdlib fallback otherwise).
