@@ -81,5 +81,9 @@ A tool moves from "registered" to "wired" only when its trigger fires:
 
 - **2026-07-07** — Registry created. Tier-1 (Playwright + Scrapling + MCP) scaffolded and
   running in `MBM/Hunter/`. All Tier-2/3/4 entries registered but **not** wired.
-- Runnable proof: `MBM/Hunter/` produces graded leads offline today (Playwright/Scrapling
-  used when installed, stdlib fallback otherwise).
+- **2026-07-09** — Hunter enhanced: enrichment (absentee-owner detection + normalization),
+  cross-source/repeat **dedup** (union signals, backfill contacts), and a persistent
+  **ledger** with first/last-seen tracking. 23/23 offline tests pass; multi-source hunt
+  exposed over MCP (`hunt_many`).
+- Runnable proof: `MBM/Hunter/` produces enriched, deduped, graded leads offline today
+  (Playwright/Scrapling used when installed, stdlib fallback otherwise).

@@ -10,7 +10,7 @@ content lives once, here).
 | Path | What |
 |---|---|
 | `Registry/workers/` | Capability registry — which agents/tools exist, who owns them, license status, adoption gates. Referenced by `jarvis-mbm/AGENTS.md` and `ROSTER.md`. |
-| `Hunter/` | The runnable lead-hunting stack: fetch → parse → grade → LeadPack CSV. Tier-1 web-agent tooling (Playwright + Scrapling + MCP) wired to the pipeline. |
+| `Hunter/` | The runnable lead-hunting stack: fetch → parse → enrich → grade → dedup → ledger/LeadPack CSV. Tier-1 web-agent tooling (Playwright + Scrapling + MCP) wired to the pipeline. |
 
 ## Web-agent tooling — what landed here
 

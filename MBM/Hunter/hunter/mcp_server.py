@@ -20,7 +20,7 @@ from dataclasses import asdict
 
 from .grade import grade_lead
 from .models import Lead
-from .pipeline import hunt as run_hunt
+from .pipeline import hunt as run_hunt, hunt_many as run_hunt_many
 from .sources import list_sources as _list_sources
 
 
@@ -43,8 +43,18 @@ def build_server():
 
     @server.tool()
     def hunt(source: str, backend: str = "auto") -> dict:
-        """Fetch, parse, and grade a source. Returns a summary and the sellable leads."""
+        """Fetch, parse, enrich, and grade one source. Returns summary + sellable leads."""
         result = run_hunt(source, backend=backend)
+        return {
+            "source": result.source,
+            "summary": result.summary(),
+            "sellable_leads": [l.to_row() for l in result.sellable],
+        }
+
+    @server.tool()
+    def hunt_many(sources: list[str], backend: str = "auto", dedup: bool = True) -> dict:
+        """Hunt several sources and combine them, deduplicated by default."""
+        result = run_hunt_many(sources, backend=backend, dedup=dedup)
         return {
             "source": result.source,
             "summary": result.summary(),

@@ -6,7 +6,7 @@ import sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
 from hunter.parse import parse_listings  # noqa: E402
-from hunter.pipeline import hunt, to_csv  # noqa: E402
+from hunter.pipeline import hunt, hunt_many, to_csv  # noqa: E402
 from hunter.models import Grade, CSV_COLUMNS  # noqa: E402
 
 FIXTURE = pathlib.Path(__file__).resolve().parent.parent / "fixtures" / "sample_listings.html"
@@ -33,6 +33,27 @@ def test_hunt_fixture_grades_and_sorts():
     assert result.leads[0].grade == Grade.PLATINUM.value
     # Reject sinks to the bottom
     assert result.leads[-1].grade == Grade.REJECT.value
+
+
+def test_enrichment_upgrades_absentee_owner():
+    # Estate of R. Okafor mails to a law office, not the property -> absentee_owner
+    # is derived at enrich time and lifts the lead from Gold to Platinum.
+    result = hunt("fixture-county", backend="urllib")
+    okafor = next(l for l in result.leads if l.owner_name.startswith("Estate"))
+    assert "absentee_owner" in okafor.signals
+    assert okafor.grade == Grade.PLATINUM.value
+
+
+def test_multi_source_hunt_dedups_and_unions():
+    result = hunt_many(["fixture-county", "fixture-marketplace"], backend="urllib")
+    parcels = [l.parcel_id for l in result.leads]
+    # Theo appears twice in the marketplace feed + Dolores overlaps county -> all collapse
+    assert parcels.count("APN-66-540-118") == 1
+    assert parcels.count("APN-11-223-004") == 1
+    assert len(result.leads) == 6
+    # Dolores's marketplace-only 'liens' signal is unioned into the county record
+    dolores = next(l for l in result.leads if l.parcel_id == "APN-11-223-004")
+    assert "liens" in dolores.signals
 
 
 def test_csv_shape_and_sellable_filter():

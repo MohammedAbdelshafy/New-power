@@ -35,6 +35,13 @@ REGISTRY: dict[str, Source] = {
         live=False,
         notes="Synthetic county-records page for offline tests + smoke runs.",
     ),
+    "fixture-marketplace": Source(
+        name="fixture-marketplace",
+        location=str(FIXTURES / "sample_marketplace.html"),
+        render=False,
+        live=False,
+        notes="Synthetic off-market feed; overlaps county parcels to exercise dedup.",
+    ),
     # --- Add verified live sources below. Examples (disabled until onboarded): ---
     # "hillsborough-fl-taxdeed": Source(
     #     name="hillsborough-fl-taxdeed",

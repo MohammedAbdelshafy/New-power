@@ -1,0 +1,44 @@
+<!doctype html>
+<!-- Synthetic marketplace/FSBO feed used to demonstrate cross-source dedup.
+     Data is fictional. -->
+<html>
+<head><title>Off-Market Seller Feed</title></head>
+<body>
+  <h1>Feed (3)</h1>
+
+  <!-- Same parcel as county's Dolores Vance (APN-11-223-004), but this source
+       adds an email and a 'liens' signal, and lacks the phone. Dedup should merge
+       these into one richer record, not two leads. -->
+  <article class="listing"
+    data-parcel="APN-11-223-004"
+    data-owner="Dolores Vance"
+    data-address="418 Marigold Ln"
+    data-city="Tampa" data-state="FL" data-zip="33607"
+    data-email="dolores.v@example.net"
+    data-type="SFR"
+    data-signals="liens pre_foreclosure">
+  </article>
+
+  <!-- Net-new lead not present in the county source -->
+  <article class="listing"
+    data-parcel="APN-66-540-118"
+    data-owner="Theo Grant"
+    data-address="230 Harbor Point"
+    data-city="Clearwater" data-state="fl" data-zip="33755"
+    data-mailing="88 Elsewhere Rd, Ocala FL 34470"
+    data-phone="727-555-0311"
+    data-type="SFR"
+    data-signals="tax_delinquent">
+  </article>
+
+  <!-- Duplicate of Theo within the SAME feed (intra-source dup) -->
+  <article class="listing"
+    data-parcel="APN-66-540-118"
+    data-owner="Theo Grant"
+    data-address="230 Harbor Point"
+    data-city="Clearwater" data-state="FL" data-zip="33755"
+    data-signals="vacant">
+  </article>
+
+</body>
+</html>

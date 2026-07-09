@@ -12,6 +12,8 @@ from dataclasses import dataclass
 
 from .fetch import fetch_html
 from .parse import parse_listings
+from .enrich import enrich_all
+from .dedup import merge_leads
 from .grade import grade_all
 from .models import Lead, Grade, CSV_COLUMNS
 from .sources import Source, get_source
@@ -36,12 +38,28 @@ class HuntResult:
 
 
 def hunt(source: str | Source, *, backend: str = "auto") -> HuntResult:
-    """Run the full pipeline for one source and return graded leads."""
+    """Run the full pipeline for one source: fetch -> parse -> enrich -> grade."""
     src = source if isinstance(source, Source) else get_source(source)
     html = fetch_html(src.location, render=src.render, backend=backend)
     leads = parse_listings(html, source=src.name)
-    graded = grade_all(leads)
+    graded = grade_all(enrich_all(leads))
     return HuntResult(source=src.name, leads=graded)
+
+
+def hunt_many(sources: list[str], *, backend: str = "auto", dedup: bool = True) -> HuntResult:
+    """Hunt several sources and combine them, deduplicated by default.
+
+    Enrichment runs per source; dedup (and the re-grade it implies) runs on the
+    union, so a lead enriched by a second source is graded on the merged signals.
+    """
+    all_leads: list[Lead] = []
+    for name in sources:
+        all_leads.extend(hunt(name, backend=backend).leads)
+    label = "+".join(sources)
+    if not dedup:
+        return HuntResult(source=label, leads=grade_all(all_leads))
+    merged = grade_all(enrich_all(merge_leads(all_leads)))
+    return HuntResult(source=label, leads=merged)
 
 
 def to_csv(leads: list[Lead], *, sellable_only: bool = False) -> str:

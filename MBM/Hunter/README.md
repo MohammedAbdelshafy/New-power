@@ -4,7 +4,7 @@ The lead-intelligence hunting stack — the runnable proof of the Tier-1 web-age
 tooling in `MBM/Registry/workers/web-agent-tools.md`.
 
 ```
-fetch  ->  parse  ->  grade (Platinum..Bronze)  ->  LeadPack CSV
+fetch  ->  parse  ->  enrich  ->  grade (Platinum..Bronze)  ->  dedup  ->  ledger / LeadPack CSV
 ```
 
 **Design rule:** the core (parse + grade + pipeline + CLI) runs on the Python standard
@@ -22,16 +22,26 @@ cd MBM/Hunter
 Or drive it directly:
 
 ```bash
-python3 -m hunter sources                              # list registered sources
-python3 -m hunter hunt fixture-county --print-csv       # grade + emit LeadPack CSV
+python3 -m hunter sources                                    # list registered sources
+python3 -m hunter hunt fixture-county --print-csv             # enrich + grade + emit CSV
 python3 -m hunter hunt fixture-county --csv leads.csv --sellable-only
+
+# multiple sources are deduped by parcel/owner and their signals unioned:
+python3 -m hunter hunt fixture-county fixture-marketplace --csv leads.csv
+
+# merge a hunt into a persistent master ledger (tracks first_seen/last_seen):
+python3 -m hunter hunt fixture-county fixture-marketplace --ledger master.csv
+python3 -m hunter ledger master.csv                          # ledger stats
 ```
 
 ## What's proven to run today
 
 | Path | Status | Notes |
 |---|---|---|
-| Core: parse → grade → CSV | ✅ 9/9 unit tests pass, offline | stdlib only |
+| Core: parse → enrich → grade → dedup → CSV | ✅ 23/23 unit tests pass, offline | stdlib only |
+| Enrichment (absentee detection, normalization) | ✅ | derives signals a raw page never labels |
+| Dedup + multi-source merge | ✅ | collapses repeats, unions signals, backfills contacts |
+| Persistent ledger (first/last-seen) | ✅ | never re-sell a duplicate; round-trips to CSV |
 | Fetch backend: `urllib` | ✅ | static pages |
 | Fetch backend: `playwright` | ✅ verified end-to-end | uses provisioned Chromium (see below) |
 | Fetch backend: `scrapling` | ⚙️ adapter ready | `pip install scrapling` to enable |
@@ -51,16 +61,19 @@ python3 -m hunter hunt <source> --backend playwright
 
 ```
 hunter/
-  models.py      Lead + Grade + the weight tables (single source of truth for the rubric)
-  grade.py       pure scoring/grading — Platinum..Bronze, REJECT gate
+  models.py      Lead + Grade + weight tables (single source of truth for the rubric)
   parse.py       stdlib HTML -> Lead extractor (Scrapling is the live-page upgrade)
   fetch.py       scrapling -> playwright -> urllib, each optional
+  enrich.py      derive signals (absentee-owner) + normalize; runs before grading
+  grade.py       pure scoring/grading — Platinum..Bronze, REJECT gate
+  dedup.py       merge duplicates by parcel/owner key; union signals + contacts
+  ledger.py      persistent master LeadPack with first_seen/last_seen tracking
   sources.py     declarative source registry (add county/marketplace sources here)
-  pipeline.py    hunt() = fetch->parse->grade; to_csv()/write_csv() LeadPack output
+  pipeline.py    hunt() / hunt_many(); to_csv()/write_csv() LeadPack output
   __main__.py    the CLI (python -m hunter ...)
-  mcp_server.py  exposes list_sources/hunt/grade as MCP tools
-tests/           offline unit + e2e tests
-fixtures/        synthetic county page for tests + smoke
+  mcp_server.py  exposes list_sources/hunt/hunt_many/grade as MCP tools
+tests/           offline unit + e2e tests (23)
+fixtures/        synthetic county + marketplace pages for tests + smoke
 ```
 
 ## Grading rubric
