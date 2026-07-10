@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0C2233">
+  <title>داوريكس — خدمات النظافة</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <span class="logo" aria-hidden="true"></span>
+      <span class="wordmark">DAWRI<span class="x">X</span></span>
+      <span class="tagline">داوريكس لخدمات النظافة — بيئة نظيفة وآمنة</span>
+    </div>
+    <nav>
+      <button data-view="subscribe" class="active">اشترك الآن</button>
+      <button data-view="account">حسابي</button>
+      <button data-view="ops">لوحة التشغيل</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Subscribe -->
+    <section id="subscribe" class="view active">
+      <h1>اشترك في خدمة جمع المخلفات</h1>
+      <p class="lead">نظافة احترافية لحياة أفضل — <span class="offer">الشهر الأول مجانًا 🎉</span></p>
+      <div class="card">
+        <div class="grid two">
+          <div class="field"><label for="s-name">الاسم</label><input id="s-name" placeholder="مثال: أحمد محمد"></div>
+          <div class="field"><label for="s-phone">رقم الهاتف</label><input id="s-phone" inputmode="tel" placeholder="01xxxxxxxxx"></div>
+          <div class="field"><label for="s-area">المنطقة</label><select id="s-area"></select></div>
+          <div class="field"><label for="s-plan">الباقة</label><select id="s-plan"></select></div>
+        </div>
+        <button class="btn" id="s-submit">تأكيد الاشتراك</button>
+        <div class="msg" id="s-msg"></div>
+        <div id="s-result"></div>
+      </div>
+    </section>
+
+    <!-- My account -->
+    <section id="account" class="view">
+      <h1>حسابي</h1>
+      <p class="lead">أدخل رقم هاتفك لعرض اشتراكك ومواعيد الجمع القادمة.</p>
+      <div class="card">
+        <div class="row">
+          <input id="a-phone" inputmode="tel" placeholder="01xxxxxxxxx" style="max-width:260px">
+          <button class="btn ghost" id="a-load">عرض</button>
+        </div>
+        <div class="msg" id="a-msg"></div>
+        <div id="a-result"></div>
+      </div>
+    </section>
+
+    <!-- Ops dashboard -->
+    <section id="ops" class="view">
+      <h1>لوحة التشغيل</h1>
+      <p class="lead">مواعيد الجمع اليومية — علّم كل عملية عند إتمامها.</p>
+      <div class="stats" id="o-stats"></div>
+      <div class="card">
+        <div class="row">
+          <div><label for="o-date">التاريخ</label><input type="date" id="o-date"></div>
+          <button class="btn ghost sm" id="o-load">تحديث</button>
+        </div>
+        <div class="msg" id="o-msg"></div>
+        <div id="o-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>داوريكس — نلتزم بالنظافة لنمنحك راحة البال · 010 227 95313</footer>
+  <script src="/app.js"></script>
+</body>
+</html>
