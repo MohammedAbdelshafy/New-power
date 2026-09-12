@@ -1,0 +1,50 @@
+{
+  "stages": {
+    "s00_intake": {
+      "status": "ok",
+      "wall_s": 0.05,
+      "max_rss_mb": 69,
+      "output": "source.mp4"
+    },
+    "s01_transcribe": {
+      "status": "failed",
+      "error": "403 Forbidden"
+    },
+    "s02_hooks": {
+      "status": "ok",
+      "wall_s": 0.0,
+      "max_rss_mb": 24,
+      "output": "hooks.json"
+    },
+    "s03_rank": {
+      "status": "ok",
+      "wall_s": 0.24,
+      "max_rss_mb": 24,
+      "output": "selected.json"
+    },
+    "s04_render": {
+      "status": "ok",
+      "wall_s": 9.41,
+      "max_rss_mb": 556,
+      "output": "clips/.done"
+    },
+    "s05_captions": {
+      "status": "ok",
+      "wall_s": 10.71,
+      "max_rss_mb": 556,
+      "output": "clips_captioned/.done"
+    },
+    "s06_thumbnail": {
+      "status": "ok",
+      "wall_s": 0.31,
+      "max_rss_mb": 556,
+      "output": "covers/.done"
+    },
+    "s07_package": {
+      "status": "ok",
+      "wall_s": 0.0,
+      "max_rss_mb": 556,
+      "output": "publish/.done"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "id": "L-2026-0002",
+  "company": "Hassan Allam Construction",
+  "domain": "www.hassanallam.com",
+  "website": "https://www.hassanallam.com",
+  "industry": "construction",
+  "geography": "Egypt",
+  "size": "large 10k+",
+  "language": "en",
+  "source": "revenue-sprint web hunt 2026-07-04",
+  "signals": [
+    {
+      "date": "2026-07-04",
+      "signal": "Awarded $250M Afreximbank African Trade Centre, New Capital (Dec 2025)",
+      "url": "https://www.afreximbank.com/hassan-allam-construction-awarded-a-landmark-usd-250-million-contract-to-build-the-iconic-afreximbank-african-trade-centre-in-egypts-new-capital/"
+    },
+    {
+      "date": "2026-07-04",
+      "signal": "Ranked #2 Egypt contractor 2026",
+      "url": "https://www.blackridgeresearch.com/blog/top-largest-biggest-construction-companies-list-egypt"
+    }
+  ],
+  "contacts": [],
+  "pain_points": [],
+  "fit_score": 62,
+  "stage": "new",
+  "owner": "fabel",
+  "next_action": {
+    "date": "2026-07-11",
+    "action": "pack 001: enrich contacts after PII decision (issue #3); researcher pass for top scores"
+  },
+  "estimated_value": 0,
+  "won": null,
+  "lost_reason": null,
+  "relationships": [],
+  "history": [
+    {
+      "date": "2026-07-04",
+      "actor": "fabel",
+      "event": "created",
+      "note": "revenue sprint hunt, lead pack 001"
+    }
+  ]
+}

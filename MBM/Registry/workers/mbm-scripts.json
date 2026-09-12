@@ -1,0 +1,27 @@
+{
+  "id": "mbm-scripts",
+  "name": "MBM deterministic scripts",
+  "kind": "script",
+  "skills": [
+    "deterministic",
+    "analysis",
+    "git"
+  ],
+  "roles": [
+    "crm-brain",
+    "revenue-dashboard"
+  ],
+  "cost": "low",
+  "speed": "fast",
+  "confidence": 0.99,
+  "context_size": 0,
+  "tools": [
+    "bash",
+    "python3"
+  ],
+  "availability": "available",
+  "mcp_support": false,
+  "git_support": true,
+  "web_support": false,
+  "notes": "scripts/mbm.sh: metrics, validate, followups, dashboard refresh. The Revenue Dashboard executor. Zero cost, never guesses."
+}

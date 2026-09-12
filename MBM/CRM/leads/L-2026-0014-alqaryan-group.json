@@ -1,0 +1,39 @@
+{
+  "id": "L-2026-0014",
+  "company": "AlQaryan Group",
+  "domain": "",
+  "website": "",
+  "industry": "recycling",
+  "geography": "Saudi Arabia",
+  "size": "",
+  "language": "en",
+  "source": "revenue-sprint web hunt 2026-07-04",
+  "signals": [
+    {
+      "date": "2026-07-04",
+      "signal": "Among largest metal recycling/processing/trading companies KSA",
+      "url": "https://www.trade.gov/country-commercial-guides/saudi-arabia-waste-management"
+    }
+  ],
+  "contacts": [],
+  "pain_points": [],
+  "fit_score": 66,
+  "stage": "new",
+  "owner": "fabel",
+  "next_action": {
+    "date": "2026-07-11",
+    "action": "pack 002: enrich contacts after PII decision (issue #3); researcher pass for top scores"
+  },
+  "estimated_value": 0,
+  "won": null,
+  "lost_reason": null,
+  "relationships": [],
+  "history": [
+    {
+      "date": "2026-07-04",
+      "actor": "fabel",
+      "event": "created",
+      "note": "revenue sprint hunt, lead pack 002"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "L-2026-0007",
+  "company": "ACUD (Administrative Capital for Urban Development)",
+  "domain": "",
+  "website": "",
+  "industry": "construction",
+  "geography": "Egypt",
+  "size": "large",
+  "language": "en",
+  "source": "revenue-sprint web hunt 2026-07-04",
+  "signals": [
+    {
+      "date": "2026-07-04",
+      "signal": "Master developer of the New Administrative Capital; smart-city infrastructure buyer",
+      "url": "https://en.amwalalghad.com/big-5-egypt-awards-shortlists-top-contractors-infrastructure-projects/"
+    }
+  ],
+  "contacts": [],
+  "pain_points": [],
+  "fit_score": 66,
+  "stage": "new",
+  "owner": "fabel",
+  "next_action": {
+    "date": "2026-07-11",
+    "action": "pack 001: enrich contacts after PII decision (issue #3); researcher pass for top scores"
+  },
+  "estimated_value": 0,
+  "won": null,
+  "lost_reason": null,
+  "relationships": [],
+  "history": [
+    {
+      "date": "2026-07-04",
+      "actor": "fabel",
+      "event": "created",
+      "note": "revenue sprint hunt, lead pack 001"
+    }
+  ]
+}

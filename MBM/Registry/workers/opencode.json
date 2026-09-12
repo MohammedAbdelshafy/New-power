@@ -1,0 +1,27 @@
+{
+  "id": "opencode",
+  "name": "OpenCode agent (founder's machine)",
+  "kind": "ide-agent",
+  "skills": [
+    "code",
+    "git",
+    "analysis"
+  ],
+  "roles": [
+    "crm-brain"
+  ],
+  "cost": "low",
+  "speed": "medium",
+  "confidence": 0.65,
+  "context_size": 64000,
+  "tools": [
+    "editor",
+    "bash",
+    "git"
+  ],
+  "availability": "available",
+  "mcp_support": true,
+  "git_support": true,
+  "web_support": false,
+  "notes": "Local coding agent; same git-sync bridge as Antigravity."
+}

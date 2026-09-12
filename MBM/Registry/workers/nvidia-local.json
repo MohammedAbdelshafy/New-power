@@ -1,0 +1,26 @@
+{
+  "id": "nvidia-local",
+  "name": "NVIDIA local models (self-hosted)",
+  "kind": "local-model",
+  "skills": [
+    "writing",
+    "analysis",
+    "local-only"
+  ],
+  "roles": [
+    "content-engine",
+    "crm-brain"
+  ],
+  "cost": "low",
+  "speed": "fast",
+  "confidence": 0.55,
+  "context_size": 32000,
+  "tools": [
+    "local-inference"
+  ],
+  "availability": "offline",
+  "mcp_support": false,
+  "git_support": false,
+  "web_support": false,
+  "notes": "Zero marginal cost, privacy-safe drafts and summaries. Offline until the local runner is wired to the git bridge."
+}

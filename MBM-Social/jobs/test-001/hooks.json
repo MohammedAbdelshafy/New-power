@@ -1,0 +1,82 @@
+{
+  "mode": "heuristic",
+  "candidates": [
+    {
+      "start": 0.0,
+      "end": 22.99,
+      "hook_line": "Why do most factories in Egypt lose money on paperwork?",
+      "hook_score": 83.0,
+      "text": "Why do most factories in Egypt lose money on paperwork? Here is the truth nobody talks about. Last year we ran our own recycling operation in Cairo, and the biggest mistake was simple. Two full days every week went to weighbridge tickets and collection logs, written by hand, typed again into Excel, and checked a third time by the accountant."
+    },
+    {
+      "start": 32.45,
+      "end": 50.66,
+      "hook_line": "What took two days now takes twenty minutes.",
+      "hook_score": 73.9,
+      "text": "What took two days now takes twenty minutes. How much does that save? Around forty thousand pounds a year for one site, before you count the errors it prevents. Stop paying salaries for copy paste work. If your plant still runs on paper, this is the sign to fix it."
+    },
+    {
+      "start": 35.66,
+      "end": 50.66,
+      "hook_line": "How much does that save?",
+      "hook_score": 73.2,
+      "text": "How much does that save? Around forty thousand pounds a year for one site, before you count the errors it prevents. Stop paying salaries for copy paste work. If your plant still runs on paper, this is the sign to fix it."
+    },
+    {
+      "start": 23.44,
+      "end": 43.28,
+      "hook_line": "So we built a system that does it automatically.",
+      "hook_score": 66.0,
+      "text": "So we built a system that does it automatically. The driver scans the ticket, the platform reads it, and the report writes itself. What took two days now takes twenty minutes. How much does that save? Around forty thousand pounds a year for one site, before you count the errors it prevents."
+    },
+    {
+      "start": 26.79,
+      "end": 43.28,
+      "hook_line": "The driver scans the ticket, the platform reads it, and the report writes itself.",
+      "hook_score": 64.9,
+      "text": "The driver scans the ticket, the platform reads it, and the report writes itself. What took two days now takes twenty minutes. How much does that save? Around forty thousand pounds a year for one site, before you count the errors it prevents."
+    },
+    {
+      "start": 3.94,
+      "end": 22.99,
+      "hook_line": "Here is the truth nobody talks about.",
+      "hook_score": 61.9,
+      "text": "Here is the truth nobody talks about. Last year we ran our own recycling operation in Cairo, and the biggest mistake was simple. Two full days every week went to weighbridge tickets and collection logs, written by hand, typed again into Excel, and checked a third time by the accountant."
+    },
+    {
+      "start": 37.63,
+      "end": 52.88,
+      "hook_line": "Around forty thousand pounds a year for one site, before you count the errors it prevents.",
+      "hook_score": 52.7,
+      "text": "Around forty thousand pounds a year for one site, before you count the errors it prevents. Stop paying salaries for copy paste work. If your plant still runs on paper, this is the sign to fix it. The secret is not more staff."
+    },
+    {
+      "start": 6.71,
+      "end": 22.99,
+      "hook_line": "Last year we ran our own recycling operation in Cairo, and the biggest mistake was simple.",
+      "hook_score": 51.2,
+      "text": "Last year we ran our own recycling operation in Cairo, and the biggest mistake was simple. Two full days every week went to weighbridge tickets and collection logs, written by hand, typed again into Excel, and checked a third time by the accountant."
+    },
+    {
+      "start": 43.69,
+      "end": 61.48,
+      "hook_line": "Stop paying salaries for copy paste work.",
+      "hook_score": 50.8,
+      "text": "Stop paying salaries for copy paste work. If your plant still runs on paper, this is the sign to fix it. The secret is not more staff. The secret is one boring system that never gets tired. Never trust a report that was typed three times by three tired people."
+    },
+    {
+      "start": 46.73,
+      "end": 66.0,
+      "hook_line": "If your plant still runs on paper, this is the sign to fix it.",
+      "hook_score": 39.6,
+      "text": "If your plant still runs on paper, this is the sign to fix it. The secret is not more staff. The secret is one boring system that never gets tired. Never trust a report that was typed three times by three tired people. Fix the pipeline once, and the numbers stay honest forever."
+    },
+    {
+      "start": 12.84,
+      "end": 32.04,
+      "hook_line": "Two full days every week went to weighbridge tickets and collection logs, written by hand, typed again into Excel, and c",
+      "hook_score": 29.1,
+      "text": "Two full days every week went to weighbridge tickets and collection logs, written by hand, typed again into Excel, and checked a third time by the accountant. So we built a system that does it automatically. The driver scans the ticket, the platform reads it, and the report writes itself."
+    }
+  ]
+}

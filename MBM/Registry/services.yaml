@@ -1,0 +1,16 @@
+# MBM AI service configuration (M05, partial — full matrix blocked on "AI Matrix" spec, ADR DL-013)
+# Provider-independent, configurable, no hardcoded model names in code.
+# This file is the CONFIG VIEW; capability truth stays in Registry/workers/*.json
+# and routing stays in `mbm.sh route` (DL-008/009) — one routing engine, not two.
+version: 1
+default_chain: [fabel, claude, chatgpt]        # cloud reasoning, ordered fallback
+chains:
+  research:      [claude, gemini-cli, fabel]   # gemini-cli offline until founder wires it
+  drafting:      [fabel, claude, chatgpt]
+  local_parsing: [ollama, mbm-scripts, claude] # ollama offline; scripts are the deterministic fallback
+  strategy_qa:   [fabel, human-founder]        # jarvis inherits this chain when online
+rules:
+  - a task routes to the first AVAILABLE worker in its chain (availability from Registry/workers/)
+  - provider limits/failures -> next in chain automatically; never stall a P0 on an offline owner
+  - model/provider names live ONLY here and in the registry; code reads config
+  - humans remain the send/publish/pricing gate regardless of chain (Article 5)

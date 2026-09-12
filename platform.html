@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Zero Waste Misr — Operations Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Cairo:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --ink:#0B1A12;--ink-2:#0e2117;--ink-3:#142b1d;--panel:#0f241a;
+  --paper:#F3F0E6;--line:#1f3a29;--line-2:#27482f;
+  --signal:#5FD068;--lime:#B8F24D;--amber:#E7B23E;
+  --plastic:#52B6E6;--paper-mat:#D8A05A;--metal:#A9B7C2;--glass:#73CDB4;--oil:#E7B23E;
+  --muted:#9DB1A2;--muted-2:#6c8275;--danger:#ef6b6b;
+  --r:16px;--r-sm:11px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--ink);color:var(--paper);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+body.rtl{direction:rtl;font-family:'Cairo','Inter',sans-serif}
+.disp{font-family:'Bricolage Grotesque','Inter',sans-serif;font-weight:700;letter-spacing:-.02em}
+body.rtl .disp{font-family:'Cairo',sans-serif;font-weight:800}
+.mono{font-family:'JetBrains Mono',monospace}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+::-webkit-scrollbar{width:9px;height:9px}::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:8px}::-webkit-scrollbar-track{background:transparent}
+
+/* ===== shell ===== */
+.app{display:grid;grid-template-columns:248px 1fr;height:100vh}
+.sidebar{background:var(--ink-2);border-inline-end:1px solid var(--line);display:flex;flex-direction:column;padding:18px 14px;gap:6px;overflow-y:auto}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Bricolage Grotesque';font-weight:800;font-size:17px;padding:6px 8px 16px}
+body.rtl .brand{font-family:'Cairo'}
+.mark{width:28px;height:28px;flex:none}
+.role-block{padding:10px 8px 14px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.role-label{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);margin-bottom:8px;padding-inline-start:4px}
+.role-pick{position:relative}
+.role-current{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;border-radius:var(--r-sm);background:var(--ink-3);border:1px solid var(--line-2);text-align:start}
+.role-current .av{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none}
+.role-current .meta{flex:1;min-width:0}
+.role-current .meta b{font-size:13.5px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.role-current .meta span{font-size:11px;color:var(--muted)}
+.role-current .chev{color:var(--muted);transition:transform .2s}
+.role-pick.open .chev{transform:rotate(180deg)}
+.role-menu{position:absolute;top:calc(100% + 6px);inset-inline:0;background:var(--ink-3);border:1px solid var(--line-2);border-radius:var(--r-sm);padding:6px;z-index:30;box-shadow:0 20px 40px -16px rgba(0,0,0,.6);display:none}
+.role-pick.open .role-menu{display:block}
+.role-menu button{display:flex;align-items:center;gap:10px;width:100%;padding:9px 10px;border-radius:8px;text-align:start;font-size:13px;color:var(--paper)}
+.role-menu button:hover{background:var(--panel)}
+.role-menu .av{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex:none}
+
+.navitem{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:var(--r-sm);color:var(--muted);font-size:13.5px;font-weight:500;transition:.15s;text-align:start;width:100%}
+.navitem:hover{background:var(--ink-3);color:var(--paper)}
+.navitem.active{background:rgba(95,208,104,.12);color:var(--signal)}
+.navitem .ic{width:18px;height:18px;flex:none}
+.navitem .badge{margin-inline-start:auto;font-family:'JetBrains Mono';font-size:10px;background:var(--line-2);color:var(--paper);padding:2px 7px;border-radius:100px}
+.navitem.active .badge{background:var(--signal);color:var(--ink)}
+.side-foot{margin-top:auto;padding-top:12px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.langtoggle{display:flex;background:var(--ink-3);border:1px solid var(--line-2);border-radius:100px;padding:3px}
+.langtoggle button{flex:1;padding:6px;border-radius:100px;font-size:12px;font-weight:600;color:var(--muted)}
+.langtoggle button.on{background:var(--signal);color:var(--ink)}
+
+/* ===== main ===== */
+.main{display:flex;flex-direction:column;overflow:hidden}
+.topbar{display:flex;align-items:center;gap:16px;padding:14px 26px;border-bottom:1px solid var(--line);background:var(--ink);flex:none}
+.topbar h1{font-size:20px;font-weight:700}
+.topbar .sub{font-size:12.5px;color:var(--muted);margin-top:1px}
+.topbar .spacer{flex:1}
+.pill{display:inline-flex;align-items:center;gap:7px;font-family:'JetBrains Mono';font-size:11px;color:var(--signal);background:rgba(95,208,104,.1);padding:6px 12px;border-radius:100px;border:1px solid rgba(95,208,104,.25)}
+.pill .pulse{width:6px;height:6px;border-radius:50%;background:var(--signal);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(95,208,104,.6)}70%{box-shadow:0 0 0 7px rgba(95,208,104,0)}100%{box-shadow:0 0 0 0 transparent}}
+.tb-btn{width:38px;height:38px;border-radius:10px;border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;color:var(--muted);transition:.15s;position:relative}
+.tb-btn:hover{color:var(--paper);border-color:var(--signal)}
+.tb-btn .dot{position:absolute;top:8px;inset-inline-end:9px;width:7px;height:7px;border-radius:50%;background:var(--amber)}
+.content{flex:1;overflow-y:auto;padding:26px}
+.view{display:none;animation:fade .4s ease}
+.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ===== building blocks ===== */
+.grid{display:grid;gap:16px}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g-2-1{grid-template-columns:2fr 1fr}
+.g-1-2{grid-template-columns:1fr 2fr}
+.card{background:var(--ink-2);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.card.tight{padding:16px}
+.card-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:10px}
+.card-h h3{font-size:15px;font-weight:600}
+.card-h .meta{font-size:12px;color:var(--muted);font-family:'JetBrains Mono'}
+.section-title{display:flex;align-items:center;gap:10px;margin:26px 0 14px;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2)}
+.section-title::after{content:"";flex:1;height:1px;background:var(--line)}
+
+/* KPI */
+.kpi .top{display:flex;align-items:center;justify-content:space-between}
+.kpi .ic{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.kpi .delta{font-family:'JetBrains Mono';font-size:11px;font-weight:600;padding:3px 8px;border-radius:100px}
+.kpi .delta.up{color:var(--signal);background:rgba(95,208,104,.12)}
+.kpi .delta.down{color:var(--danger);background:rgba(239,107,107,.12)}
+.kpi .val{font-family:'Bricolage Grotesque';font-weight:800;font-size:30px;margin:14px 0 2px;line-height:1}
+.kpi .lab{font-size:12.5px;color:var(--muted)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:10px;font-weight:600;font-size:13.5px;transition:.15s;border:1px solid transparent}
+.btn-pri{background:var(--signal);color:var(--ink)}
+.btn-pri:hover{transform:translateY(-1px);box-shadow:0 10px 24px -10px rgba(95,208,104,.6)}
+.btn-amber{background:var(--amber);color:var(--ink)}
+.btn-amber:hover{transform:translateY(-1px)}
+.btn-ghost{border-color:var(--line-2);color:var(--paper)}
+.btn-ghost:hover{border-color:var(--signal);background:rgba(95,208,104,.06)}
+.btn-sm{padding:7px 12px;font-size:12.5px}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+
+/* table */
+table{width:100%;border-collapse:collapse}
+th{text-align:start;font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2);font-weight:500;padding:10px 12px;border-bottom:1px solid var(--line)}
+td{padding:13px 12px;font-size:13.5px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:none}
+tbody tr{transition:background .15s}
+tbody tr:hover{background:rgba(255,255,255,.018)}
+.tag{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono';font-size:11px;font-weight:600;padding:3px 9px;border-radius:100px}
+.tag.ok{color:var(--signal);background:rgba(95,208,104,.12)}
+.tag.warn{color:var(--amber);background:rgba(231,178,62,.12)}
+.tag.pend{color:var(--muted);background:rgba(157,177,162,.1)}
+.tag.done{color:var(--plastic);background:rgba(82,182,230,.12)}
+.swatch{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+/* progress */
+.bar{height:8px;border-radius:6px;background:var(--ink-3);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,#1c7a3a,var(--signal));transition:width .6s cubic-bezier(.2,.7,.2,1)}
+.ring{transform:rotate(-90deg)}
+
+/* list rows */
+.lrow{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.lrow:last-child{border-bottom:none}
+.lrow .ix{width:30px;height:30px;border-radius:8px;background:var(--ink-3);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono';font-size:12px;color:var(--muted);flex:none}
+.lrow .body{flex:1;min-width:0}
+.lrow .body b{font-size:14px;display:block}
+.lrow .body span{font-size:12px;color:var(--muted)}
+
+/* toast */
+.toasts{position:fixed;bottom:22px;inset-inline-end:22px;display:flex;flex-direction:column;gap:10px;z-index:100}
+.toast{background:var(--ink-3);border:1px solid var(--line-2);border-inline-start:3px solid var(--signal);border-radius:12px;padding:13px 16px;min-width:260px;max-width:340px;box-shadow:0 18px 40px -16px rgba(0,0,0,.6);animation:slidein .35s ease;display:flex;gap:11px;align-items:flex-start}
+@keyframes slidein{from{transform:translateX(20px);opacity:0}to{transform:none;opacity:1}}
+.toast .ti{font-size:13.5px;font-weight:600}
+.toast .td{font-size:12.5px;color:var(--muted);margin-top:2px}
+.toast.amber{border-inline-start-color:var(--amber)}
+
+/* misc */
+.muted{color:var(--muted)}
+.eco-points{display:flex;align-items:baseline;gap:8px}
+.eco-points b{font-family:'Bricolage Grotesque';font-weight:800;font-size:40px;color:var(--lime)}
+.donut-legend{display:flex;flex-direction:column;gap:10px}
+.donut-legend .dl{display:flex;align-items:center;gap:9px;font-size:13px}
+.donut-legend .dl .v{margin-inline-start:auto;font-family:'JetBrains Mono';color:var(--muted)}
+.qr{width:120px;height:120px;border-radius:12px;background:#fff;padding:10px;display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.qr i{background:var(--ink);border-radius:1px}
+.qr i.off{background:#fff}
+.stat-inline{display:flex;gap:26px;flex-wrap:wrap}
+.stat-inline .si b{font-family:'JetBrains Mono';font-size:19px;display:block}
+.stat-inline .si span{font-size:11.5px;color:var(--muted)}
+.notice{background:rgba(231,178,62,.08);border:1px solid rgba(231,178,62,.25);border-radius:12px;padding:12px 14px;font-size:12.5px;color:#e8d4a0;display:flex;gap:10px;align-items:flex-start;margin-bottom:18px}
+
+@media(max-width:1080px){.g4{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr}.g-2-1,.g-1-2,.g2{grid-template-columns:1fr}}
+@media(max-width:760px){
+  .app{grid-template-columns:1fr}
+  .sidebar{position:fixed;inset-inline-start:0;top:0;bottom:0;width:264px;z-index:80;transform:translateX(-100%);transition:transform .3s}
+  body.rtl .sidebar{transform:translateX(100%)}
+  .sidebar.open{transform:none!important}
+  .g4{grid-template-columns:1fr}
+  .menubtn{display:flex!important}
+  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:70;display:none}
+  .scrim.show{display:block}
+}
+.menubtn{display:none}
+</style>
+</head>
+<body>
+<div class="scrim" id="scrim"></div>
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 32 32" fill="none">
+        <path d="M16 3 L21 11 L17.5 11 L17.5 16 L14.5 16 L14.5 11 L11 11 Z" fill="#5FD068"/>
+        <path d="M27 18 L24 26 L20 23 L17.5 27 L15 22 L20 19 L18 16 Z" fill="#E7B23E"/>
+        <path d="M5 18 L7 16 L9.5 19.5 L14 17 L11.5 22 L7 25 L4 24 Z" fill="#52B6E6"/>
+      </svg>
+      <span>Zero Waste <span style="color:var(--signal)">Misr</span></span>
+    </div>
+
+    <div class="role-block">
+      <div class="role-label" data-i="signed_in">Signed in as</div>
+      <div class="role-pick" id="rolePick">
+        <button class="role-current" id="roleCurrent">
+          <span class="av" id="roleAv">—</span>
+          <span class="meta"><b id="roleName">—</b><span id="roleSub">—</span></span>
+          <svg class="chev" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="role-menu" id="roleMenu"></div>
+      </div>
+    </div>
+
+    <nav id="nav"></nav>
+
+    <div class="side-foot">
+      <div class="langtoggle">
+        <button id="langEn" class="on" onclick="setLang('en')">English</button>
+        <button id="langAr" onclick="setLang('ar')">عربي</button>
+      </div>
+      <div style="font-size:11px;color:var(--muted-2);text-align:center;font-family:'JetBrains Mono'">DEMO BUILD · v0.9</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <header class="topbar">
+      <button class="tb-btn menubtn" onclick="toggleSidebar()" aria-label="Menu">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 5h12M3 9h12M3 13h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <div>
+        <h1 id="viewTitle">Dashboard</h1>
+        <div class="sub" id="viewSub">—</div>
+      </div>
+      <div class="spacer"></div>
+      <span class="pill"><span class="pulse"></span><span data-i="live_ops">Live ops</span></span>
+      <button class="tb-btn" onclick="toast('🔔','Notifications','3 pickups completed in the last hour.')" aria-label="Alerts"><svg width="17" height="17" viewBox="0 0 18 18" fill="none"><path d="M5 7a4 4 0 0 1 8 0c0 4 1.5 5 1.5 5h-11S5 11 5 7Z" stroke="currentColor" stroke-width="1.5"/><path d="M7.5 14.5a1.6 1.6 0 0 0 3 0" stroke="currentColor" stroke-width="1.5"/></svg><span class="dot"></span></button>
+    </header>
+    <div class="content" id="content"></div>
+  </main>
+</div>
+<div class="toasts" id="toasts"></div>
+
+<script>
+/* ============================ STATE ============================ */
+const MAT = {
+  plastic:{label:'Plastic', ar:'بلاستيك', color:'#52B6E6', price:32},
+  paper:  {label:'Cardboard & paper', ar:'ورق وكرتون', color:'#D8A05A', price:18},
+  metal:  {label:'Metal & aluminium', ar:'معادن', color:'#A9B7C2', price:54},
+  glass:  {label:'Glass', ar:'زجاج', color:'#73CDB4', price:9},
+  oil:    {label:'Used cooking oil', ar:'زيت طعام', color:'#E7B23E', price:21},
+};
+const S = {
+  lang:'en',
+  role:'admin',
+  inventory:{plastic:8420, paper:12650, metal:2980, glass:5100, oil:3240}, // kg in warehouse
+  collectedToday:0,
+  apartments:2040,
+  monthsRev:[420,610,840,1180,1620,2240,3010,3920], // EGP thousands
+  aptSeries:[540,720,980,1340,1720,2040],
+  customer:{ name:'Layla Hassan', plan:'Household', nextPickup:'Tue · 9–11 AM', points:1840, paid:true,
+    weeks:[11,14,12,16,15,18,17,21], scheduledExtra:false },
+  route:[
+    {id:'B-114', building:'Nile View Compound', units:42, addr:'6th October, Block 4', status:'pending', kg:0},
+    {id:'B-115', building:'Zahraa El Maadi', units:28, addr:'Maadi, St. 9', status:'pending', kg:0},
+    {id:'B-116', building:'Sun City Residence', units:64, addr:'New Cairo, 1st Settlement', status:'pending', kg:0},
+    {id:'B-117', building:'Garden Heights', units:36, addr:'Sheikh Zayed, Gate 2', status:'pending', kg:0},
+    {id:'B-118', building:'Dokki Towers', units:22, addr:'Dokki, Tahrir St.', status:'pending', kg:0},
+  ],
+  buildings:[
+    {name:'Nile View Compound', units:120, collecting:42, day:'Tue', prog:35},
+    {name:'Sun City Residence', units:90, collecting:64, day:'Wed', prog:71},
+    {name:'Garden Heights', units:80, collecting:36, day:'Tue', prog:45},
+    {name:'Dokki Towers', units:60, collecting:22, day:'Thu', prog:37},
+  ],
+  lots:[
+    {id:'LOT-2291', mat:'metal', kg:2980, status:'available'},
+    {id:'LOT-2288', mat:'plastic', kg:8420, status:'available'},
+    {id:'LOT-2285', mat:'paper', kg:12650, status:'available'},
+    {id:'LOT-2279', mat:'oil', kg:3240, status:'available'},
+    {id:'LOT-2274', mat:'glass', kg:5100, status:'available'},
+  ],
+  revenueBooked:0,
+};
+
+const ROLES = {
+  customer:{name:'Layla Hassan', sub:'Household · Maadi', av:'LH', avc:'#52B6E6',
+    nav:[['home','Overview'],['pickups','My pickups'],['rewards','Eco rewards'],['billing','Billing']]},
+  manager:{name:'Karim Adel', sub:'Building manager', av:'KA', avc:'#73CDB4',
+    nav:[['home','Building'],['units','Units'],['schedule','Schedule'],['report','Impact report']]},
+  driver:{name:'Mahmoud Sayed', sub:'Driver · Truck 02', av:'MS', avc:'#D8A05A',
+    nav:[['home','Today\'s route'],['scan','Scan & weigh'],['history','History']]},
+  admin:{name:'Operations', sub:'Admin control center', av:'OP', avc:'#5FD068',
+    nav:[['home','Dashboard'],['fleet','Fleet & routes'],['warehouse','Warehouse'],['growth','Growth'],['finance','Finance']]},
+  factory:{name:'Delta Recycling', sub:'Factory buyer', av:'DR', avc:'#A9B7C2',
+    nav:[['home','Marketplace'],['orders','My orders']]},
+};
+
+const I18N = {
+  en:{signed_in:'Signed in as', live_ops:'Live ops'},
+  ar:{signed_in:'مسجّل الدخول', live_ops:'تشغيل مباشر'}
+};
+
+let activeView = 'home';
+
+/* ============================ HELPERS ============================ */
+const $=s=>document.querySelector(s);
+const fmt=n=>Math.round(n).toLocaleString('en-US');
+const egp=n=>fmt(n)+' EGP';
+const T=(en,ar)=>S.lang==='ar'?ar:en;
+
+function toast(icon,title,desc,amber){
+  const el=document.createElement('div');
+  el.className='toast'+(amber?' amber':'');
+  el.innerHTML=`<div style="font-size:18px">${icon}</div><div><div class="ti">${title}</div><div class="td">${desc}</div></div>`;
+  $('#toasts').appendChild(el);
+  setTimeout(()=>{el.style.opacity='0';el.style.transition='opacity .3s';setTimeout(()=>el.remove(),300)},3600);
+}
+
+/* tiny SVG chart helpers */
+function lineChart(vals,{w=520,h=150,color='#5FD068',fill=true}={}){
+  const max=Math.max(...vals)*1.12,min=Math.min(...vals)*0.85;
+  const dx=w/(vals.length-1);
+  const pts=vals.map((v,i)=>[i*dx, h-((v-min)/(max-min))*h]);
+  const d=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+  const area=d+` L ${w} ${h} L 0 ${h} Z`;
+  const gid='g'+Math.random().toString(36).slice(2,7);
+  return `<svg viewBox="0 0 ${w} ${h}" width="100%" preserveAspectRatio="none" style="display:block">
+    <defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="${color}" stop-opacity=".28"/><stop offset="1" stop-color="${color}" stop-opacity="0"/>
+    </linearGradient></defs>
+    ${fill?`<path d="${area}" fill="url(#${gid})"/>`:''}
+    <path d="${d}" fill="none" stroke="${color}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    ${pts.map(p=>`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="2.6" fill="${color}"/>`).join('')}
+  </svg>`;
+}
+function barChart(vals,labels,{h=150,color='#5FD068'}={}){
+  const max=Math.max(...vals)*1.15;
+  return `<div style="display:flex;align-items:flex-end;gap:8px;height:${h}px">${
+    vals.map((v,i)=>`<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end">
+      <div style="width:100%;border-radius:6px 6px 0 0;background:${i===vals.length-1?color:'rgba(95,208,104,.35)'};height:${(v/max)*100}%;min-height:4px;transition:height .6s" title="${fmt(v)}"></div>
+      <span style="font-size:10.5px;color:var(--muted);font-family:'JetBrains Mono'">${labels[i]}</span>
+    </div>`).join('')
+  }</div>`;
+}
+function donut(data,{size=150}={}){ // data: [{label,value,color}]
+  const total=data.reduce((a,b)=>a+b.value,0);
+  let acc=0;const r=size/2-12,c=size/2,circ=2*Math.PI*r;
+  const segs=data.map(d=>{
+    const frac=d.value/total;const dash=frac*circ;
+    const s=`<circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="${d.color}" stroke-width="16" stroke-dasharray="${dash} ${circ-dash}" stroke-dashoffset="${-acc*circ}" stroke-linecap="butt"/>`;
+    acc+=frac;return s;
+  }).join('');
+  return `<svg class="ring" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">${segs}</svg>`;
+}
+function progressRing(pct,{size=120,color='#5FD068'}={}){
+  const r=size/2-9,c=size/2,circ=2*Math.PI*r,dash=pct/100*circ;
+  return `<svg width="${size}" height="${size}" class="ring" viewBox="0 0 ${size} ${size}">
+    <circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="var(--ink-3)" stroke-width="10"/>
+    <circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="${color}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${dash} ${circ}"/>
+  </svg>`;
+}
+function qrSvg(){
+  // deterministic-ish pseudo QR
+  let cells='';const pat=[1,1,1,0,1,0,1,0,1,1,0,1,1,0,0,1,0,1,1,1,0,1,0,0,1,1,1,0,1,0,1,0,0,1,1,0,1,1,0,1,0,1,1,0,1,0,0,1,1];
+  for(let i=0;i<49;i++){cells+=`<i class="${pat[i]?'':'off'}"></i>`}
+  return `<div class="qr">${cells}</div>`;
+}
+
+/* ============================ RENDER: shell ============================ */
+function renderRole(){
+  const r=ROLES[S.role];
+  $('#roleAv').textContent=r.av;$('#roleAv').style.background=r.avc+'22';$('#roleAv').style.color=r.avc;
+  $('#roleName').textContent=r.name;$('#roleSub').textContent=r.sub;
+  // menu
+  $('#roleMenu').innerHTML=Object.entries(ROLES).map(([k,v])=>`
+    <button onclick="pickRole('${k}')"><span class="av" style="background:${v.avc}22;color:${v.avc}">${v.av}</span>
+    <span><b style="font-size:13px;display:block">${v.name}</b><span style="font-size:11px;color:var(--muted)">${v.sub}</span></span></button>`).join('');
+  // nav
+  $('#nav').innerHTML=r.nav.map(([k,lab],i)=>`
+    <button class="navitem ${k===activeView?'active':''}" onclick="go('${k}')">
+      <span class="ic">${navIcon(k)}</span><span class="navlab">${lab}</span>
+      ${k==='home'&&S.role==='driver'?`<span class="badge">${S.route.filter(s=>s.status==='pending').length}</span>`:''}
+      ${k==='home'&&S.role==='factory'?`<span class="badge">${S.lots.filter(l=>l.status==='available').length}</span>`:''}
+    </button>`).join('');
+}
+function navIcon(k){
+  const m={
+    home:'<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 8l6-5 6 5v6a1 1 0 0 1-1 1h-3v-4H7v4H4a1 1 0 0 1-1-1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+    pickups:'<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="5" width="12" height="10" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M3 8h12M6 3v3M12 3v3" stroke="currentColor" stroke-width="1.5"/></svg>',
+    rewards:'<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2l2 4 4 .5-3 3 .8 4L9 11.5 5.2 13.5 6 9.5 3 6.5 7 6z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>',
+    billing:'<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="4" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M3 7h12" stroke="currentColor" stroke-width="1.5"/></svg>',
+    units:'<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="3" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="10" y="3" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="10" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="10" y="10" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>',
+    schedule:'<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M9 6v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+    report:'<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 14V8M9 14V4M14 14v-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+    scan:'<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 6V4a1 1 0 0 1 1-1h2M12 3h2a1 1 0 0 1 1 1v2M15 12v2a1 1 0 0 1-1 1h-2M6 15H4a1 1 0 0 1-1-1v-2M3 9h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+    history:'<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9a6 6 0 1 1 2 4.5M3 9V5m0 4h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    fleet:'<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 12h2l1.5-4h7L14 12h2M5 12v1.5M13 12v1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+    warehouse:'<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 15V7l6-3 6 3v8M6 15v-4h6v4" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+    growth:'<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 13l4-4 3 3 5-6M11 6h4v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    finance:'<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M9 6v6M7.5 7.5h2.2a1.3 1.3 0 0 1 0 2.6H7.8a1.3 1.3 0 0 0 0 2.6H10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>',
+    orders:'<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 4h10l-1 8H5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7 15a1 1 0 1 0 0-.01M12 15a1 1 0 1 0 0-.01" stroke="currentColor" stroke-width="1.6"/></svg>',
+  };
+  return m[k]||m.home;
+}
+
+/* ============================ ROUTER ============================ */
+const VIEW_META={
+  'customer.home':['Welcome back, Layla','Your recycling at a glance'],
+  'customer.pickups':['My pickups','Upcoming and past collections'],
+  'customer.rewards':['Eco rewards','Points you\'ve earned by recycling'],
+  'customer.billing':['Billing','Subscription & payments'],
+  'manager.home':['Building overview','Nile View Compound'],
+  'manager.units':['Units','Who\'s collecting in your building'],
+  'manager.schedule':['Schedule','Pickup days for your building'],
+  'manager.report':['Impact report','What your building diverted'],
+  'driver.home':['Today\'s route','Truck 02 · 5 stops'],
+  'driver.scan':['Scan & weigh','Log a collection'],
+  'driver.history':['History','Recent collections'],
+  'admin.home':['Operations dashboard','Live across Cairo & Giza'],
+  'admin.fleet':['Fleet & routes','Vehicles and coverage'],
+  'admin.warehouse':['Warehouse','Sorted material inventory'],
+  'admin.growth':['Growth','Toward 20,000 apartments'],
+  'admin.finance':['Finance','Revenue & unit economics'],
+  'factory.home':['Material marketplace','Sorted lots ready to buy'],
+  'factory.orders':['My orders','Reserved and purchased lots'],
+};
+function go(view){activeView=view;render();closeSidebar()}
+function pickRole(r){S.role=r;activeView='home';$('#rolePick').classList.remove('open');render();
+  toast('👤',T('Switched portal','تم التبديل'),ROLES[r].name+' · '+ROLES[r].sub)}
+
+function render(){
+  renderRole();
+  const key=S.role+'.'+activeView;
+  const meta=VIEW_META[key]||['Dashboard',''];
+  $('#viewTitle').textContent=T(meta[0],meta[0]);
+  $('#viewSub').textContent=meta[1];
+  $('#content').innerHTML=`<div class="view active">${(VIEWS[key]||(()=>'<div class="card">Coming soon</div>'))()}</div>`;
+}
+
+/* ============================ VIEWS ============================ */
+const VIEWS={
+/* ---------- CUSTOMER ---------- */
+'customer.home':()=>{
+  const c=S.customer;const lastKg=c.weeks[c.weeks.length-1];
+  return `
+  <div class="grid g4" style="margin-bottom:16px">
+    ${kpi('♻️','#5FD068',lastKg+' kg',T('Recycled last week','أعيد تدويره الأسبوع الماضي'),'+18%','up')}
+    ${kpi('📅','#52B6E6',c.nextPickup,T('Next pickup','الجمع القادم'),'',null)}
+    ${kpi('⭐','#B8F24D',fmt(c.points),T('Eco points','نقاط البيئة'),'+120','up')}
+    ${kpi('✅','#73CDB4',c.paid?T('Active','نشط'):T('Due','مستحق'),T('Subscription','الاشتراك'),'',null)}
+  </div>
+  <div class="grid g-2-1">
+    <div class="card">
+      <div class="card-h"><h3>${T('Your recycling — last 8 weeks','إعادة التدوير — آخر ٨ أسابيع')}</h3><span class="meta">kg / ${T('week','أسبوع')}</span></div>
+      ${lineChart(c.weeks,{color:'#5FD068'})}
+      <div class="stat-inline" style="margin-top:16px">
+        <div class="si"><b>${fmt(c.weeks.reduce((a,b)=>a+b,0))} kg</b><span>${T('Total recycled','الإجمالي')}</span></div>
+        <div class="si"><b style="color:var(--amber)">${egp(c.weeks.reduce((a,b)=>a+b,0)*1.5)}</b><span>${T('Value recovered','القيمة المستردة')}</span></div>
+        <div class="si"><b style="color:var(--plastic)">${(c.weeks.reduce((a,b)=>a+b,0)*0.0017).toFixed(2)} t</b><span>CO₂ ${T('avoided','تم تجنبه')}</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-h"><h3>${T('Quick actions','إجراءات سريعة')}</h3></div>
+      <button class="btn btn-pri" style="width:100%;justify-content:center;margin-bottom:10px" onclick="scheduleExtra()" ${c.scheduledExtra?'disabled':''}>
+        ${c.scheduledExtra?T('Extra pickup booked ✓','تم الحجز ✓'):T('Book an extra pickup','احجز جمعًا إضافيًا')}</button>
+      <button class="btn btn-ghost" style="width:100%;justify-content:center;margin-bottom:10px" onclick="go('rewards')">${T('Redeem eco points','استبدل النقاط')}</button>
+      <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="toast('📨',T('Referral sent','تمت الدعوة'),T('Share link copied to clipboard.','تم نسخ الرابط.'))">${T('Refer a neighbour','ادعُ جارًا')}</button>
+      <div class="notice" style="margin:18px 0 0">♻️ ${T('Tip: rinse containers — clean material is worth more and we pass that value back as points.','نصيحة: اشطف العبوات — المواد النظيفة قيمتها أعلى.')}</div>
+    </div>
+  </div>`;
+},
+'customer.pickups':()=>{
+  const rows=[
+    ['Tue 25 Jun','9–11 AM','Scheduled','pend'],
+    ['Tue 18 Jun','9:40 AM','21 kg collected','ok'],
+    ['Tue 11 Jun','9:25 AM','17 kg collected','ok'],
+    ['Tue 4 Jun','10:05 AM','18 kg collected','ok'],
+  ];
+  return `<div class="card"><div class="card-h"><h3>${T('Collections','عمليات الجمع')}</h3>
+    <button class="btn btn-pri btn-sm" onclick="scheduleExtra()" ${S.customer.scheduledExtra?'disabled':''}>${T('+ Extra pickup','+ جمع إضافي')}</button></div>
+    <table><thead><tr><th>${T('Date','التاريخ')}</th><th>${T('Time','الوقت')}</th><th>${T('Status','الحالة')}</th></tr></thead><tbody>
+    ${rows.map(r=>`<tr><td>${r[0]}</td><td class="mono muted">${r[1]}</td><td><span class="tag ${r[3]}">${r[2]}</span></td></tr>`).join('')}
+    </tbody></table></div>`;
+},
+'customer.rewards':()=>{
+  const c=S.customer;
+  const rewards=[['Free extra pickup',400],['10% off next month',800],['Reusable sorting bins',1200],['Plant a tree in your name',2000]];
+  return `<div class="grid g-1-2">
+    <div class="card" style="text-align:center">
+      <div class="card-h"><h3>${T('Your balance','رصيدك')}</h3></div>
+      <div class="eco-points" style="justify-content:center"><b>${fmt(c.points)}</b><span class="muted">${T('points','نقطة')}</span></div>
+      <p class="muted" style="font-size:12.5px;margin-top:8px">${T('Earn ~10 points per kg recycled','اكسب ١٠ نقاط لكل كجم')}</p>
+    </div>
+    <div class="card"><div class="card-h"><h3>${T('Redeem','استبدال')}</h3></div>
+      ${rewards.map(r=>`<div class="lrow"><span class="ix">⭐</span><div class="body"><b>${T(r[0],r[0])}</b><span class="mono">${r[1]} ${T('points','نقطة')}</span></div>
+        <button class="btn btn-ghost btn-sm" onclick="redeem(${r[1]},'${r[0]}')" ${c.points<r[1]?'disabled':''}>${T('Redeem','استبدل')}</button></div>`).join('')}
+    </div></div>`;
+},
+'customer.billing':()=>`
+  <div class="grid g-2-1">
+    <div class="card"><div class="card-h"><h3>${T('Subscription','الاشتراك')}</h3><span class="tag ok">${T('Active','نشط')}</span></div>
+      <div class="stat-inline">
+        <div class="si"><b>Household</b><span>${T('Plan','الخطة')}</span></div>
+        <div class="si"><b class="mono">60 EGP</b><span>${T('Monthly','شهري')}</span></div>
+        <div class="si"><b>1 Jul</b><span>${T('Next charge','الخصم القادم')}</span></div>
+        <div class="si"><b>Vodafone Cash</b><span>${T('Method','الطريقة')}</span></div>
+      </div>
+      <div style="margin-top:18px;display:flex;gap:10px">
+        <button class="btn btn-pri btn-sm" onclick="toast('💳',T('Payment','الدفع'),T('Demo — wire to Paymob/Fawry in production.','وضع تجريبي'),true)">${T('Pay now','ادفع الآن')}</button>
+        <button class="btn btn-ghost btn-sm" onclick="toast('🧾','Invoice',T('PDF would download here.','سيتم التنزيل هنا.'))">${T('Download invoices','تنزيل الفواتير')}</button>
+      </div>
+    </div>
+    <div class="card"><div class="card-h"><h3>${T('Payment history','سجل الدفع')}</h3></div>
+      ${[['Jun','60 EGP','Paid'],['May','60 EGP','Paid'],['Apr','60 EGP','Paid']].map(r=>`<div class="lrow"><span class="ix">✓</span><div class="body"><b>${r[0]}</b><span class="mono">${r[1]}</span></div><span class="tag ok">${r[2]}</span></div>`).join('')}
+    </div>
+  </div>`,
+
+/* ---------- BUILDING MANAGER ---------- */
+'manager.home':()=>{
+  const b=S.buildings[0];
+  return `<div class="grid g4" style="margin-bottom:16px">
+    ${kpi('🏢','#73CDB4',b.collecting+'/'+b.units,T('Units collecting','وحدات تجمع'),'+6','up')}
+    ${kpi('♻️','#5FD068','1,840 kg',T('This month','هذا الشهر'),'+22%','up')}
+    ${kpi('📅','#52B6E6',b.day,T('Pickup day','يوم الجمع'),'',null)}
+    ${kpi('🌍','#E7B23E','3.1 t',T('CO₂ avoided','تم تجنبه'),'+0.4t','up')}
+  </div>
+  <div class="grid g-2-1">
+    <div class="card"><div class="card-h"><h3>${T('Adoption across your building','نسبة المشاركة')}</h3><span class="meta">${b.prog}%</span></div>
+      ${barChart([18,24,31,36,40,42],['Feb','Mar','Apr','May','Jun','Now'],{color:'#73CDB4'})}
+      <div class="bar" style="margin-top:18px"><i style="width:${b.prog}%"></i></div>
+      <p class="muted" style="font-size:12.5px;margin-top:10px">${T('Onboard more units to unlock volume pricing for the whole building.','أضف وحدات أكثر للحصول على سعر أفضل.')}</p>
+    </div>
+    <div class="card"><div class="card-h"><h3>${T('Actions','إجراءات')}</h3></div>
+      <button class="btn btn-pri" style="width:100%;justify-content:center;margin-bottom:10px" onclick="toast('📣',T('Campaign sent','تم الإرسال'),T('Awareness flyer pushed to all units.','تم إرسال المنشور.'))">${T('Send recycling reminder','أرسل تذكيرًا')}</button>
+      <button class="btn btn-ghost" style="width:100%;justify-content:center;margin-bottom:10px" onclick="go('report')">${T('View impact report','عرض التقرير')}</button>
+      <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="toast('📞','ZWM',T('Account manager will call within 24h.','سنتصل خلال ٢٤ ساعة.'))">${T('Request more bins','اطلب صناديق')}</button>
+    </div>
+  </div>`;
+},
+'manager.units':()=>`<div class="card"><div class="card-h"><h3>${T('Units','الوحدات')}</h3><span class="meta">42 ${T('active','نشطة')}</span></div>
+  <table><thead><tr><th>${T('Unit','الوحدة')}</th><th>${T('Resident','الساكن')}</th><th>${T('Avg / wk','المعدل')}</th><th>${T('Status','الحالة')}</th></tr></thead><tbody>
+  ${[['4A','Layla Hassan','21 kg','ok'],['4B','Omar Tarek','14 kg','ok'],['5C','Nour Adel','—','pend'],['6A','Hany Selim','17 kg','ok'],['6B','Mona Fathy','9 kg','warn']].map(r=>
+    `<tr><td class="mono">${r[0]}</td><td>${r[1]}</td><td class="mono muted">${r[2]}</td><td><span class="tag ${r[3]}">${r[3]==='ok'?T('Collecting','تجمع'):r[3]==='warn'?T('Low','منخفض'):T('Invited','مدعو')}</span></td></tr>`).join('')}
+  </tbody></table></div>`,
+'manager.schedule':()=>`<div class="card"><div class="card-h"><h3>${T('Weekly schedule','الجدول الأسبوعي')}</h3></div>
+  <div class="grid g4">${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d=>`
+    <div class="card tight" style="text-align:center;background:${d==='Tue'?'rgba(95,208,104,.1)':'var(--ink-3)'};border-color:${d==='Tue'?'var(--signal)':'var(--line)'}">
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:var(--muted)">${d}</div>
+      <div style="font-size:13px;margin-top:8px;font-weight:600">${d==='Tue'?'9–11 AM':'—'}</div>
+      ${d==='Tue'?`<div class="tag ok" style="margin-top:8px">${T('Pickup','جمع')}</div>`:''}
+    </div>`).join('')}</div></div>`,
+'manager.report':()=>`<div class="grid g-1-2">
+  <div class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+    <div style="position:relative">${progressRing(42,{color:'#73CDB4'})}<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center"><b class="disp" style="font-size:26px">42%</b><span class="muted" style="font-size:11px">${T('participation','مشاركة')}</span></div></div>
+    <p class="muted" style="font-size:12.5px;margin-top:14px">${T('Nile View Compound · Jun 2026','مجمع نايل فيو')}</p>
+  </div>
+  <div class="card"><div class="card-h"><h3>${T('Diverted from landfill','تم تحويله')}</h3></div>
+    <div class="donut-legend">
+      ${Object.entries(MAT).map(([k,m])=>`<div class="dl"><span class="swatch" style="background:${m.color}"></span>${T(m.label,m.ar)}<span class="v">${fmt([520,640,180,260,140][Object.keys(MAT).indexOf(k)])} kg</span></div>`).join('')}
+    </div>
+    <button class="btn btn-ghost btn-sm" style="margin-top:18px" onclick="toast('📄','ESG',T('Branded PDF report exported.','تم تصدير التقرير.'))">${T('Export ESG report (PDF)','تصدير تقرير ESG')}</button>
+  </div></div>`,
+
+/* ---------- DRIVER ---------- */
+'driver.home':()=>{
+  const done=S.route.filter(s=>s.status==='done').length, total=S.route.length;
+  const pct=Math.round(done/total*100);
+  return `<div class="card" style="margin-bottom:16px"><div class="card-h"><h3>${T('Route progress','تقدم المسار')}</h3><span class="meta">${done}/${total} ${T('stops','محطات')} · ${fmt(S.collectedToday)} kg</span></div>
+    <div class="bar"><i style="width:${pct}%"></i></div></div>
+  ${S.route.map((s,i)=>`<div class="card tight" style="margin-bottom:10px;display:flex;align-items:center;gap:14px;${s.status==='done'?'opacity:.6':''}">
+    <span class="ix" style="width:38px;height:38px;border-radius:10px">${s.status==='done'?'✓':i+1}</span>
+    <div style="flex:1;min-width:0"><b style="font-size:14.5px">${s.building}</b><div class="muted" style="font-size:12px">${s.addr} · ${s.units} ${T('units','وحدة')}${s.kg?` · <span class="mono" style="color:var(--signal)">${s.kg} kg</span>`:''}</div></div>
+    ${s.status==='done'?`<span class="tag done">${T('Collected','تم')}</span>`:`<button class="btn btn-pri btn-sm" onclick="openStop('${s.id}')">${T('Collect','اجمع')}</button>`}
+  </div>`).join('')}`;
+},
+'driver.scan':()=>`<div class="grid g2">
+  <div class="card" style="text-align:center"><div class="card-h"><h3>${T('Scan building QR','امسح كود المبنى')}</h3></div>
+    <div style="display:flex;justify-content:center;margin:8px 0 16px">${qrSvg()}</div>
+    <button class="btn btn-pri" style="width:100%;justify-content:center" onclick="simScan()">${T('Simulate scan','محاكاة المسح')}</button>
+    <p class="muted" style="font-size:12px;margin-top:12px">${T('In production this opens the camera and matches the building.','يفتح الكاميرا في الإصدار الحقيقي.')}</p>
+  </div>
+  <div class="card"><div class="card-h"><h3>${T('Log weight','تسجيل الوزن')}</h3></div>
+    <p class="muted" style="font-size:13px;margin-bottom:14px">${T('Pick a stop on the route tab, enter weight, confirm. It updates the warehouse instantly.','اختر محطة وأدخل الوزن.')}</p>
+    <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="go('home')">${T('Go to route','اذهب للمسار')}</button>
+  </div></div>`,
+'driver.history':()=>{
+  const done=S.route.filter(s=>s.status==='done');
+  return `<div class="card"><div class="card-h"><h3>${T('Collected today','تم اليوم')}</h3><span class="meta">${fmt(S.collectedToday)} kg</span></div>
+    ${done.length?done.map(s=>`<div class="lrow"><span class="ix">✓</span><div class="body"><b>${s.building}</b><span>${s.addr}</span></div><span class="mono" style="color:var(--signal)">${s.kg} kg</span></div>`).join('')
+    :`<p class="muted" style="text-align:center;padding:30px 0">${T('No collections logged yet — start your route.','لا توجد عمليات بعد.')}</p>`}</div>`;
+},
+
+/* ---------- ADMIN ---------- */
+'admin.home':()=>{
+  const invTotal=Object.values(S.inventory).reduce((a,b)=>a+b,0);
+  return `<div class="grid g4" style="margin-bottom:16px">
+    ${kpi('🏠','#5FD068',fmt(S.apartments),T('Apartments live','شقق نشطة'),'+1,500','up')}
+    ${kpi('♻️','#52B6E6',fmt(invTotal)+' kg',T('In warehouse','في المخزن'),'+8%','up')}
+    ${kpi('💰','#E7B23E',egp(S.apartments*80),T('MRR (subs)','الإيراد الشهري'),'+24%','up')}
+    ${kpi('🚛','#D8A05A','2 / 5',T('Trucks active','شاحنات'),'',null)}
+  </div>
+  <div class="grid g-2-1" style="margin-bottom:16px">
+    <div class="card"><div class="card-h"><h3>${T('Revenue trajectory','مسار الإيرادات')}</h3><span class="meta">EGP '000 / ${T('month','شهر')}</span></div>
+      ${lineChart(S.monthsRev,{color:'#E7B23E'})}
+      <div class="stat-inline" style="margin-top:16px">
+        <div class="si"><b style="color:var(--amber)">${egp((S.monthsRev[S.monthsRev.length-1])*1000)}</b><span>${T('Latest month','آخر شهر')}</span></div>
+        <div class="si"><b style="color:var(--signal)">+30%</b><span>MoM</span></div>
+        <div class="si"><b>${egp(S.revenueBooked)}</b><span>${T('Material sold (session)','مواد مباعة')}</span></div>
+      </div>
+    </div>
+    <div class="card"><div class="card-h"><h3>${T('Material mix','مزيج المواد')}</h3></div>
+      <div style="display:flex;align-items:center;gap:18px">
+        <div style="position:relative;flex:none">${donut(Object.entries(MAT).map(([k,m])=>({label:m.label,value:S.inventory[k],color:m.color})))}
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center"><b class="disp" style="font-size:20px">${fmt(invTotal/1000)}t</b></div></div>
+        <div class="donut-legend" style="flex:1">${Object.entries(MAT).map(([k,m])=>`<div class="dl"><span class="swatch" style="background:${m.color}"></span>${T(m.label,m.ar)}<span class="v">${fmt(S.inventory[k])}</span></div>`).join('')}</div>
+      </div>
+    </div>
+  </div>
+  <div class="card"><div class="card-h"><h3>${T('Live operations','العمليات المباشرة')}</h3><span class="pill"><span class="pulse"></span>${T('Now','الآن')}</span></div>
+    <table><thead><tr><th>${T('Truck','شاحنة')}</th><th>${T('Zone','المنطقة')}</th><th>${T('Stops','محطات')}</th><th>${T('Collected','تم جمعه')}</th><th>${T('Status','الحالة')}</th></tr></thead><tbody>
+    <tr><td class="mono">Truck 02</td><td>Maadi · New Cairo</td><td>${S.route.filter(s=>s.status==='done').length}/5</td><td class="mono" style="color:var(--signal)">${fmt(S.collectedToday)} kg</td><td><span class="tag ok">${T('On route','في الطريق')}</span></td></tr>
+    <tr><td class="mono">Truck 01</td><td>Giza · Dokki</td><td>4/6</td><td class="mono" style="color:var(--signal)">540 kg</td><td><span class="tag ok">${T('On route','في الطريق')}</span></td></tr>
+    <tr><td class="mono">Truck 03</td><td>6th October</td><td>—</td><td class="mono muted">—</td><td><span class="tag pend">${T('Idle','متوقف')}</span></td></tr>
+    </tbody></table></div>`;
+},
+'admin.fleet':()=>`<div class="grid g3" style="margin-bottom:16px">
+    ${kpi('🚛','#5FD068','2 / 5',T('Trucks running','شاحنات'),'',null)}
+    ${kpi('📍','#52B6E6','11',T('Active zones','مناطق'),'+2','up')}
+    ${kpi('⛽','#E7B23E','—14%',T('Fuel / stop vs target','وقود'),'good','up')}
+  </div>
+  <div class="card"><div class="card-h"><h3>${T('AI route optimisation','تحسين المسار')}</h3>
+    <button class="btn btn-pri btn-sm" onclick="optimize()">${T('Re-optimise routes','أعد التحسين')}</button></div>
+    <div id="optResult" class="muted" style="font-size:13px">${T('Routes are grouped by density. Run the optimiser to rebalance the stops by zone.','المسارات مجمعة حسب الكثافة.')}</div>
+  </div>`,
+'admin.warehouse':()=>`<div class="card"><div class="card-h"><h3>${T('Sorted inventory','المخزون المفروز')}</h3><span class="meta">${T('Updates as drivers log weights','يتحدث مع تسجيل الأوزان')}</span></div>
+  <table><thead><tr><th>${T('Material','المادة')}</th><th>${T('In stock','المخزون')}</th><th>${T('Price/kg','السعر/كجم')}</th><th>${T('Lot value','قيمة الدفعة')}</th><th></th></tr></thead><tbody>
+  ${Object.entries(MAT).map(([k,m])=>`<tr><td><span class="swatch" style="background:${m.color};margin-inline-end:8px"></span>${T(m.label,m.ar)}</td>
+    <td class="mono">${fmt(S.inventory[k])} kg</td><td class="mono muted">${m.price}</td><td class="mono" style="color:var(--amber)">${egp(S.inventory[k]*m.price)}</td>
+    <td><button class="btn btn-ghost btn-sm" onclick="go('finance')">${T('Sell','بيع')}</button></td></tr>`).join('')}
+  </tbody></table></div>`,
+'admin.growth':()=>`<div class="grid g-2-1">
+  <div class="card"><div class="card-h"><h3>${T('Apartments onboarded','الشقق المضافة')}</h3><span class="meta">${T('target 20,000','الهدف ٢٠٬٠٠٠')}</span></div>
+    ${barChart(S.aptSeries,['M1','M2','M3','M4','M5','Now'],{color:'#5FD068'})}
+    <div class="bar" style="margin-top:18px"><i style="width:${(S.apartments/20000*100).toFixed(1)}%"></i></div>
+    <p class="muted" style="font-size:12.5px;margin-top:10px">${fmt(S.apartments)} / 20,000 · ${(S.apartments/20000*100).toFixed(1)}% ${T('of 9-month goal','من الهدف')}</p>
+  </div>
+  <div class="card"><div class="card-h"><h3>${T('Funnel','المسار')}</h3></div>
+    ${[['Buildings contacted',180],['Demos booked',96],['Buildings signed',38],['Units collecting',S.apartments]].map((r,i)=>`
+      <div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px"><span>${T(r[0],r[0])}</span><b class="mono">${fmt(r[1])}</b></div>
+      <div class="bar"><i style="width:${[100,53,21,90][i]}%;background:linear-gradient(90deg,#1c7a3a,${['#5FD068','#73CDB4','#52B6E6','#E7B23E'][i]})"></i></div></div>`).join('')}
+  </div></div>`,
+'admin.finance':()=>{
+  const subs=S.apartments*80, mat=S.apartments*60*30, oil=S.apartments*10*5;
+  const costs=175000+30000+24000+8000+90000;
+  const total=subs+mat+oil;
+  return `<div class="grid g4" style="margin-bottom:16px">
+    ${kpi('💵','#5FD068',egp(subs),T('Subscription MRR','اشتراكات'),'',null)}
+    ${kpi('♻️','#E7B23E',egp(mat),T('Material resale','بيع المواد'),'',null)}
+    ${kpi('🛢️','#52B6E6',egp(oil),T('Cooking oil','زيت'),'',null)}
+    ${kpi('📉','#A9B7C2',egp(costs),T('Monthly costs','التكاليف'),'',null)}
+  </div>
+  <div class="card"><div class="card-h"><h3>${T('Unit economics at current scale','اقتصاديات الوحدة')}</h3><span class="meta">${fmt(S.apartments)} ${T('apartments','شقة')}</span></div>
+    <div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line)"><span>${T('Total monthly revenue','إجمالي الإيراد')}</span><b class="mono" style="color:var(--signal);font-size:17px">${egp(total)}</b></div>
+    <div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line)"><span>${T('Total monthly costs','إجمالي التكاليف')}</span><b class="mono" style="color:var(--danger);font-size:17px">−${egp(costs)}</b></div>
+    <div style="display:flex;justify-content:space-between;padding:16px 0 4px"><span class="disp" style="font-size:15px">${T('Contribution / month','المساهمة الشهرية')}</span><b class="disp" style="font-size:26px;color:var(--lime)">${egp(total-costs)}</b></div>
+    <div class="notice" style="margin-top:16px">⚠️ ${T('Illustrative, using the business-plan assumptions. Recycling prices and fuel move these figures.','أرقام توضيحية حسب خطة العمل.')}</div>
+  </div>`;
+},
+
+/* ---------- FACTORY ---------- */
+'factory.home':()=>`<div class="notice">🏭 ${T('Buy sorted, weighed material lots direct from the warehouse. Prices indicative.','اشترِ مواد مفروزة مباشرة من المخزن.')}</div>
+  <div class="grid g3">${S.lots.map(l=>{const m=MAT[l.mat];return `
+    <div class="card"><div class="card-h"><h3><span class="swatch" style="background:${m.color};margin-inline-end:8px"></span>${T(m.label,m.ar)}</h3>
+      <span class="tag ${l.status==='available'?'ok':'done'}">${l.status==='available'?T('Available','متاح'):T('Reserved','محجوز')}</span></div>
+      <div class="mono muted" style="font-size:12px;margin-bottom:6px">${l.id}</div>
+      <div class="stat-inline" style="margin:10px 0 16px">
+        <div class="si"><b>${fmt(l.kg)} kg</b><span>${T('Weight','الوزن')}</span></div>
+        <div class="si"><b class="mono">${m.price} EGP</b><span>${T('per kg','للكجم')}</span></div>
+        <div class="si"><b style="color:var(--amber)">${egp(l.kg*m.price)}</b><span>${T('Total','الإجمالي')}</span></div>
+      </div>
+      <button class="btn ${l.status==='available'?'btn-amber':'btn-ghost'}" style="width:100%;justify-content:center" onclick="order('${l.id}')" ${l.status!=='available'?'disabled':''}>
+        ${l.status==='available'?T('Place order','اطلب الآن'):T('Reserved ✓','محجوز ✓')}</button>
+    </div>`}).join('')}</div>`,
+'factory.orders':()=>{
+  const mine=S.lots.filter(l=>l.status==='reserved');
+  return `<div class="card"><div class="card-h"><h3>${T('Your orders','طلباتك')}</h3><span class="meta">${mine.length} ${T('lots','دفعة')}</span></div>
+    ${mine.length?`<table><thead><tr><th>${T('Lot','الدفعة')}</th><th>${T('Material','المادة')}</th><th>${T('Weight','الوزن')}</th><th>${T('Value','القيمة')}</th><th>${T('Status','الحالة')}</th></tr></thead><tbody>
+    ${mine.map(l=>{const m=MAT[l.mat];return `<tr><td class="mono">${l.id}</td><td><span class="swatch" style="background:${m.color};margin-inline-end:6px"></span>${T(m.label,m.ar)}</td><td class="mono">${fmt(l.kg)} kg</td><td class="mono" style="color:var(--amber)">${egp(l.kg*m.price)}</td><td><span class="tag warn">${T('Awaiting pickup','بانتظار الاستلام')}</span></td></tr>`}).join('')}
+    </tbody></table>`:`<p class="muted" style="text-align:center;padding:30px 0">${T('No orders yet — reserve a lot from the marketplace.','لا توجد طلبات بعد.')}</p>`}</div>`;
+},
+};
+
+/* ============================ KPI helper ============================ */
+function kpi(icon,color,val,lab,delta,dir){
+  return `<div class="card kpi tight"><div class="top">
+    <span class="ic" style="background:${color}22">${icon}</span>
+    ${delta?`<span class="delta ${dir}">${dir==='up'?'▲':'▼'} ${delta}</span>`:''}
+    </div><div class="val">${val}</div><div class="lab">${lab}</div></div>`;
+}
+
+/* ============================ ACTIONS ============================ */
+function scheduleExtra(){S.customer.scheduledExtra=true;toast('🚛',T('Pickup booked','تم الحجز'),T('We added an extra collection this week.','أضفنا جمعًا إضافيًا.'));render();}
+function redeem(cost,name){if(S.customer.points<cost)return;S.customer.points-=cost;toast('🎁',T('Redeemed','تم الاستبدال'),name);render();}
+function openStop(id){
+  const s=S.route.find(x=>x.id===id);
+  const guess=Math.round(s.units*1.4+Math.random()*20);
+  const kg=prompt(T('Weight collected at '+s.building+' (kg):','الوزن المجمّع (كجم):'),guess);
+  if(kg===null)return;
+  const w=parseInt(kg)||guess;
+  s.status='done';s.kg=w;S.collectedToday+=w;
+  // distribute into inventory
+  const split={plastic:.30,paper:.34,metal:.10,glass:.16,oil:.10};
+  Object.keys(split).forEach(k=>S.inventory[k]+=Math.round(w*split[k]));
+  toast('✅',T('Collected','تم الجمع'),s.building+' · '+w+' kg → '+T('warehouse','المخزن'));
+  render();
+}
+function simScan(){
+  const pending=S.route.find(s=>s.status==='pending');
+  if(!pending){toast('✓',T('All done','اكتمل'),T('Route complete for today.','اكتمل المسار.'));return;}
+  toast('📷',T('Matched','تم التعرف'),pending.building+' — '+T('open it on the route to weigh.','افتحه للوزن.'));
+  go('home');
+}
+function order(id){
+  const l=S.lots.find(x=>x.id===id);const m=MAT[l.mat];
+  l.status='reserved';
+  S.revenueBooked+=l.kg*m.price;
+  S.inventory[l.mat]=Math.max(0,S.inventory[l.mat]-l.kg);
+  toast('🤝',T('Order placed','تم الطلب'),T(m.label,m.ar)+' · '+egp(l.kg*m.price),true);
+  render();
+}
+function optimize(){
+  $('#optResult').innerHTML=`<span style="color:var(--signal)">✓ ${T('Optimised','تم')}.</span> ${T('Re-sequenced 5 stops by zone density — est. −14% drive time, −0.4 L fuel/stop.','أعيد ترتيب المحطات — توفير ١٤٪.')}`;
+  toast('🧠',T('Routes optimised','تم تحسين المسار'),T('Saved ~14% drive time today.','وفّرنا ١٤٪ من الوقت.'));
+}
+
+/* ============================ LANG + SIDEBAR ============================ */
+function setLang(l){
+  S.lang=l;document.body.classList.toggle('rtl',l==='ar');document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr';
+  $('#langEn').classList.toggle('on',l==='en');$('#langAr').classList.toggle('on',l==='ar');
+  document.querySelectorAll('[data-i]').forEach(el=>el.textContent=I18N[l][el.getAttribute('data-i')]||el.textContent);
+  render();
+}
+function toggleSidebar(){$('#sidebar').classList.toggle('open');$('#scrim').classList.toggle('show')}
+function closeSidebar(){$('#sidebar').classList.remove('open');$('#scrim').classList.remove('show')}
+$('#scrim').addEventListener('click',closeSidebar);
+$('#roleCurrent').addEventListener('click',e=>{e.stopPropagation();$('#rolePick').classList.toggle('open')});
+document.addEventListener('click',()=>$('#rolePick').classList.remove('open'));
+
+/* boot */
+render();
+setTimeout(()=>toast('👋',T('Welcome','أهلاً'),T('Switch roles top-left to explore all five portals.','بدّل الأدوار لاستكشاف البوابات.')),700);
+</script>
+</body>
+</html>

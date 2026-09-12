@@ -1,0 +1,44 @@
+{
+  "id": "L-2026-0001",
+  "company": "The Arab Contractors",
+  "domain": "www.arabcont.com",
+  "website": "https://www.arabcont.com",
+  "industry": "construction",
+  "geography": "Egypt",
+  "size": "large 10k+",
+  "language": "en",
+  "source": "revenue-sprint web hunt 2026-07-04",
+  "signals": [
+    {
+      "date": "2026-07-04",
+      "signal": "Ranked #1 Egypt contractor 2026 (Blackridge); NAC megaproject contractor",
+      "url": "https://www.blackridgeresearch.com/blog/top-largest-biggest-construction-companies-list-egypt"
+    },
+    {
+      "date": "2026-07-04",
+      "signal": "Big 5 Egypt Impact Awards 2026 finalist",
+      "url": "https://en.amwalalghad.com/big-5-egypt-awards-shortlists-top-contractors-infrastructure-projects/"
+    }
+  ],
+  "contacts": [],
+  "pain_points": [],
+  "fit_score": 60,
+  "stage": "new",
+  "owner": "fabel",
+  "next_action": {
+    "date": "2026-07-11",
+    "action": "pack 001: enrich contacts after PII decision (issue #3); researcher pass for top scores"
+  },
+  "estimated_value": 0,
+  "won": null,
+  "lost_reason": null,
+  "relationships": [],
+  "history": [
+    {
+      "date": "2026-07-04",
+      "actor": "fabel",
+      "event": "created",
+      "note": "revenue sprint hunt, lead pack 001"
+    }
+  ]
+}

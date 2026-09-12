@@ -1,0 +1,39 @@
+{
+  "id": "L-2026-0004",
+  "company": "Qontrac Developments",
+  "domain": "",
+  "website": "",
+  "industry": "construction",
+  "geography": "Egypt",
+  "size": "",
+  "language": "en",
+  "source": "revenue-sprint web hunt 2026-07-04",
+  "signals": [
+    {
+      "date": "2026-07-04",
+      "signal": "Ranked #3 Egypt contractor 2026, $12.1B revenue (Blackridge)",
+      "url": "https://www.blackridgeresearch.com/blog/top-largest-biggest-construction-companies-list-egypt"
+    }
+  ],
+  "contacts": [],
+  "pain_points": [],
+  "fit_score": 68,
+  "stage": "new",
+  "owner": "fabel",
+  "next_action": {
+    "date": "2026-07-11",
+    "action": "pack 001: enrich contacts after PII decision (issue #3); researcher pass for top scores"
+  },
+  "estimated_value": 0,
+  "won": null,
+  "lost_reason": null,
+  "relationships": [],
+  "history": [
+    {
+      "date": "2026-07-04",
+      "actor": "fabel",
+      "event": "created",
+      "note": "revenue sprint hunt, lead pack 001"
+    }
+  ]
+}

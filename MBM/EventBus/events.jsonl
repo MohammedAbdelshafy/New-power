@@ -1,0 +1,81 @@
+{"ts": "2026-07-04T01:52:47+00:00", "event": "MissionClaimed", "mission": "M-007", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T01:52:47+00:00", "event": "MissionStarted", "mission": "M-007", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T01:52:47+00:00", "event": "MissionBlocked", "mission": "M-007", "actor": "fabel", "note": "testing blocked state"}
+{"ts": "2026-07-04T01:52:47+00:00", "event": "MissionUnblocked", "mission": "M-007", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T01:52:47+00:00", "event": "MissionStarted", "mission": "M-007", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T01:52:57+00:00", "event": "MissionReviewed", "mission": "M-007", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T01:56:56+00:00", "event": "MissionCompleted", "mission": "M-007", "actor": "human-founder", "note": ""}
+{"ts": "2026-07-04T02:23:21+00:00", "event": "MissionCreated", "mission": "M-011", "actor": "human-founder", "note": "production readiness order"}
+{"ts": "2026-07-04T02:23:21+00:00", "event": "MissionClaimed", "mission": "M-011", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T02:23:21+00:00", "event": "MissionStarted", "mission": "M-011", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T14:32:28+00:00", "event": "MissionCreated", "mission": "M-008", "actor": "fabel", "note": "filed by M-011"}
+{"ts": "2026-07-04T14:32:28+00:00", "event": "MissionCreated", "mission": "M-009", "actor": "fabel", "note": "filed by M-011"}
+{"ts": "2026-07-04T14:32:28+00:00", "event": "MissionCreated", "mission": "M-010", "actor": "fabel", "note": "filed by M-011"}
+{"ts": "2026-07-04T14:32:28+00:00", "event": "MissionCreated", "mission": "M-012", "actor": "fabel", "note": "filed by M-011"}
+{"ts": "2026-07-04T14:32:28+00:00", "event": "MissionReviewed", "mission": "M-011", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T14:32:28+00:00", "event": "MissionCompleted", "mission": "M-011", "actor": "human-founder", "note": ""}
+{"ts": "2026-07-04T14:34:28+00:00", "event": "MissionCreated", "mission": "M-013", "actor": "fabel", "note": "website HQ, docs-first"}
+{"ts": "2026-07-04T14:47:11+00:00", "event": "MissionClaimed", "mission": "M-008", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T14:47:11+00:00", "event": "MissionStarted", "mission": "M-008", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T14:50:05+00:00", "event": "PipelineStarted", "mission": "test-001", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T14:50:05+00:00", "event": "StageStarted", "mission": "test-001", "actor": "fabel", "note": "s00_intake"}
+{"ts": "2026-07-04T14:50:05+00:00", "event": "StageCompleted", "mission": "test-001", "actor": "fabel", "note": "s00_intake 0.05s"}
+{"ts": "2026-07-04T14:50:05+00:00", "event": "StageStarted", "mission": "test-001", "actor": "fabel", "note": "s01_transcribe"}
+{"ts": "2026-07-04T14:50:06+00:00", "event": "StageFailed", "mission": "test-001", "actor": "fabel", "note": "s01_transcribe: 403 Forbidden"}
+{"ts": "2026-07-04T14:51:43+00:00", "event": "PipelineStarted", "mission": "test-001", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T14:51:43+00:00", "event": "StageStarted", "mission": "test-001", "actor": "fabel", "note": "s02_hooks"}
+{"ts": "2026-07-04T14:51:43+00:00", "event": "StageCompleted", "mission": "test-001", "actor": "fabel", "note": "s02_hooks 0.0s"}
+{"ts": "2026-07-04T14:51:43+00:00", "event": "StageStarted", "mission": "test-001", "actor": "fabel", "note": "s03_rank"}
+{"ts": "2026-07-04T14:51:43+00:00", "event": "ClipRejected", "mission": "test-001", "actor": "fabel", "note": "overlaps a higher-ranked clip"}
+{"ts": "2026-07-04T14:51:43+00:00", "event": "ClipRejected", "mission": "test-001", "actor": "fabel", "note": "overlaps a higher-ranked clip"}
+{"ts": "2026-07-04T14:51:43+00:00", "event": "ClipRejected", "mission": "test-001", "actor": "fabel", "note": "overlaps a higher-ranked clip"}
+{"ts": "2026-07-04T14:51:43+00:00", "event": "ClipRejected", "mission": "test-001", "actor": "fabel", "note": "overlaps a higher-ranked clip"}
+{"ts": "2026-07-04T14:51:43+00:00", "event": "ClipRejected", "mission": "test-001", "actor": "fabel", "note": "overlaps a higher-ranked clip"}
+{"ts": "2026-07-04T14:51:43+00:00", "event": "ClipRejected", "mission": "test-001", "actor": "fabel", "note": "overlaps a higher-ranked clip"}
+{"ts": "2026-07-04T14:51:43+00:00", "event": "ClipRejected", "mission": "test-001", "actor": "fabel", "note": "overlaps a higher-ranked clip"}
+{"ts": "2026-07-04T14:51:43+00:00", "event": "ClipRejected", "mission": "test-001", "actor": "fabel", "note": "hook 39.6 < 40"}
+{"ts": "2026-07-04T14:51:43+00:00", "event": "ClipRejected", "mission": "test-001", "actor": "fabel", "note": "hook 29.1 < 40"}
+{"ts": "2026-07-04T14:51:43+00:00", "event": "StageCompleted", "mission": "test-001", "actor": "fabel", "note": "s03_rank 0.25s"}
+{"ts": "2026-07-04T14:51:43+00:00", "event": "StageStarted", "mission": "test-001", "actor": "fabel", "note": "s04_render"}
+{"ts": "2026-07-04T14:51:55+00:00", "event": "StageCompleted", "mission": "test-001", "actor": "fabel", "note": "s04_render 11.29s"}
+{"ts": "2026-07-04T14:51:55+00:00", "event": "StageStarted", "mission": "test-001", "actor": "fabel", "note": "s05_captions"}
+{"ts": "2026-07-04T14:51:55+00:00", "event": "StageFailed", "mission": "test-001", "actor": "fabel", "note": "s05_captions: Command '['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', '/home/user/New-power/MBM-Social/jobs/test-001/clips/clip_01.mp4', '-vf', 'subtitles=/home/user/New-power/MBM-Social/jobs/test-001/cap_01.ass', '-c:v', 'libx264', '-preset', 'fast', '-crf', '21', '-c:a', 'copy', '/home/user/New-power/MBM-Social/jobs/test-001/clips_captioned/.done/clip_01.mp4']' returned non-zero exit status 254."}
+{"ts": "2026-07-04T14:52:25+00:00", "event": "PipelineStarted", "mission": "test-001", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T14:52:25+00:00", "event": "StageStarted", "mission": "test-001", "actor": "fabel", "note": "s02_hooks"}
+{"ts": "2026-07-04T14:52:25+00:00", "event": "StageCompleted", "mission": "test-001", "actor": "fabel", "note": "s02_hooks 0.0s"}
+{"ts": "2026-07-04T14:52:25+00:00", "event": "StageStarted", "mission": "test-001", "actor": "fabel", "note": "s03_rank"}
+{"ts": "2026-07-04T14:52:25+00:00", "event": "ClipRejected", "mission": "test-001", "actor": "fabel", "note": "overlaps a higher-ranked clip"}
+{"ts": "2026-07-04T14:52:25+00:00", "event": "ClipRejected", "mission": "test-001", "actor": "fabel", "note": "overlaps a higher-ranked clip"}
+{"ts": "2026-07-04T14:52:25+00:00", "event": "ClipRejected", "mission": "test-001", "actor": "fabel", "note": "overlaps a higher-ranked clip"}
+{"ts": "2026-07-04T14:52:25+00:00", "event": "ClipRejected", "mission": "test-001", "actor": "fabel", "note": "overlaps a higher-ranked clip"}
+{"ts": "2026-07-04T14:52:25+00:00", "event": "ClipRejected", "mission": "test-001", "actor": "fabel", "note": "overlaps a higher-ranked clip"}
+{"ts": "2026-07-04T14:52:25+00:00", "event": "ClipRejected", "mission": "test-001", "actor": "fabel", "note": "overlaps a higher-ranked clip"}
+{"ts": "2026-07-04T14:52:25+00:00", "event": "ClipRejected", "mission": "test-001", "actor": "fabel", "note": "overlaps a higher-ranked clip"}
+{"ts": "2026-07-04T14:52:25+00:00", "event": "ClipRejected", "mission": "test-001", "actor": "fabel", "note": "hook 39.6 < 40"}
+{"ts": "2026-07-04T14:52:25+00:00", "event": "ClipRejected", "mission": "test-001", "actor": "fabel", "note": "hook 29.1 < 40"}
+{"ts": "2026-07-04T14:52:25+00:00", "event": "StageCompleted", "mission": "test-001", "actor": "fabel", "note": "s03_rank 0.24s"}
+{"ts": "2026-07-04T14:52:25+00:00", "event": "StageStarted", "mission": "test-001", "actor": "fabel", "note": "s04_render"}
+{"ts": "2026-07-04T14:52:35+00:00", "event": "StageCompleted", "mission": "test-001", "actor": "fabel", "note": "s04_render 9.41s"}
+{"ts": "2026-07-04T14:52:35+00:00", "event": "StageStarted", "mission": "test-001", "actor": "fabel", "note": "s05_captions"}
+{"ts": "2026-07-04T14:52:46+00:00", "event": "StageCompleted", "mission": "test-001", "actor": "fabel", "note": "s05_captions 10.71s"}
+{"ts": "2026-07-04T14:52:46+00:00", "event": "StageStarted", "mission": "test-001", "actor": "fabel", "note": "s06_thumbnail"}
+{"ts": "2026-07-04T14:52:46+00:00", "event": "StageCompleted", "mission": "test-001", "actor": "fabel", "note": "s06_thumbnail 0.31s"}
+{"ts": "2026-07-04T14:52:46+00:00", "event": "StageStarted", "mission": "test-001", "actor": "fabel", "note": "s07_package"}
+{"ts": "2026-07-04T14:52:46+00:00", "event": "StageCompleted", "mission": "test-001", "actor": "fabel", "note": "s07_package 0.0s"}
+{"ts": "2026-07-04T14:52:46+00:00", "event": "PipelineCompleted", "mission": "test-001", "actor": "fabel", "note": "publish packages ready (human posts)"}
+{"ts": "2026-07-04T14:55:29+00:00", "event": "MissionReviewed", "mission": "M-008", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:45:33+00:00", "event": "MissionCreated", "mission": "M-014", "actor": "fabel", "note": "Lead pack #2: recycling & waste (Egypt/GCC)"}
+{"ts": "2026-07-04T19:45:33+00:00", "event": "MissionCreated", "mission": "M-015", "actor": "fabel", "note": "Lead pack #3: manufacturing & industrial (Egypt)"}
+{"ts": "2026-07-04T19:45:33+00:00", "event": "MissionCreated", "mission": "M-016", "actor": "fabel", "note": "Three outreach campaigns (pack buyers, automation pilots, recycling)"}
+{"ts": "2026-07-04T19:45:33+00:00", "event": "MissionClaimed", "mission": "M-012", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:45:33+00:00", "event": "MissionStarted", "mission": "M-012", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:45:33+00:00", "event": "MissionClaimed", "mission": "M-014", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:45:33+00:00", "event": "MissionStarted", "mission": "M-014", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:45:33+00:00", "event": "MissionClaimed", "mission": "M-015", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:45:33+00:00", "event": "MissionStarted", "mission": "M-015", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:45:33+00:00", "event": "MissionClaimed", "mission": "M-016", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:45:33+00:00", "event": "MissionStarted", "mission": "M-016", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:49:17+00:00", "event": "MissionReviewed", "mission": "M-012", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:49:17+00:00", "event": "MissionReviewed", "mission": "M-014", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:49:17+00:00", "event": "MissionReviewed", "mission": "M-015", "actor": "fabel", "note": ""}
+{"ts": "2026-07-04T19:49:18+00:00", "event": "MissionReviewed", "mission": "M-016", "actor": "fabel", "note": ""}

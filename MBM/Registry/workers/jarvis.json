@@ -1,0 +1,26 @@
+{
+  "id": "jarvis",
+  "name": "Jarvis (MBM orchestrator)",
+  "kind": "orchestrator",
+  "skills": [
+    "orchestration",
+    "analysis",
+    "git"
+  ],
+  "roles": [
+    "crm-brain"
+  ],
+  "cost": "low",
+  "speed": "fast",
+  "confidence": 0.6,
+  "context_size": 32000,
+  "tools": [
+    "bash",
+    "git"
+  ],
+  "availability": "offline",
+  "mcp_support": true,
+  "git_support": true,
+  "web_support": false,
+  "notes": "Planned local orchestrator that watches Inbox and dispatches to other workers. Offline until implemented - see roadmap v2.1."
+}

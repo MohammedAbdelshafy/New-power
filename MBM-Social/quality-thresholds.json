@@ -1,0 +1,7 @@
+{
+  "_doc": "QC gates for stage s03_rank. Clips scoring below a gate are rejected with a ClipRejected event. Scores are heuristic/LLM predictions until M-010 calibrates them against real analytics - tune these numbers from measured retention, not taste.",
+  "hook_min": 40,
+  "min_clip_s": 20,
+  "max_clip_s": 60,
+  "max_clips_per_job": 5
+}

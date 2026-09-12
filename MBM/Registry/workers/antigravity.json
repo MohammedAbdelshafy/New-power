@@ -1,0 +1,28 @@
+{
+  "id": "antigravity",
+  "name": "Antigravity IDE agent (founder's machine)",
+  "kind": "ide-agent",
+  "skills": [
+    "code",
+    "git",
+    "analysis",
+    "research"
+  ],
+  "roles": [
+    "crm-brain"
+  ],
+  "cost": "low",
+  "speed": "medium",
+  "confidence": 0.7,
+  "context_size": 128000,
+  "tools": [
+    "editor",
+    "bash",
+    "git"
+  ],
+  "availability": "available",
+  "mcp_support": true,
+  "git_support": true,
+  "web_support": true,
+  "notes": "Local execution; syncs via git per docs/ANTIGRAVITY_SETUP.md. Good for code missions and local file work."
+}

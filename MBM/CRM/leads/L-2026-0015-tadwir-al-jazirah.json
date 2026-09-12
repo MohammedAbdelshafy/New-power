@@ -1,0 +1,39 @@
+{
+  "id": "L-2026-0015",
+  "company": "Tadwir Al Jazirah",
+  "domain": "tadwiraljazirah.com.sa",
+  "website": "https://tadwiraljazirah.com.sa",
+  "industry": "recycling",
+  "geography": "Saudi Arabia",
+  "size": "",
+  "language": "en",
+  "source": "revenue-sprint web hunt 2026-07-04",
+  "signals": [
+    {
+      "date": "2026-07-04",
+      "signal": "KSA's largest waste separation & recycling co (self-declared); scrap paper ops Dammam",
+      "url": "https://tadwiraljazirah.com.sa/waste-paper-recycling/"
+    }
+  ],
+  "contacts": [],
+  "pain_points": [],
+  "fit_score": 72,
+  "stage": "new",
+  "owner": "fabel",
+  "next_action": {
+    "date": "2026-07-11",
+    "action": "pack 002: enrich contacts after PII decision (issue #3); researcher pass for top scores"
+  },
+  "estimated_value": 0,
+  "won": null,
+  "lost_reason": null,
+  "relationships": [],
+  "history": [
+    {
+      "date": "2026-07-04",
+      "actor": "fabel",
+      "event": "created",
+      "note": "revenue sprint hunt, lead pack 002"
+    }
+  ]
+}

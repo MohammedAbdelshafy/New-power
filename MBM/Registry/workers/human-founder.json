@@ -1,0 +1,29 @@
+{
+  "id": "human-founder",
+  "name": "Mohammed (founder)",
+  "kind": "human",
+  "skills": [
+    "strategy",
+    "pricing",
+    "sales",
+    "arabic",
+    "review"
+  ],
+  "roles": [
+    "chief-revenue-officer"
+  ],
+  "cost": "high",
+  "speed": "slow",
+  "confidence": 1.0,
+  "context_size": 0,
+  "tools": [
+    "email",
+    "linkedin",
+    "phone"
+  ],
+  "availability": "busy",
+  "mcp_support": false,
+  "git_support": true,
+  "web_support": true,
+  "notes": "The only worker allowed to SEND outreach, publish content, and sign pricing (Article 5). Reviewer of record for customer-facing missions."
+}

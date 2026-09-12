@@ -1,0 +1,8 @@
+# MBM-Social job media artifacts stay local (large binaries; ledger + state are the git record)
+MBM-Social/jobs/*/source.mp4
+MBM-Social/jobs/*/clips/
+MBM-Social/jobs/*/clips_captioned/
+MBM-Social/jobs/*/covers/
+MBM-Social/jobs/*/publish/*/final.mp4
+MBM-Social/testdata/*.mp4
+__pycache__/

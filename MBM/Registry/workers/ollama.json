@@ -1,0 +1,27 @@
+{
+  "id": "ollama",
+  "name": "Ollama local models (founder machine)",
+  "kind": "local-model",
+  "skills": [
+    "analysis",
+    "writing",
+    "local-only",
+    "deterministic"
+  ],
+  "roles": [
+    "crm-brain",
+    "content-engine"
+  ],
+  "cost": "low",
+  "speed": "fast",
+  "confidence": 0.55,
+  "context_size": 32000,
+  "tools": [
+    "ollama"
+  ],
+  "availability": "offline",
+  "mcp_support": false,
+  "git_support": false,
+  "web_support": false,
+  "notes": "Founder routing: Local parsing. Offline until wired. Fallback: ollama -> mbm-scripts -> claude."
+}
