@@ -1,22 +1,22 @@
 # MBM Engineering OS
 
-This repository holds shared rules and reusable operating pieces for the MoneyBeast Machine projects. It is the engineering/governance layer, not a second copy of the products themselves.
+This repository holds shared engineering rules and supporting scripts for Money Beast Machine. Jarvis uses it for reusable operating standards and capability registry material; product behavior belongs in the product's canonical repository.
 
-## Where to start
+## Where things live
 
-- Shared capability and worker registry: [MBM/Registry](MBM/Registry/)
-- Setup helper: [install.sh](install.sh)
-- Engineering scripts: [scripts](scripts/)
-- Templates: [templates](templates/)
-- Cross-project mission and customer priorities: [Jarvis Operations Hub](https://github.com/MohammedAbdelshafy/jarvis-mbm)
+- `MBM/Registry/`: shared capability and registry material.
+- `scripts/`: small scripts for session setup, budget checks and updates.
+- `templates/`: starter configuration and reusable templates.
+- `.claude/` and `.github/`: tool/repository configuration and workflow automation.
 
 ## Working rules
 
-- Check the owning product repo before editing production behavior.
-- Keep one authoritative implementation per subsystem.
-- Preserve data provenance, suppression, approval gates and single-writer boundaries.
-- Do not install third-party tools until their license, security and actual need are checked.
-- Record operational facts as verified, inferred or unknown.
-- Use plain, outcome-focused language in anything a customer will see.
+- Check the current branch and file path before changing shared instructions.
+- Make budget checks and credential handling easy to audit.
+- Keep secrets in protected environment configuration, not in Git.
+- Do not duplicate code owned by `jarvis-mbm`, `MBM-Control`, or `MBM-Social`.
+- When a change affects shared behavior, document the consumer and how it is checked.
 
-This repository is the shared method and tooling. Product code, sales pages and customer delivery stay with their canonical project owners.
+## Portfolio routing
+
+The current portfolio map lives in [Jarvis ICM](https://github.com/MohammedAbdelshafy/jarvis-mbm/blob/feature/icm-portfolio-map/ICM/REPO_MAP.md). The root documentation here is an entry point, not a replacement for the live registry or product-specific contract.
