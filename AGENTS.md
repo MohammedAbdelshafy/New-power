@@ -1,11 +1,11 @@
 # MBM Engineering OS
 
 Route by task:
-- Shared capability registry: [MBM/Registry](MBM/Registry/)
-- Environment setup: [install.sh](install.sh)
-- Scripts: [scripts](scripts/)
+- Shared overview: [README.md](README.md)
+- Repository contract: [CONTEXT.md](CONTEXT.md)
+- Capability registry: [MBM/Registry](MBM/Registry/)
+- Operational scripts: [scripts](scripts/)
 - Templates: [templates](templates/)
-- Project contract: [CONTEXT.md](CONTEXT.md)
-- Portfolio control plane: [Jarvis Operations Hub](https://github.com/MohammedAbdelshafy/jarvis-mbm)
+- Portfolio map: [Jarvis ICM](https://github.com/MohammedAbdelshafy/jarvis-mbm/blob/feature/icm-portfolio-map/ICM/REPO_MAP.md)
 
-Do not put product-specific features here unless the change genuinely belongs to shared infrastructure. Check license, security and dependencies before activating a new tool.
+Keep shared rules small, identify downstream consumers before edits, and keep credentials out of version control. Do not move product code between repositories as part of documentation cleanup.
