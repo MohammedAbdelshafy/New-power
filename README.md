@@ -1,4 +1,4 @@
-# MBM Engineering OS
+# New-power
 
 This repository holds shared engineering rules and supporting scripts for Money Beast Machine. Jarvis uses it for reusable operating standards and capability registry material; product behavior belongs in the product's canonical repository.
 
